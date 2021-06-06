@@ -1,0 +1,24 @@
+baseURL: 'http://example.org/'
+languageCode: en-us
+title: "Kyle Chadha's Blog"
+theme: papermod
+
+enableEmoji: true
+params:
+  homeInfoParams:
+    Title: "Hi there! 👋"
+    Content: >
+      I'm the founder of Self Taught Coder, where I share the [specific knowledge](https://nav.al/specific-knowledge) I've learned while improving my skills as a software engineer without a formal CS background.
+  ShowShareButtons: true # ** Some of these don't seem to work
+  socialIcons:
+    - name: GitHub
+      url: "https://github.com/kylechadha"
+    - name: "LinkedIn"
+      url: "https://www.linkedin.com/in/kylechadha/"
+    - name: "Twitter"
+      url: "https://twitter.com/kylechadha"
+outputs:
+    home:
+        - HTML
+        - RSS
+        - JSON
