@@ -3,19 +3,37 @@ languageCode: en-us
 title: "Kyle Chadha's Blog"
 theme: papermod
 
+menu:
+    main:
+        - name: About
+          url: about/
+          weight: 5
+        - name: Categories
+          url: categories/
+          weight: 5
+        - name: Tags
+          url: tags/
+          weight: 10
+        - name: Search
+          url: search/
+          weight: 100
+
 enableEmoji: true
 params:
+  env: production
   homeInfoParams:
     Title: "Hi there! 👋"
     Content: >
       I'm the founder of Self Taught Coder, where I share the [specific knowledge](https://nav.al/specific-knowledge) I've learned while improving my skills as a software engineer without a formal CS background.
+  ShowReadingTime: true
   ShowShareButtons: true # ** Some of these don't seem to work
+  ShowCodeCopyButtons: true
   socialIcons:
     - name: GitHub
       url: "https://github.com/kylechadha"
-    - name: "LinkedIn"
+    - name: LinkedIn
       url: "https://www.linkedin.com/in/kylechadha/"
-    - name: "Twitter"
+    - name: Twitter
       url: "https://twitter.com/kylechadha"
 outputs:
     home:
