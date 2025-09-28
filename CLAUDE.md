@@ -82,3 +82,62 @@ kc-website/
 - Minimal JavaScript execution
 - CSS variables for efficient theming
 - Single HTTP request per resource type
+
+## Development Notes
+- Screenshots should be saved to /tmp/ directory to avoid cluttering the workspace
+- Use format: `/tmp/screenshot_[description].png`
+
+## Current Status (Particles.js Implementation)
+
+### What's Been Done
+1. **Replaced custom particle animation with particles.js library**
+   - Added particles.js via CDN: `https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js`
+   - Removed custom SimplexNoise wave animation code
+   - Updated HTML to use `<div id="particles-js">` instead of canvas
+
+2. **Configured particles.js with dark theme**
+   - Background: Black (#000000)
+   - Particles: Bright green (#00ff88) - currently needs adjustment to grey
+   - 150 particles with connecting lines
+   - Interactive hover effect (grab mode)
+   - Particles moving at speed 2
+
+3. **Fixed initialization issues**
+   - Wrapped particlesJS initialization in DOMContentLoaded event
+   - Fixed CDN URL to use correct jsdelivr format
+
+### Current Configuration (in script.js)
+```javascript
+particlesJS('particles-js', {
+    particles: {
+        number: { value: 40 },
+        color: { value: '#404040' },
+        opacity: { value: 0.2 },
+        size: { value: 1, random: true },
+        line_linked: {
+            color: '#404040',
+            opacity: 1,
+            distance: 350,
+            width: 0.7
+        },
+        move: { speed: 0.1 }
+    },
+    interactivity: {
+        onhover: { enable: false },
+        onclick: { enable: true, mode: 'push' }
+    }
+});
+```
+
+### Features Implemented
+- Subtle grey particles (#404040) with low opacity
+- Slow, gentle movement (0.1 speed)
+- Long connection distance (350px) with thin lines
+- Click to add particles interaction
+- Outfit font (weight 300) for heading
+
+### Project Structure
+- **index.html**: Main structure with particles div, social links, and projects list
+- **styles.css**: Dark minimal theme with gradient heading effect
+- **script.js**: Particles.js configuration and Outfit font setup
+- **package.json**: NPM config for live-server development
