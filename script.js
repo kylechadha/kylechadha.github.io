@@ -129,4 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
     h1.style.fontFamily = "'Outfit', sans-serif";
     h1.style.fontWeight = '300';
     h1.style.letterSpacing = '0.01em';
+    
+    // Prevent particle creation when clicking on links
+    const links = document.querySelectorAll('a');
+    links.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent click from bubbling to particles.js
+        });
+    });
 });
