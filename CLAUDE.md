@@ -110,31 +110,34 @@ kc-website/
 ```javascript
 particlesJS('particles-js', {
     particles: {
-        number: { value: 150 },
-        color: { value: '#00ff88' }, // Needs to change to grey
-        opacity: { value: 0.5 },
-        size: { value: 3 },
+        number: { value: 40 },
+        color: { value: '#404040' },
+        opacity: { value: 0.2 },
+        size: { value: 1, random: true },
         line_linked: {
-            color: '#00ff88', // Needs to change to grey
-            opacity: 0.4,
-            distance: 150
+            color: '#404040',
+            opacity: 1,
+            distance: 350,
+            width: 0.7
         },
-        move: { speed: 2 }
+        move: { speed: 0.1 }
+    },
+    interactivity: {
+        onhover: { enable: false },
+        onclick: { enable: true, mode: 'push' }
     }
 });
 ```
 
-### What Needs to Be Done
-1. **Change particle colors from green to grey**
-   - Update particle color from `#00ff88` to something like `#404040` or `#808080`
-   - Update line color to match
-   - Adjust opacity if needed for subtle effect
+### Features Implemented
+- Subtle grey particles (#404040) with low opacity
+- Slow, gentle movement (0.1 speed)
+- Long connection distance (350px) with thin lines
+- Click to add particles interaction
+- Outfit font (weight 300) for heading
 
-2. **Fine-tune the animation**
-   - User can adjust number of particles
-   - User can adjust speed and movement patterns
-   - User can adjust line connection distance
-
-### Known Issues
-- API errors when using osascript/Chrome automation (can ignore, website works fine)
-- Particles animation is working correctly when viewed directly in browser
+### Project Structure
+- **index.html**: Main structure with particles div, social links, and projects list
+- **styles.css**: Dark minimal theme with gradient heading effect
+- **script.js**: Particles.js configuration and Outfit font setup
+- **package.json**: NPM config for live-server development
