@@ -1,12 +1,6 @@
 # kylechadha.dev
 
-Personal website with animated particle background and project showcase.
-
-## Tech Stack
-- Static HTML/CSS/JS
-- Particles.js for background animation
-- GitHub Pages hosting
-- Custom domain with automatic SSL
+Personal website and project showcase.
 
 ## Development
 ```bash
