@@ -141,3 +141,24 @@ particlesJS('particles-js', {
 - **styles.css**: Dark minimal theme with gradient heading effect
 - **script.js**: Particles.js configuration and Outfit font setup
 - **package.json**: NPM config for live-server development
+- **CNAME**: Custom domain configuration for kylechadha.dev
+- **README.md**: Public repository documentation
+
+## Deployment
+
+### GitHub Pages Setup
+- Repository: `kylechadha.github.io` (renamed from kc-website)
+- Deploy branch: `master`
+- Development branch: `develop`
+- Custom domain: `kylechadha.dev`
+
+### DNS Configuration (Porkbun)
+Required DNS records:
+- 4 A records pointing to: 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153
+- CNAME record: www → kylechadha.github.io
+
+### Deployment Workflow
+1. Develop on `develop` branch
+2. Create PR to `master`
+3. Merge triggers automatic GitHub Pages deployment
+4. Site available at https://kylechadha.dev (with auto-SSL via Let's Encrypt)
