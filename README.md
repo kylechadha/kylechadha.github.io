@@ -1,15 +1,5 @@
 # kylechadha.dev
 
-Personal website and project showcase.
+My personal website. Static HTML/CSS/JS with a particles.js background, hosted on GitHub Pages.
 
-## Development
-```bash
-npm install
-npm start  # Live reload server on port 8000
-```
-
-## Deployment
-Merging to `master` branch automatically deploys via GitHub Pages.
-
----
-View live at [kylechadha.dev](https://kylechadha.dev)
+https://kylechadha.dev
