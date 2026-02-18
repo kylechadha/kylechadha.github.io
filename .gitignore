@@ -18,6 +18,15 @@ Desktop.ini
 # Logs
 *.log
 
-# Dependencies (if added in future)
+# Dependencies
 node_modules/
 vendor/
+
+# Secrets
+.secrets
+
+# Claude Code
+.claude/
+
+# Lock files
+package-lock.json
