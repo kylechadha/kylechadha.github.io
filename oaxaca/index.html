@@ -97,7 +97,7 @@
         .rec-note { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border); font-size: 0.8125rem; color: var(--text-dim); line-height: 1.6; }
 
         /* ── Index Grid ── */
-        .index-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1rem; }
+        .index-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; margin-bottom: 1rem; }
         .index-col h3 { font-size: 0.6875rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 0.75rem; }
         .index-col ul { list-style: none; }
         .index-col li { padding: 0.3rem 0; }
@@ -192,7 +192,7 @@
             .card-links { justify-content: center; }
             .btn-book { justify-content: center; }
             .rec-plan { flex-direction: column; gap: 0.25rem; }
-            .index-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .index-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
             .card-gallery img { height: 180px; width: 55%; }
             .card-gallery img:first-child { width: 65%; }
             .gate-form { width: 280px; }
@@ -238,7 +238,7 @@
                 </div>
                 <div class="rec-plan">
                     <span class="rec-plan-label">Plan B</span>
-                    <p>Mezcal at <strong>Sabina Sabe</strong> at 6pm → dinner at <a href="https://www.opentable.com/r/el-parian-atelier-oaxaca-de-juarez" target="_blank" rel="noopener"><strong>Parian Atelier</strong></a> at 8pm. Intimate 4-table upstairs room, Olvera alum, future Michelin star. <a href="https://www.opentable.com/r/el-parian-atelier-oaxaca-de-juarez?dateTime=2026-05-23T20%3A00&covers=2" target="_blank" rel="noopener">Book →</a></p>
+                    <p>Mezcal at <strong>Sabina Sabe</strong> at 6pm → dinner at <a href="https://www.opentable.com/r/el-parian-atelier-oaxaca-de-juarez" target="_blank" rel="noopener"><strong>Parian Atelier</strong></a> at 8pm. Intimate 4-table upstairs room, Olvera alum, future Michelin star. <a href="https://www.opentable.com/r/el-parian-atelier-oaxaca-de-juarez?dateTime=2026-05-23T19%3A30&covers=2" target="_blank" rel="noopener">Book →</a></p>
                 </div>
                 <div class="rec-plan">
                     <span class="rec-plan-label">Bonus</span>
@@ -257,24 +257,29 @@
             <div class="index-col">
                 <h3>Restaurants</h3>
                 <ul>
+                    <li><a href="#danzantes">Los Danzantes</a> <span class="idx-tag">Michelin ★ · Fri</span></li>
                     <li><a href="#levadura">Levadura de Olla</a> <span class="idx-tag">Michelin ★ · Sat</span></li>
                     <li><a href="#parian">Parian Atelier</a> <span class="idx-tag">Sat</span></li>
-                    <li><a href="#danzantes">Los Danzantes</a> <span class="idx-tag">Michelin ★ · Fri</span></li>
-                    <li><a href="#labo">Labo Fermento</a> <span class="idx-tag">Bib Gourmand · walk-in</span></li>
+                    <li><a href="#labo">Labo Fermento</a> <span class="idx-tag">Bib Gourmand</span></li>
+                    <li><a href="#asador">Asador Bacanora</a> <span class="idx-tag">Michelin · Sat</span></li>
                     <li><a href="#casa-oaxaca">Casa Oaxaca</a> <span class="idx-tag">Sat</span></li>
                     <li><a href="#origen">Origen</a> <span class="idx-tag">Sat</span></li>
-                    <li><a href="#asador">Asador Bacanora</a> <span class="idx-tag">Michelin · Sat · Jalatlaco</span></li>
                     <li><a href="#entre-sombras">Entre Sombras</a> <span class="idx-tag">Sat · taxi</span></li>
                 </ul>
             </div>
             <div class="index-col">
-                <h3>Mezcal Bars</h3>
+                <h3>Cocktail Bars</h3>
                 <ul>
                     <li><a href="#sabina-sabe">Sabina Sabe</a> <span class="idx-tag">Top 50 North America</span></li>
                     <li><a href="#selva">Selva</a> <span class="idx-tag">#29 North America</span></li>
-                    <li><a href="#expendio">Expendio Tradición</a> <span class="idx-tag">140yr mezcal family</span></li>
-                    <li><a href="#mezcaloteca">Mezcaloteca</a> <span class="idx-tag">Guided tastings</span></li>
-                    <li><a href="#in-situ">In Situ</a> <span class="idx-tag">Largest collection in MX</span></li>
+                    <li><a href="#expendio">Expendio Tradición</a> <span class="idx-tag">+ full restaurant</span></li>
+                </ul>
+            </div>
+            <div class="index-col">
+                <h3>Mezcal Tasting</h3>
+                <ul>
+                    <li><a href="#mezcaloteca">Mezcaloteca</a> <span class="idx-tag">Reservation required</span></li>
+                    <li><a href="#in-situ">In Situ</a> <span class="idx-tag">Walk-in · 180+ bottles</span></li>
                 </ul>
             </div>
         </div>
@@ -308,6 +313,7 @@
                     <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>8 min walk</strong> from Majagua</div></div>
                     <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value"><strong>$80–$150</strong> with drinks</div></div>
                     <div class="detail"><div class="detail-label">Availability</div><div class="detail-value"><strong>Fri May 22:</strong> 9:00, 9:30, 9:45, 10:00 PM. Sat dinner sold out.</div></div>
+                    <div class="detail"><div class="detail-label">Hours</div><div class="detail-value">Daily 1pm–10:30pm</div></div>
                     <div class="detail"><div class="detail-label">Mezcal</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span>Own mezcal line + lounge</div></div>
                     <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span>Courtyard, upscale but warm</div></div>
                 </div>
@@ -343,6 +349,7 @@
                     <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>6 min walk</strong> from Majagua</div></div>
                     <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value"><strong>$60–$120</strong> with drinks</div></div>
                     <div class="detail"><div class="detail-label">Availability</div><div class="detail-value"><strong>7:00, 7:20, 7:40, 8:00 PM</strong> Sat May 23</div></div>
+                    <div class="detail"><div class="detail-label">Hours</div><div class="detail-value">Tue 4–8pm. Wed–Sat 1–8pm. Closed Sun/Mon.</div></div>
                     <div class="detail"><div class="detail-label">Mezcal</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span></span>Good selection, not the focus</div></div>
                     <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span></span>Warm, personal, intimate</div></div>
                 </div>
@@ -357,6 +364,10 @@
 
         <!-- Parian Atelier — TOP PICK -->
         <div class="card" id="parian">
+            <div class="card-gallery">
+                <img src="https://i0.wp.com/gudomagazine.com/wp-content/uploads/2024/06/parian-atelier-oaxaca-3.jpg?resize=1024,678&ssl=1" alt="Parian Atelier" loading="lazy">
+                <img src="https://resizer.otstatic.com/v4/photos/92453712-1?width=1280&height=720&format=avif" alt="Parian Atelier" loading="lazy">
+            </div>
             <div class="card-top">
                 <div class="card-header">
                     <div class="card-title-row">
@@ -372,6 +383,7 @@
                     <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>10 min walk</strong> from Majagua</div></div>
                     <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value"><strong>$100–$150</strong> with drinks</div></div>
                     <div class="detail"><div class="detail-label">Availability</div><div class="detail-value"><strong>7:00, 7:15, 7:30, 7:45, 8:00 PM</strong> Sat May 23</div></div>
+                    <div class="detail"><div class="detail-label">Hours</div><div class="detail-value">Wed–Mon 1–10pm. Closed Tue.</div></div>
                     <div class="detail"><div class="detail-label">Mezcal</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span></span>Agave-focused bar downstairs</div></div>
                     <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span>Intimate, candlelit, romantic</div></div>
                 </div>
@@ -380,16 +392,19 @@
             </div>
             <div class="card-footer">
                 <div class="card-links"><a href="https://www.tripadvisor.com/Restaurant_Review-g150801-d27980501-Reviews-El_Parian_Atelier-Oaxaca_Southern_Mexico.html" target="_blank" rel="noopener">TripAdvisor</a><a href="https://www.opentable.com/r/el-parian-atelier-oaxaca-de-juarez" target="_blank" rel="noopener">OpenTable</a></div>
-                <a href="https://www.opentable.com/r/el-parian-atelier-oaxaca-de-juarez?dateTime=2026-05-23T20%3A00&covers=2" target="_blank" rel="noopener" class="btn-book">Book on OpenTable</a>
+                <a href="https://www.opentable.com/r/el-parian-atelier-oaxaca-de-juarez?dateTime=2026-05-23T19%3A30&covers=2" target="_blank" rel="noopener" class="btn-book">Book on OpenTable</a>
             </div>
         </div>
 
         <!-- Labo Fermento — STRONG ALTERNATIVE -->
         <div class="card" id="labo">
+            <div class="card-gallery">
+                <img src="https://media.cntraveler.com/photos/6318d67bd8c6c66e02fb38e7/master/w_1600,c_limit/Labo%20Fermento%20%C2%A9%20Chaz%20Cruz_211103_LaboFermento_952.jpg" alt="Labo Fermento" loading="lazy">
+            </div>
             <div class="card-top">
                 <div class="card-header">
                     <div class="card-title-row">
-                        <span class="card-title">Labo Fermento</span>
+                        <a href="https://www.instagram.com/labofermento" class="card-title" target="_blank" rel="noopener">Labo Fermento</a>
                         <span class="badge badge-michelin">Bib Gourmand</span>
                     </div>
                     <span class="badge badge-available">Sat · Walk-in</span>
@@ -402,6 +417,7 @@
                     <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value">A la carte: <strong>$70–$100.</strong> Tasting + pairing: <strong>$120–$160</strong></div></div>
                     <div class="detail"><div class="detail-label">Availability</div><div class="detail-value">Walk-in for a la carte. <strong>Email for tasting:</strong> reservas.labofermento@gmail.com</div></div>
                     <div class="detail"><div class="detail-label">Hours</div><div class="detail-value">Wed–Sat 1–10pm, Tue 5–10pm. Closed Sun/Mon.</div></div>
+                    <div class="detail"><div class="detail-label">Mezcal</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span><span class="star empty">★</span></span>Not the focus, Asian-fusion cocktails</div></div>
                     <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span></span>Casual-cool, not candlelit romance</div></div>
                 </div>
                 <div class="card-dishes"><div class="detail-label">Notable Dishes</div><div class="dish-list"><span class="dish">Pork Wontons w/ Black Garlic</span><span class="dish">Chinese BBQ Pork Buns</span><span class="dish">Shoyu Fried Chicken</span><span class="dish">Green Curry</span><span class="dish">Cold Noodles</span></div></div>
@@ -435,6 +451,7 @@
                     <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>20 min walk / 7 min taxi</strong> from Majagua</div></div>
                     <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value"><strong>$80–$130</strong> with drinks</div></div>
                     <div class="detail"><div class="detail-label">Availability</div><div class="detail-value"><strong>8:00 PM</strong> Sat May 23 (Interior Salón). Book on CoverManager.</div></div>
+                    <div class="detail"><div class="detail-label">Hours</div><div class="detail-value">Mon–Sat 1–11pm. Sun 10am–9pm.</div></div>
                     <div class="detail"><div class="detail-label">Mezcal</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span></span>Creative cocktails</div></div>
                     <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span></span>Gorgeous courtyard, Jalatlaco charm</div></div>
                 </div>
@@ -449,10 +466,14 @@
 
         <!-- Casa Oaxaca — STRONG ALTERNATIVE -->
         <div class="card" id="casa-oaxaca">
+            <div class="card-gallery">
+                <img src="https://s3-media0.fl.yelpcdn.com/bphoto/yfkmKHb4n9T2m2qQ4WtqJw/l.jpg" alt="Casa Oaxaca rooftop" loading="lazy">
+                <img src="https://media-cdn.tripadvisor.com/media/photo-o/1c/81/90/23/short-rib-miel-de-agave.jpg" alt="Casa Oaxaca food" loading="lazy">
+            </div>
             <div class="card-top">
                 <div class="card-header">
                     <div class="card-title-row">
-                        <span class="card-title">Casa Oaxaca</span>
+                        <a href="https://casaoaxacaelrestaurante.com" class="card-title" target="_blank" rel="noopener">Casa Oaxaca</a>
                     </div>
                     <span class="badge badge-available">Sat 6:45–8:00 PM</span>
                 </div>
@@ -463,6 +484,7 @@
                     <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>8 min walk</strong> from Majagua</div></div>
                     <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value"><strong>$80–$150</strong> with drinks</div></div>
                     <div class="detail"><div class="detail-label">Availability</div><div class="detail-value"><strong>6:45, 7:15, 7:30, 7:45, 8:00 PM</strong> Sat May 23</div></div>
+                    <div class="detail"><div class="detail-label">Hours</div><div class="detail-value">Mon–Sat 1–11pm. Sun 1–9pm.</div></div>
                     <div class="detail"><div class="detail-label">Mezcal</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span></span>Standard selection</div></div>
                     <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span></span>Santo Domingo rooftop views</div></div>
                 </div>
@@ -471,7 +493,7 @@
             </div>
             <div class="card-footer">
                 <div class="card-links"><a href="https://www.tripadvisor.com/Restaurant_Review-g150801-d1314211-Reviews-Casa_Oaxaca_El_Restaurante-Oaxaca_Southern_Mexico.html" target="_blank" rel="noopener">TripAdvisor</a><a href="https://www.opentable.com/r/casa-oaxaca-el-restaurante-oaxaca" target="_blank" rel="noopener">OpenTable</a></div>
-                <a href="https://www.opentable.com/r/casa-oaxaca-el-restaurante-oaxaca?dateTime=2026-05-23T20%3A00&covers=2" target="_blank" rel="noopener" class="btn-book">Book on OpenTable</a>
+                <a href="https://www.opentable.com/r/casa-oaxaca-el-restaurante-oaxaca?dateTime=2026-05-23T19%3A30&covers=2" target="_blank" rel="noopener" class="btn-book">Book on OpenTable</a>
             </div>
         </div>
 
@@ -479,11 +501,12 @@
         <div class="card" id="origen">
             <div class="card-gallery">
                 <img src="https://res.cloudinary.com/the-infatuation/image/upload/c_fill,w_1200,ar_4:3,g_center,f_auto/Origen_PR_Oaxaca04_ztlsa3" alt="Origen" loading="lazy">
+                <img src="https://media-cdn.tripadvisor.com/media/photo-o/30/44/d0/17/caption.jpg" alt="Origen food" loading="lazy">
             </div>
             <div class="card-top">
                 <div class="card-header">
                     <div class="card-title-row">
-                        <span class="card-title">Origen</span>
+                        <a href="https://origenoaxaca.com" class="card-title" target="_blank" rel="noopener">Origen</a>
                     </div>
                     <span class="badge badge-available">Sat 7:00–8:00 PM</span>
                 </div>
@@ -494,6 +517,7 @@
                     <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>10 min walk</strong> from Majagua</div></div>
                     <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value"><strong>$80–$150</strong> with drinks</div></div>
                     <div class="detail"><div class="detail-label">Availability</div><div class="detail-value"><strong>7:00, 7:15, 7:30, 7:45, 8:00 PM</strong> Sat May 23</div></div>
+                    <div class="detail"><div class="detail-label">Hours</div><div class="detail-value">Daily, lunch and dinner.</div></div>
                     <div class="detail"><div class="detail-label">Mezcal</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span></span>"Mind-boggling" selection</div></div>
                     <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span></span>Elegant but inconsistent</div></div>
                 </div>
@@ -502,16 +526,20 @@
             </div>
             <div class="card-footer">
                 <div class="card-links"><a href="https://www.tripadvisor.com/Restaurant_Review-g150801-d2413056-Reviews-Origen-Oaxaca_Southern_Mexico.html" target="_blank" rel="noopener">TripAdvisor</a><a href="https://www.opentable.com/r/origen-oaxaca" target="_blank" rel="noopener">OpenTable</a></div>
-                <a href="https://www.opentable.com/r/origen-oaxaca?dateTime=2026-05-23T20%3A00&covers=2" target="_blank" rel="noopener" class="btn-book">Book on OpenTable</a>
+                <a href="https://www.opentable.com/r/origen-oaxaca?dateTime=2026-05-23T19%3A30&covers=2" target="_blank" rel="noopener" class="btn-book">Book on OpenTable</a>
             </div>
         </div>
 
         <!-- Entre Sombras — STRONG ALTERNATIVE -->
         <div class="card" id="entre-sombras">
+            <div class="card-gallery">
+                <img src="https://media.foodandtravel.mx/wp-content/uploads/2020/12/Casa-Santo-Origen-exteriores.jpg" alt="Entre Sombras" loading="lazy">
+                <img src="https://images.trvl-media.com/lodging/54000000/53940000/53937700/53937650/2dedea2b_z.jpg" alt="Entre Sombras" loading="lazy">
+            </div>
             <div class="card-top">
                 <div class="card-header">
                     <div class="card-title-row">
-                        <span class="card-title">Entre Sombras</span>
+                        <a href="https://www.instagram.com/entresombras.oax/" class="card-title" target="_blank" rel="noopener">Entre Sombras</a>
                     </div>
                     <span class="badge badge-available">Sat 6:00–9:00 PM</span>
                 </div>
@@ -522,6 +550,7 @@
                     <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>15–20 min taxi</strong> from Majagua</div></div>
                     <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value"><strong>$80–$150</strong> with drinks</div></div>
                     <div class="detail"><div class="detail-label">Availability</div><div class="detail-value"><strong>All slots 6–9pm</strong> Patio + Terraza, Sat May 23</div></div>
+                    <div class="detail"><div class="detail-label">Hours</div><div class="detail-value">Daily 8am–10pm.</div></div>
                     <div class="detail"><div class="detail-label">Mezcal</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span><span class="star empty">★</span></span>Wine/cocktail focused</div></div>
                     <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span>THE most romantic in Oaxaca</div></div>
                 </div>
@@ -537,7 +566,7 @@
 
     <!-- ═══ MEZCAL BARS ═══ -->
     <div class="section">
-        <div class="section-header"><h2>Mezcal Bars</h2></div>
+        <div class="section-header"><h2>Cocktail Bars &amp; Mezcal Tasting</h2></div>
 
         <!-- Sabina Sabe -->
         <div class="card" id="sabina-sabe">
@@ -571,6 +600,7 @@
                     </div>
                     <p class="review-summary">"We stopped in at least once every night." "The bartenders know what they are talking about and the atmosphere is perfect." Reddit calls it "the most cozy cocktail bar in town with the most personable bartenders."</p>
                 </div>
+                <div class="card-dishes"><div class="detail-label">Notable Drinks</div><div class="dish-list"><span class="dish">Micky Miguel Miguelito</span><span class="dish">Poleo Garibaldi</span><span class="dish">Jamaicano</span><span class="dish">Mezcal Bloody Mary</span></div></div>
             </div>
             <div class="card-footer">
                 <div class="card-links">
@@ -600,7 +630,7 @@
                     <div class="detail"><div class="detail-label">Location</div><div class="detail-value">Macedonio Alcalá 403 (above Los Danzantes), Centro</div></div>
                     <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>7 min walk</strong> from Majagua</div></div>
                     <div class="detail"><div class="detail-label">Hours</div><div class="detail-value">Sun–Thu 5pm–11pm. <strong>Fri–Sat 5pm–1am.</strong></div></div>
-                    <div class="detail"><div class="detail-label">Reservations</div><div class="detail-value">CoverManager or walk-in. Recommended.</div></div>
+                    <div class="detail"><div class="detail-label">Reservations</div><div class="detail-value">Book on <a href="https://selvaoaxaca.com" target="_blank" rel="noopener" style="color:var(--accent)">selvaoaxaca.com</a> or walk-in. WhatsApp for 6+: +52 951 394 4396</div></div>
                     <div class="detail"><div class="detail-label">Price</div><div class="detail-value">~$150-200 MXN/cocktail (~$8-12 USD). Two ppl: <strong>$55–85 USD</strong></div></div>
                     <div class="detail"><div class="detail-label">Must Order</div><div class="detail-value"><strong>Miahuatlán</strong> — mezcal, Oloroso sherry, Cynar, shiitake mushrooms. A negroni-manhattan hybrid.</div></div>
                 </div>
@@ -612,12 +642,14 @@
                     </div>
                     <p class="review-summary">"World class bartending." "I found this cocktail oasis my first evening in Oaxaca and returned every evening." Reddit: "Selva is the most fancy." Food available from the Los Danzantes kitchen downstairs.</p>
                 </div>
+                <div class="card-dishes"><div class="detail-label">Notable Drinks</div><div class="dish-list"><span class="dish">Miahuatlán (mezcal, sherry, Cynar, shiitake)</span><span class="dish">Calmante (manzanilla mezcal, agave, chile)</span><span class="dish">Selva (namesake cocktail)</span></div></div>
             </div>
             <div class="card-footer">
                 <div class="card-links">
                     <a href="https://selvaoaxaca.com" target="_blank" rel="noopener">Website</a>
                     <a href="https://www.instagram.com/selvaoaxaca" target="_blank" rel="noopener">Instagram</a>
                 </div>
+                <a href="https://selvaoaxaca.com" target="_blank" rel="noopener" class="btn-book secondary">Book on Website</a>
             </div>
         </div>
 
@@ -630,7 +662,7 @@
             <div class="card-top">
                 <div class="card-header">
                     <div class="card-title-row">
-                        <span class="card-title">Expendio Tradición</span>
+                        <a href="https://www.instagram.com/expendiotradicion" target="_blank" rel="noopener" class="card-title">Expendio Tradición</a>
                         <span class="badge badge-michelin">140yr Mezcal Family</span>
                     </div>
                 </div>
@@ -664,6 +696,9 @@
 
         <!-- Mezcaloteca -->
         <div class="card" id="mezcaloteca">
+            <div class="card-gallery">
+                <img src="https://cdn.vox-cdn.com/uploads/chorus_image/image/62590163/Oaxaca_Mezcaloteca_001.0.0.jpg" alt="Mezcaloteca" loading="lazy">
+            </div>
             <div class="card-top">
                 <div class="card-header">
                     <div class="card-title-row">
@@ -699,6 +734,10 @@
 
         <!-- In Situ -->
         <div class="card" id="in-situ">
+            <div class="card-gallery">
+                <img src="https://www.willflyforfood.net/wp-content/uploads/2022/04/oaxaca-mezcalerias-mezcaleria-in-situ2.jpg" alt="In Situ" loading="lazy">
+                <img src="https://s3-media0.fl.yelpcdn.com/bphoto/4YnhYWH2WJIrL56Op1a98w/l.jpg" alt="In Situ mezcal wall" loading="lazy">
+            </div>
             <div class="card-top">
                 <div class="card-header">
                     <div class="card-title-row">
