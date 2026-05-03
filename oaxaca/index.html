@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Curated restaurant guide for a date night in Oaxaca.">
+    <title>Oaxaca Date Night</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --bg-card: #111111;
+            --text: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --text-dim: #666666;
+            --border: #222222;
+            --border-hover: #333333;
+            --accent: #c8956a;
+            --accent-dim: rgba(200, 149, 106, 0.15);
+            --green: #5a9e6e;
+            --green-dim: rgba(90, 158, 110, 0.15);
+            --yellow: #c8a84a;
+            --yellow-dim: rgba(200, 168, 74, 0.15);
+            --red-dim: rgba(200, 90, 90, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 17px; scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: radial-gradient(ellipse at 50% 0%, rgba(200, 149, 106, 0.03) 0%, var(--bg) 60%);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Gate ── */
+        #gate {
+            position: fixed; inset: 0; background: var(--bg); z-index: 1000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #gate.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        #gate h1 { font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 2.5rem; color: var(--text-secondary); letter-spacing: 0.05em; }
+        .gate-form { display: flex; width: 320px; max-width: 90vw; }
+        .gate-form input {
+            flex: 1; padding: 0.875rem 1.25rem; background: var(--bg-card); border: 1px solid var(--border);
+            border-right: none; border-radius: 8px 0 0 8px; color: var(--text); font-size: 0.9375rem;
+            font-family: inherit; outline: none; transition: border-color 0.2s;
+        }
+        .gate-form input:focus { border-color: var(--accent); }
+        .gate-form input::placeholder { color: var(--text-dim); }
+        .gate-form button {
+            padding: 0.875rem 1.5rem; background: var(--accent); border: 1px solid var(--accent);
+            border-radius: 0 8px 8px 0; color: var(--bg); font-size: 0.875rem; font-weight: 500;
+            font-family: inherit; cursor: pointer; transition: opacity 0.2s;
+        }
+        .gate-form button:hover { opacity: 0.85; }
+        .gate-error { opacity: 0; color: #c85a5a; font-size: 0.8125rem; height: 1.25rem; transition: opacity 0.2s; }
+        .gate-error.show { opacity: 1; }
+
+        /* ── Page ── */
+        #page { opacity: 0; transition: opacity 0.8s ease; padding-bottom: 6rem; }
+        #page.visible { opacity: 1; }
+
+        /* ── Hero ── */
+        .hero { text-align: center; padding: 6rem 2rem 4rem; max-width: 860px; margin: 0 auto; }
+        .hero-label { font-size: 0.75rem; font-weight: 500; color: var(--accent); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem; }
+        .hero h1 {
+            font-family: 'Outfit', sans-serif; font-size: 3.25rem; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text) 0%, #999999 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hero p { color: var(--text-secondary); font-size: 1.125rem; line-height: 1.7; max-width: 520px; margin: 0 auto; }
+        .hero-meta { display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap; }
+        .hero-meta span { font-size: 0.8125rem; color: var(--text-dim); }
+        .hero-meta strong { color: var(--text-secondary); font-weight: 500; }
+
+        /* ── Rec Box ── */
+        .rec-box { max-width: 860px; margin: 0 auto 4rem; padding: 0 1.5rem; }
+        .rec-box-inner { padding: 2rem; border: 1px solid rgba(200, 149, 106, 0.15); border-radius: 12px; background: rgba(200, 149, 106, 0.04); }
+        .rec-box h2 { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 500; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.25rem; }
+        .rec-plans { display: flex; flex-direction: column; gap: 1rem; }
+        .rec-plan { display: flex; gap: 1rem; align-items: baseline; }
+        .rec-plan-label { font-size: 0.75rem; font-weight: 500; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; width: 4.5rem; }
+        .rec-plan p { font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.5; }
+        .rec-plan p strong { color: var(--text); font-weight: 500; }
+        .rec-plan a { color: var(--accent); text-decoration: none; font-weight: 500; }
+        .rec-plan a:hover { text-decoration: underline; }
+        .rec-note { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border); font-size: 0.8125rem; color: var(--text-dim); line-height: 1.6; }
+
+        /* ── Index Grid ── */
+        .index-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1rem; }
+        .index-col h3 { font-size: 0.6875rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 0.75rem; }
+        .index-col ul { list-style: none; }
+        .index-col li { padding: 0.3rem 0; }
+        .index-col a { font-size: 0.875rem; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+        .index-col a:hover { color: var(--accent); }
+        .index-col .idx-tag { font-size: 0.625rem; color: var(--text-dim); margin-left: 0.4rem; }
+
+        /* ── Section ── */
+        .section { max-width: 860px; margin: 0 auto 3.5rem; padding: 0 1.5rem; }
+        .section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+        .section-header h2 { font-family: 'Outfit', sans-serif; font-size: 0.8125rem; font-weight: 500; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.12em; }
+        .section-header::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+        /* ── Card ── */
+        .card { border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); margin-bottom: 2rem; overflow: hidden; }
+        .card-gallery { display: flex; gap: 2px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .card-gallery::-webkit-scrollbar { display: none; }
+        .card-gallery img { flex: 0 0 auto; width: 40%; height: 220px; object-fit: cover; display: block; scroll-snap-align: start; }
+        .card-gallery img:first-child { width: 50%; }
+        .card-top { padding: 1.75rem 2rem 0; }
+        .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+        .card-title-row { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+        .card-title { font-family: 'Outfit', sans-serif; font-size: 1.375rem; font-weight: 400; }
+        a.card-title { color: var(--text); text-decoration: none; transition: color 0.2s; }
+        a.card-title:hover { color: var(--accent); }
+        .badge { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.2rem 0.625rem; border-radius: 100px; font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.03em; white-space: nowrap; }
+        .badge-michelin { background: var(--accent-dim); color: var(--accent); }
+        .badge-top { background: rgba(255,255,255,0.06); color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.12); }
+        .badge-available { background: var(--green-dim); color: var(--green); }
+        .badge-closed { background: var(--red-dim); color: #c85a5a; }
+        .card-cuisine { font-size: 0.8125rem; color: var(--text-dim); margin-bottom: 1rem; }
+        .card-desc { font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem; }
+
+        /* ── Card Details ── */
+        .card-details { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2rem; padding: 1.25rem 0; border-top: 1px solid var(--border); }
+        .detail { padding: 0.5rem 0; }
+        .detail-label { font-size: 0.6875rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 0.25rem; }
+        .detail-value { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5; }
+        .detail-value strong { color: var(--text); font-weight: 500; }
+
+        .stars { display: inline-flex; gap: 0.15rem; margin-right: 0.4rem; }
+        .star { color: var(--accent); font-size: 0.8125rem; }
+        .star.empty { color: var(--border); }
+
+        .card-dishes { padding: 1.25rem 0; border-top: 1px solid var(--border); }
+        .card-dishes .detail-label { margin-bottom: 0.5rem; }
+        .dish-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .dish { display: inline-block; padding: 0.35rem 0.8rem; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 6px; font-size: 0.8125rem; color: var(--text-secondary); }
+
+        .card-reviews { padding: 1.25rem 0; border-top: 1px solid var(--border); }
+        .card-reviews .detail-label { margin-bottom: 0.5rem; }
+        .review-summary { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; }
+        .review-ratings { display: flex; gap: 1.25rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+        .review-rating { font-size: 0.8125rem; color: var(--text-dim); }
+        .review-rating strong { color: var(--text-secondary); font-weight: 500; }
+
+        .card-footer { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: rgba(255,255,255,0.02); border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap; }
+        .card-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .card-links a { font-size: 0.8125rem; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+        .card-links a:hover { color: var(--text-secondary); }
+
+        .btn-book {
+            display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.25rem;
+            background: var(--accent); color: var(--bg); font-size: 0.8125rem; font-weight: 500;
+            font-family: inherit; border: none; border-radius: 8px; text-decoration: none;
+            cursor: pointer; transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-book:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(200,149,106,0.25); }
+        .btn-book.secondary { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); }
+        .btn-book.secondary:hover { border-color: var(--border-hover); color: var(--text); transform: none; box-shadow: none; }
+        .btn-book:focus-visible, .card-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+        /* ── Dietary ── */
+        .dietary-note { padding: 1.5rem 2rem; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); margin-bottom: 1.5rem; }
+        .dietary-note h3 { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 400; color: var(--text); margin-bottom: 0.75rem; }
+        .dietary-note p { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ── Footer ── */
+        .page-footer { max-width: 860px; margin: 4rem auto 0; padding: 2rem 1.5rem; text-align: center; }
+        .page-footer p { font-size: 0.75rem; color: var(--text-dim); }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            html { font-size: 15px; }
+            .hero { padding: 4rem 1.25rem 3rem; }
+            .hero h1 { font-size: 2.25rem; }
+            .hero-meta { gap: 1rem; }
+            .section, .rec-box { padding: 0 1.25rem; }
+            .card-top { padding: 1.5rem 1.25rem 0; }
+            .card-details { grid-template-columns: 1fr; }
+            .card-footer { padding: 1.25rem; flex-direction: column; align-items: stretch; }
+            .card-links { justify-content: center; }
+            .btn-book { justify-content: center; }
+            .rec-plan { flex-direction: column; gap: 0.25rem; }
+            .index-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .card-gallery img { height: 180px; width: 55%; }
+            .card-gallery img:first-child { width: 65%; }
+            .gate-form { width: 280px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Gate ── -->
+<div id="gate">
+    <h1>Oaxaca Date Night</h1>
+    <div class="gate-form">
+        <input type="password" id="gate-input" placeholder="Password" autocomplete="off" autofocus>
+        <button id="gate-btn">Enter</button>
+    </div>
+    <div class="gate-error" id="gate-error">&nbsp;</div>
+    <div style="color: var(--text-dim); font-size: 0.75rem;">Hint: lyssm</div>
+</div>
+
+<!-- ── Page ── -->
+<div id="page">
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-label">Saturday, May 23, 2026</div>
+        <h1>Oaxaca Date Night</h1>
+        <p>Our Saturday night in Oaxaca, planned. Mezcal, mole, and moonlight.</p>
+        <div class="hero-meta">
+            <span><strong>Hotel</strong> Majagua, Centro</span>
+            <span><strong>Just us</strong></span>
+            <span><strong>Time</strong> ~8pm</span>
+        </div>
+    </div>
+
+    <!-- ═══ TOP PICKS ═══ -->
+    <div class="rec-box">
+        <div class="rec-box-inner">
+            <h2>Top Picks</h2>
+            <div class="rec-plans">
+                <div class="rec-plan">
+                    <span class="rec-plan-label">Plan A</span>
+                    <p>Mezcal at <strong>Sabina Sabe</strong> at 6pm → dinner at <a href="https://levaduradeolla.mx" target="_blank" rel="noopener"><strong>Levadura de Olla</strong></a> at 8pm. Both walkable from hotel, same street. Michelin ★, heritage Oaxacan cuisine. <a href="https://restaurante.covermanager.com/reservar-en-levadura-de-olla/" target="_blank" rel="noopener">Book →</a></p>
+                </div>
+                <div class="rec-plan">
+                    <span class="rec-plan-label">Plan B</span>
+                    <p>Mezcal at <strong>Sabina Sabe</strong> at 6pm → dinner at <a href="https://www.opentable.com/r/el-parian-atelier-oaxaca-de-juarez" target="_blank" rel="noopener"><strong>Parian Atelier</strong></a> at 8pm. Intimate 4-table upstairs room, Olvera alum, future Michelin star. <a href="https://www.opentable.com/r/el-parian-atelier-oaxaca-de-juarez?dateTime=2026-05-23T20%3A00&covers=2" target="_blank" rel="noopener">Book →</a></p>
+                </div>
+                <div class="rec-plan">
+                    <span class="rec-plan-label">Bonus</span>
+                    <p><a href="https://losdanzantesoaxaca.com.mx" target="_blank" rel="noopener"><strong>Los Danzantes</strong></a> at 9:30pm <strong>Friday</strong> → cocktails at <strong>Selva</strong> upstairs after. The #1 restaurant in Oaxaca (Michelin ★ + Green ★) — sold out Saturday but available our first night. Same building as Selva, open til 1am. <a href="https://losdanzantesoaxaca.com.mx/reservations/" target="_blank" rel="noopener">Book →</a></p>
+                </div>
+            </div>
+            <div class="rec-note">
+                Oaxaca runs 1 hour ahead of LA, so 8pm there still feels like 7pm to us. Start with mezcal cocktails, then walk to dinner.
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ INDEX ═══ -->
+    <div class="section">
+        <div class="index-grid">
+            <div class="index-col">
+                <h3>Mezcal Bars</h3>
+                <ul>
+                    <li><a href="#sabina-sabe">Sabina Sabe</a> <span class="idx-tag">Top 50 North America</span></li>
+                    <li><a href="#selva">Selva</a> <span class="idx-tag">#29 North America</span></li>
+                    <li><a href="#expendio">Expendio Tradición</a> <span class="idx-tag">140yr mezcal family</span></li>
+                    <li><a href="#mezcaloteca">Mezcaloteca</a> <span class="idx-tag">Guided tastings</span></li>
+                    <li><a href="#in-situ">In Situ</a> <span class="idx-tag">Largest collection in MX</span></li>
+                </ul>
+            </div>
+            <div class="index-col">
+                <h3>Restaurants</h3>
+                <ul>
+                    <li><a href="#levadura">Levadura de Olla</a> <span class="idx-tag">Michelin ★ · Sat</span></li>
+                    <li><a href="#parian">Parian Atelier</a> <span class="idx-tag">Sat</span></li>
+                    <li><a href="#danzantes">Los Danzantes</a> <span class="idx-tag">Michelin ★ · Fri</span></li>
+                    <li><a href="#labo">Labo Fermento</a> <span class="idx-tag">Bib Gourmand · walk-in</span></li>
+                    <li><a href="#casa-oaxaca">Casa Oaxaca</a> <span class="idx-tag">Sat</span></li>
+                    <li><a href="#origen">Origen</a> <span class="idx-tag">Sat</span></li>
+                    <li><a href="#asador">Asador Bacanora</a> <span class="idx-tag">Michelin · Sat · Jalatlaco</span></li>
+                    <li><a href="#entre-sombras">Entre Sombras</a> <span class="idx-tag">Sat · taxi</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ MEZCAL BARS ═══ -->
+    <div class="section">
+        <div class="section-header"><h2>Mezcal Bars</h2></div>
+
+        <!-- Sabina Sabe -->
+        <div class="card" id="sabina-sabe">
+            <div class="card-gallery">
+                <img src="https://res.cloudinary.com/the-infatuation/image/upload/c_fill,w_1200,ar_4:3,g_center,f_auto/images/SabinaSabe_PR_Oaxaca02_lvt2oj" alt="Sabina Sabe" loading="lazy">
+                <img src="https://res.cloudinary.com/the-infatuation/image/upload/c_fill,w_1200,ar_4:3,g_center,f_auto/images/SabinaSabe_PR_Oaxaca06_iljnck" alt="Sabina Sabe" loading="lazy">
+            </div>
+            <div class="card-top">
+                <div class="card-header">
+                    <div class="card-title-row">
+                        <a href="https://www.instagram.com/sabinasabeoaxaca" target="_blank" rel="noopener" class="card-title">Sabina Sabe</a>
+                        <span class="badge badge-michelin">Top 50 Bars North America</span>
+                        <span class="badge badge-top">Top Pick</span>
+                    </div>
+                </div>
+                <div class="card-cuisine">Mezcal cocktails · Date night vibes · Full food menu</div>
+                <p class="card-desc">Named after Mazatec medicine woman María Sabina. Intimate rooms with low lighting and mezcal bottles displayed like artifacts. The bartenders are deeply knowledgeable and personable — the kind of place where you talk closer than you need to. Full food menu with lechón gorditas and shrimp aguachile.</p>
+                <div class="card-details">
+                    <div class="detail"><div class="detail-label">Location</div><div class="detail-value">5 de Mayo 209, Centro</div></div>
+                    <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>5 min walk</strong> from Majagua</div></div>
+                    <div class="detail"><div class="detail-label">Hours</div><div class="detail-value">Mon, Wed–Sun: 1pm–12am. <strong>Closed Tuesday.</strong></div></div>
+                    <div class="detail"><div class="detail-label">Reservations</div><div class="detail-value">Recommended Fri/Sat evenings. Walk-ins OK if you arrive before 8pm.</div></div>
+                    <div class="detail"><div class="detail-label">Price</div><div class="detail-value">~$130 MXN/cocktail (~$7 USD). Two ppl w/ drinks + snack: <strong>$45–70 USD</strong></div></div>
+                    <div class="detail"><div class="detail-label">Must Order</div><div class="detail-value"><strong>Micky Miguel Miguelito</strong> — mezcal with tamarind, watermelon shrub, pasilla chili syrup</div></div>
+                </div>
+                <div class="card-reviews">
+                    <div class="detail-label">Reviews</div>
+                    <div class="review-ratings">
+                        <span class="review-rating"><strong>4.3</strong>/5 TripAdvisor (178)</span>
+                        <span class="review-rating"><strong>4.5</strong>/5 Google</span>
+                    </div>
+                    <p class="review-summary">"We stopped in at least once every night." "The bartenders know what they are talking about and the atmosphere is perfect." Reddit calls it "the most cozy cocktail bar in town with the most personable bartenders."</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="card-links">
+                    <a href="https://www.tripadvisor.com/Restaurant_Review-g150801-Reviews-Sabina_Sabe-Oaxaca_Southern_Mexico.html" target="_blank" rel="noopener">TripAdvisor</a>
+                    <a href="https://www.yelp.com/biz/sabina-sabe-oaxaca-2" target="_blank" rel="noopener">Yelp</a>
+                    <a href="https://www.instagram.com/sabinasabeoaxaca" target="_blank" rel="noopener">Instagram</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Selva -->
+        <div class="card" id="selva">
+            <div class="card-gallery">
+                <img src="https://res.cloudinary.com/the-infatuation/image/upload/c_fill,w_1200,ar_4:3,g_center,f_auto/images/Selva_LilianaLopez_Oaxaca01_uppjxn" alt="Selva" loading="lazy">
+            </div>
+            <div class="card-top">
+                <div class="card-header">
+                    <div class="card-title-row">
+                        <a href="https://selvaoaxaca.com" target="_blank" rel="noopener" class="card-title">Selva</a>
+                        <span class="badge badge-michelin">#29 Best Bars North America</span>
+                    </div>
+                </div>
+                <div class="card-cuisine">World-class cocktails · Upscale design · Upstairs from Los Danzantes</div>
+                <p class="card-desc">The most upscale bar in Oaxaca. Housed in a 17th-century building with leather sofas, dim hanging lamps, and a jungle mural wrapping across two walls. Cocktails served in bespoke crystal glassware. The balcony overlooking pedestrian Alcalá street is the date-night money spot. <strong>Literally upstairs from Los Danzantes</strong> — the perfect post-dinner move on Friday.</p>
+                <div class="card-details">
+                    <div class="detail"><div class="detail-label">Location</div><div class="detail-value">Macedonio Alcalá 403 (above Los Danzantes), Centro</div></div>
+                    <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>7 min walk</strong> from Majagua</div></div>
+                    <div class="detail"><div class="detail-label">Hours</div><div class="detail-value">Sun–Thu 5pm–11pm. <strong>Fri–Sat 5pm–1am.</strong></div></div>
+                    <div class="detail"><div class="detail-label">Reservations</div><div class="detail-value">CoverManager or walk-in. Recommended.</div></div>
+                    <div class="detail"><div class="detail-label">Price</div><div class="detail-value">~$150-200 MXN/cocktail (~$8-12 USD). Two ppl: <strong>$55–85 USD</strong></div></div>
+                    <div class="detail"><div class="detail-label">Must Order</div><div class="detail-value"><strong>Miahuatlán</strong> — mezcal, Oloroso sherry, Cynar, shiitake mushrooms. A negroni-manhattan hybrid.</div></div>
+                </div>
+                <div class="card-reviews">
+                    <div class="detail-label">Reviews</div>
+                    <div class="review-ratings">
+                        <span class="review-rating"><strong>4.7</strong>/5 OpenTable</span>
+                        <span class="review-rating"><strong>4.1</strong>/5 Google</span>
+                    </div>
+                    <p class="review-summary">"World class bartending." "I found this cocktail oasis my first evening in Oaxaca and returned every evening." Reddit: "Selva is the most fancy." Food available from the Los Danzantes kitchen downstairs.</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="card-links">
+                    <a href="https://selvaoaxaca.com" target="_blank" rel="noopener">Website</a>
+                    <a href="https://www.instagram.com/selvaoaxaca" target="_blank" rel="noopener">Instagram</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expendio Tradición -->
+        <div class="card" id="expendio">
+            <div class="card-gallery">
+                <img src="https://f7e5m2b4.delivery.rocketcdn.me/wp-content/uploads/2015/08/Expendio-Tradicion-Mezcaleria-mezcal-regional-food-design-and-architecture-11.jpg" alt="Expendio Tradición interior" loading="lazy">
+                <img src="https://f7e5m2b4.delivery.rocketcdn.me/wp-content/uploads/2015/08/Expendio-Tradicion-Mezcaleria-mezcal-regional-food-design-and-architecture-2.jpg" alt="Expendio Tradición" loading="lazy">
+            </div>
+            <div class="card-top">
+                <div class="card-header">
+                    <div class="card-title-row">
+                        <span class="card-title">Expendio Tradición</span>
+                        <span class="badge badge-michelin">140yr Mezcal Family</span>
+                    </div>
+                </div>
+                <div class="card-cuisine">Full restaurant + mezcaleria · Live music Fri/Sat · Award-winning architecture</div>
+                <p class="card-desc">The Chagoya family's fifth generation runs this place — 140+ years of mezcal-making history in an architect-designed space of raw concrete, wood, and glass. A full restaurant-bar-mezcaleria with excellent Oaxacan food and weekend live music. The only bar on this list where you could do a complete dinner-and-drinks date night in one spot. Open until 1am every night.</p>
+                <div class="card-details">
+                    <div class="detail"><div class="detail-label">Location</div><div class="detail-value">Reforma esq. Murguía, Centro</div></div>
+                    <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>8 min walk</strong> from Majagua</div></div>
+                    <div class="detail"><div class="detail-label">Hours</div><div class="detail-value"><strong>Daily 1pm–1am</strong> (open every day)</div></div>
+                    <div class="detail"><div class="detail-label">Reservations</div><div class="detail-value">Recommended for dinner. Walk-in OK for drinks.</div></div>
+                    <div class="detail"><div class="detail-label">Price</div><div class="detail-value">Cocktails + dinner for two: <strong>$65–110 USD</strong></div></div>
+                    <div class="detail"><div class="detail-label">Must Order</div><div class="detail-value"><strong>El Tule</strong> — Mezcal Tehuana Joven, cucumber, basil, lemon. Plus their house mezcals: Tehuana, Donaji, Los Cuerudos.</div></div>
+                </div>
+                <div class="card-reviews">
+                    <div class="detail-label">Reviews</div>
+                    <div class="review-ratings">
+                        <span class="review-rating"><strong>4.2</strong>/5 TripAdvisor (285)</span>
+                        <span class="review-rating"><strong>4.3</strong>/5 Google</span>
+                    </div>
+                    <p class="review-summary">"I came here right when I got to Oaxaca and it set a tone for authenticity and deliciousness that was unsurpassed" — Condé Nast. "I've been to Oaxaca twice. This is the only place I've been to 3 times."</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="card-links">
+                    <a href="https://www.tripadvisor.com/Restaurant_Review-g150801-Reviews-Expendio_Tradicion-Oaxaca_Southern_Mexico.html" target="_blank" rel="noopener">TripAdvisor</a>
+                    <a href="https://www.instagram.com/expendiotradicion" target="_blank" rel="noopener">Instagram</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mezcaloteca -->
+        <div class="card" id="mezcaloteca">
+            <div class="card-top">
+                <div class="card-header">
+                    <div class="card-title-row">
+                        <a href="https://mezcaloteca.com" target="_blank" rel="noopener" class="card-title">Mezcaloteca</a>
+                    </div>
+                </div>
+                <div class="card-cuisine">Guided mezcal tastings · Educational · Reservation required</div>
+                <p class="card-desc">Not a bar — a mezcal library. Founded in 2010, this is the OG tasting room of Oaxaca. Dark, moody speakeasy vibes. Your host guides you through 3–5 small-batch mezcals from family producers you won't find outside Mexico. Sipped from traditional gourd cups. More intellectual than romantic — best as a late-afternoon primer before dinner.</p>
+                <div class="card-details">
+                    <div class="detail"><div class="detail-label">Location</div><div class="detail-value">Reforma 506, Centro</div></div>
+                    <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>6 min walk</strong> from Majagua</div></div>
+                    <div class="detail"><div class="detail-label">Hours</div><div class="detail-value">Mon–Sat ~4pm–9pm. <strong>Closed Sunday.</strong></div></div>
+                    <div class="detail"><div class="detail-label">Reservations</div><div class="detail-value"><strong>Mandatory. No walk-ins.</strong> Book via mezcaloteca.com or email.</div></div>
+                    <div class="detail"><div class="detail-label">Price</div><div class="detail-value">5-mezcal tasting: $720 MXN/person (~$40 USD). Two ppl: <strong>~$80 USD</strong></div></div>
+                    <div class="detail"><div class="detail-label">Duration</div><div class="detail-value">40 min – 1 hour. No food served.</div></div>
+                </div>
+                <div class="card-reviews">
+                    <div class="detail-label">Reviews</div>
+                    <div class="review-ratings">
+                        <span class="review-rating"><strong>4.5</strong>/5 TripAdvisor</span>
+                    </div>
+                    <p class="review-summary">"Truly lives up to its name as a library of fine mezcals." "An intimate seated experience for comparing small and limited production mezcals you'll never find outside of Mexico" — Food &amp; Wine.</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="card-links">
+                    <a href="https://mezcaloteca.com" target="_blank" rel="noopener">Website</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- In Situ -->
+        <div class="card" id="in-situ">
+            <div class="card-top">
+                <div class="card-header">
+                    <div class="card-title-row">
+                        <a href="https://insitumezcaleria.com" target="_blank" rel="noopener" class="card-title">In Situ</a>
+                    </div>
+                </div>
+                <div class="card-cuisine">Largest artisanal mezcal collection in Mexico · Walk-in · Serious tasting</div>
+                <p class="card-desc">The cathedral of mezcal. Walls lined floor-to-ceiling with 180+ bottles from the collection of founders Ulises Torrentera (mezcal author) and Sandra Ortiz Brena. If you want to taste mezcals you've never heard of — wild agave Jabali, ancestral clay-pot-distilled Tepextate — this is the place. No pretension, just deep knowledge.</p>
+                <div class="card-details">
+                    <div class="detail"><div class="detail-label">Location</div><div class="detail-value">Morelos 511, Centro</div></div>
+                    <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>8 min walk</strong> from Majagua</div></div>
+                    <div class="detail"><div class="detail-label">Hours</div><div class="detail-value">Mon–Sat 2pm–11pm. <strong>Closed Sunday.</strong></div></div>
+                    <div class="detail"><div class="detail-label">Reservations</div><div class="detail-value">Not required. Walk-in friendly.</div></div>
+                    <div class="detail"><div class="detail-label">Price</div><div class="detail-value">Tasting of 3–5 mezcals: ~$450 MXN/person (~$25 USD). No food.</div></div>
+                    <div class="detail"><div class="detail-label">Tip</div><div class="detail-value">Ask for the 3-sample tasting organized by agave variety or region.</div></div>
+                </div>
+                <div class="card-reviews">
+                    <div class="detail-label">Reviews</div>
+                    <div class="review-ratings">
+                        <span class="review-rating"><strong>4.3</strong>/5 TripAdvisor (86)</span>
+                    </div>
+                    <p class="review-summary">"Without doubt, the place to taste mezcal in Oaxaca" — Mezcalistas. "If there were a mezcal heaven, it would be In Situ."</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="card-links">
+                    <a href="https://insitumezcaleria.com" target="_blank" rel="noopener">Website</a>
+                    <a href="https://www.tripadvisor.com/Restaurant_Review-g150801-d6605422-Reviews-In_Situ_Mezcaleria-Oaxaca_Southern_Mexico.html" target="_blank" rel="noopener">TripAdvisor</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ RESTAURANTS ═══ -->
+    <div class="section">
+        <div class="section-header"><h2>Restaurants</h2></div>
+
+        <!-- Levadura de Olla — TOP PICK -->
+        <div class="card" id="levadura">
+            <div class="card-gallery">
+                <img src="https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/4d781860142649be8a3311c1b2def740.jpeg?w=1200&h=1200&org_if_sml=1" alt="Levadura de Olla" loading="lazy">
+                <img src="https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/34aa77873fe5417eb658ee75f2b30153.jpeg?w=1200&h=1200&org_if_sml=1" alt="Levadura de Olla" loading="lazy">
+                <img src="https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/e91a0c2cb9e94a2ba83392d22fe8f295.jpg?w=1200&org_if_sml=1" alt="Levadura de Olla" loading="lazy">
+            </div>
+            <div class="card-top">
+                <div class="card-header">
+                    <div class="card-title-row">
+                        <a href="https://levaduradeolla.mx" target="_blank" rel="noopener" class="card-title">Levadura de Olla</a>
+                        <span class="badge badge-michelin">Michelin ★</span>
+                        <span class="badge badge-top">Top Pick</span>
+                    </div>
+                    <span class="badge badge-available">Sat 7:00–8:00 PM</span>
+                </div>
+                <div class="card-cuisine">Traditional Oaxacan · Heritage / Pre-Columbian · A la carte</div>
+                <p class="card-desc">Chef Thalia Barrios Garcia's deeply personal tribute to her hometown of San Mateo Yucutindoo in the Sierra Sur highlands. Heritage pre-Columbian recipes from small villages you literally cannot get anywhere else. Vegetable-forward with two paths: traditional regional and creative-modern. The non-alcoholic drinks (agua de maíz, pozontle) are stars in their own right.</p>
+                <div class="card-details">
+                    <div class="detail"><div class="detail-label">Location</div><div class="detail-value">García Vigil 304, Centro</div></div>
+                    <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>6 min walk</strong> from Majagua</div></div>
+                    <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value"><strong>$60–$120</strong> with drinks</div></div>
+                    <div class="detail"><div class="detail-label">Availability</div><div class="detail-value"><strong>7:00, 7:20, 7:40, 8:00 PM</strong> Sat May 23</div></div>
+                    <div class="detail"><div class="detail-label">Mezcal</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span></span>Good selection, not the focus</div></div>
+                    <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span></span>Warm, personal, intimate</div></div>
+                </div>
+                <div class="card-dishes"><div class="detail-label">Notable Dishes</div><div class="dish-list"><span class="dish">Tamales w/ Ricotta &amp; Dual Moles</span><span class="dish">Guava Mole w/ Shrimp</span><span class="dish">Pork Ribs w/ Bean Sauce</span><span class="dish">Native Tomato Salad</span><span class="dish">Oaxacan Chocolate Ganache</span></div></div>
+                <div class="card-reviews"><div class="detail-label">Reviews</div><div class="review-ratings"><span class="review-rating"><strong>4.2</strong>/5 TripAdvisor (185)</span><span class="review-rating"><strong>4.5</strong>/5 Restaurant Guru (2,380)</span></div><p class="review-summary">Reddit: "Probably the best tamale I've had" (from a Mexican reviewer). Best value Michelin star — "$65/person including tip and two drinks." Latin America's 50 Best. Some find strict timing policies off-putting.</p></div>
+            </div>
+            <div class="card-footer">
+                <div class="card-links"><a href="https://www.tripadvisor.com/Restaurant_Review-g150801-d20051676-Reviews-Levadura_de_Olla_Restaurante-Oaxaca_Southern_Mexico.html" target="_blank" rel="noopener">TripAdvisor</a><a href="https://levaduradeolla.mx" target="_blank" rel="noopener">Website</a></div>
+                <a href="https://restaurante.covermanager.com/reservar-en-levadura-de-olla/" target="_blank" rel="noopener" class="btn-book">Book Now</a>
+            </div>
+        </div>
+
+        <!-- Parian Atelier — TOP PICK -->
+        <div class="card" id="parian">
+            <div class="card-top">
+                <div class="card-header">
+                    <div class="card-title-row">
+                        <span class="card-title">Parian Atelier</span>
+                        <span class="badge badge-top">Top Pick</span>
+                    </div>
+                    <span class="badge badge-available">Sat 7:00–8:00 PM</span>
+                </div>
+                <div class="card-cuisine">Contemporary Oaxacan · French technique · Intimate 4-table upstairs</div>
+                <p class="card-desc">A Grupo Olvera alumnus doing inventive Oaxacan food with European technique in the most intimate setting of any restaurant on this list — only 4 tables upstairs, candlelit, quiet. The ground floor has a beautiful mezcal bar. The Infatuation calls it a "date night" pick. Every review is glowing. "Parián" comes from Filipino, meaning "market" — a nice connection.</p>
+                <div class="card-details">
+                    <div class="detail"><div class="detail-label">Location</div><div class="detail-value">5 de Mayo 311, Centro</div></div>
+                    <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>10 min walk</strong> from Majagua</div></div>
+                    <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value"><strong>$100–$150</strong> with drinks</div></div>
+                    <div class="detail"><div class="detail-label">Availability</div><div class="detail-value"><strong>7:00, 7:15, 7:30, 7:45, 8:00 PM</strong> Sat May 23</div></div>
+                    <div class="detail"><div class="detail-label">Mezcal</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span></span>Agave-focused bar downstairs</div></div>
+                    <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span>Intimate, candlelit, romantic</div></div>
+                </div>
+                <div class="card-dishes"><div class="detail-label">Notable Dishes</div><div class="dish-list"><span class="dish">Cauliflower Risotto</span><span class="dish">Oyster Mushroom Carnitas</span><span class="dish">Grilled Fish w/ Epazote Hollandaise</span><span class="dish">Sweet Guava Mole w/ Shrimp</span></div></div>
+                <div class="card-reviews"><div class="detail-label">Reviews</div><div class="review-ratings"><span class="review-rating"><strong>5.0</strong>/5 OpenTable (3)</span><span class="review-rating"><strong>4.6</strong>/5 Google (265)</span><span class="review-rating"><strong>4.5</strong>/5 TripAdvisor (14)</span></div><p class="review-summary">"Outstanding from start to finish." "Michelin-level, fully expect it to be recognized." "French influence on Mexican foods is brilliant." No negative reviews found in recent timeframe. The Infatuation's top "Date Night" pick in Oaxaca.</p></div>
+            </div>
+            <div class="card-footer">
+                <div class="card-links"><a href="https://www.tripadvisor.com/Restaurant_Review-g150801-d27980501-Reviews-El_Parian_Atelier-Oaxaca_Southern_Mexico.html" target="_blank" rel="noopener">TripAdvisor</a><a href="https://www.opentable.com/r/el-parian-atelier-oaxaca-de-juarez" target="_blank" rel="noopener">OpenTable</a></div>
+                <a href="https://www.opentable.com/r/el-parian-atelier-oaxaca-de-juarez?dateTime=2026-05-23T20%3A00&covers=2" target="_blank" rel="noopener" class="btn-book">Book on OpenTable</a>
+            </div>
+        </div>
+
+        <!-- Los Danzantes — TOP PICK (Friday) -->
+        <div class="card" id="danzantes">
+            <div class="card-gallery">
+                <img src="https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/c029a5e46f9146f6a25605006483ca4c.jpeg?w=1200&org_if_sml=1" alt="Los Danzantes" loading="lazy">
+                <img src="https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/534909003cdb4e77bfd5bcdb859d4bae.jpeg?w=1200&org_if_sml=1" alt="Los Danzantes" loading="lazy">
+                <img src="https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/be33d608dfa141d6896f4c57ecd059a6.jpg?w=1200&org_if_sml=1" alt="Los Danzantes" loading="lazy">
+            </div>
+            <div class="card-top">
+                <div class="card-header">
+                    <div class="card-title-row">
+                        <a href="https://losdanzantesoaxaca.com.mx" target="_blank" rel="noopener" class="card-title">Los Danzantes</a>
+                        <span class="badge badge-michelin">Michelin ★</span>
+                        <span class="badge badge-michelin">Green Star</span>
+                        <span class="badge badge-top">Top Pick</span>
+                    </div>
+                    <span class="badge badge-available">Fri 9:00–10:00 PM</span>
+                </div>
+                <div class="card-cuisine">Modern Oaxacan · Sustainability-focused · A la carte · Own mezcal line</div>
+                <p class="card-desc">The most established fine dining anchor in Oaxaca — open 20+ years with a Michelin star and Green Star for sustainability. Stunning open-air courtyard on pedestrian Alcalá street. They produce their <strong>own mezcal line</strong> (Alipus / Los Danzantes). Saturday dinner is sold out, but available Friday — our first night. The kind of place where you remember what you ordered years later. Selva cocktail bar is upstairs in the same building.</p>
+                <div class="card-details">
+                    <div class="detail"><div class="detail-label">Location</div><div class="detail-value">Macedonio Alcalá 403, Centro</div></div>
+                    <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>8 min walk</strong> from Majagua</div></div>
+                    <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value"><strong>$80–$150</strong> with drinks</div></div>
+                    <div class="detail"><div class="detail-label">Availability</div><div class="detail-value"><strong>Fri May 22:</strong> 9:00, 9:30, 9:45, 10:00 PM. Sat dinner sold out.</div></div>
+                    <div class="detail"><div class="detail-label">Mezcal</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span>Own mezcal line + lounge</div></div>
+                    <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span>Courtyard, upscale but warm</div></div>
+                </div>
+                <div class="card-dishes"><div class="detail-label">Notable Dishes</div><div class="dish-list"><span class="dish">Mole Sampler (must order)</span><span class="dish">Pork Ribs w/ Salsa Borracha</span><span class="dish">Ceviche de Atún</span><span class="dish">Lasaña de Huitlacoche</span><span class="dish">Flambéed Plantain</span></div></div>
+                <div class="card-reviews"><div class="detail-label">Reviews</div><div class="review-ratings"><span class="review-rating"><strong>4.5</strong>/5 TripAdvisor (2,913)</span><span class="review-rating"><strong>4.8</strong>/5 OpenTable (622)</span></div><p class="review-summary">TripAdvisor Travelers' Choice Best of the Best 2025. "Super fancy AND the food delivers too." Excellent value for a Michelin-starred restaurant — about $118 for a four-course meal.</p></div>
+            </div>
+            <div class="card-footer">
+                <div class="card-links"><a href="https://www.tripadvisor.com/Restaurant_Review-g150801-d1011761-Reviews-Los_Danzantes_Oaxaca-Oaxaca_Southern_Mexico.html" target="_blank" rel="noopener">TripAdvisor</a><a href="https://losdanzantesoaxaca.com.mx" target="_blank" rel="noopener">Website</a></div>
+                <a href="https://losdanzantesoaxaca.com.mx/reservations/" target="_blank" rel="noopener" class="btn-book">Book Friday</a>
+            </div>
+        </div>
+
+        <!-- Labo Fermento — STRONG ALTERNATIVE -->
+        <div class="card" id="labo">
+            <div class="card-top">
+                <div class="card-header">
+                    <div class="card-title-row">
+                        <span class="card-title">Labo Fermento</span>
+                        <span class="badge badge-michelin">Bib Gourmand</span>
+                    </div>
+                    <span class="badge badge-available">Sat · Walk-in</span>
+                </div>
+                <div class="card-cuisine">Asian-Oaxacan fusion · Fermentation focus · Ex-Saison chef</div>
+                <p class="card-desc">Chef Joseph Gilbert (ex-Saison, San Francisco — 3 Michelin stars) replaced El Destilado and surpassed it. House-made miso, shoyu, kimchi, and garum using Oaxacan ingredients with Japanese technique. Reddit says "absolutely cracked." A la carte is walk-in only; tasting menu (6 or 9 courses) requires email. The most exciting food in Oaxaca right now.</p>
+                <div class="card-details">
+                    <div class="detail"><div class="detail-label">Location</div><div class="detail-value">5 de Mayo 409, Centro</div></div>
+                    <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>12 min walk</strong> from Majagua</div></div>
+                    <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value">A la carte: <strong>$70–$100.</strong> Tasting + pairing: <strong>$120–$160</strong></div></div>
+                    <div class="detail"><div class="detail-label">Availability</div><div class="detail-value">Walk-in for a la carte. <strong>Email for tasting:</strong> reservas.labofermento@gmail.com</div></div>
+                    <div class="detail"><div class="detail-label">Hours</div><div class="detail-value">Wed–Sat 1–10pm, Tue 5–10pm. Closed Sun/Mon.</div></div>
+                    <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span></span>Casual-cool, not candlelit romance</div></div>
+                </div>
+                <div class="card-dishes"><div class="detail-label">Notable Dishes</div><div class="dish-list"><span class="dish">Pork Wontons w/ Black Garlic</span><span class="dish">Chinese BBQ Pork Buns</span><span class="dish">Shoyu Fried Chicken</span><span class="dish">Green Curry</span><span class="dish">Cold Noodles</span></div></div>
+                <div class="card-reviews"><div class="detail-label">Reviews</div><div class="review-ratings"><span class="review-rating"><strong>4.8</strong>/5 Google (361)</span><span class="review-rating"><strong>4.8</strong>/5 Restaurant Guru (206)</span></div><p class="review-summary">"Every single dish delivered on taste." "No question why they earned a Michelin spot." Bib Gourmand 2024 and 2025. Vibe is more "exciting food adventure" than candlelit romance.</p></div>
+            </div>
+            <div class="card-footer">
+                <div class="card-links"><a href="https://www.instagram.com/labofermento" target="_blank" rel="noopener">Instagram</a></div>
+                <a href="mailto:reservas.labofermento@gmail.com" class="btn-book secondary">Email for Tasting Menu</a>
+            </div>
+        </div>
+
+        <!-- Asador Bacanora — STRONG ALTERNATIVE -->
+        <div class="card" id="asador">
+            <div class="card-gallery">
+                <img src="https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/9463ff2adfe44eb8a332edc7014d0c94.jpeg?w=1200&org_if_sml=1" alt="Asador Bacanora" loading="lazy">
+                <img src="https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/0c2dbba24875471b9bf439f7a0862bf8.jpeg?w=1200&org_if_sml=1" alt="Asador Bacanora" loading="lazy">
+                <img src="https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/cb7096cddb434938a67e6931dfdda8db.jpg?w=1200&org_if_sml=1" alt="Asador Bacanora" loading="lazy">
+            </div>
+            <div class="card-top">
+                <div class="card-header">
+                    <div class="card-title-row">
+                        <a href="https://asadorbacanoraoaxaca.com" target="_blank" rel="noopener" class="card-title">Asador Bacanora</a>
+                        <span class="badge badge-michelin">Michelin Selected</span>
+                    </div>
+                    <span class="badge badge-available">Sat 8:00 PM</span>
+                </div>
+                <div class="card-cuisine">Contemporary Mexican · Wood-fire focused · Jalatlaco neighborhood</div>
+                <p class="card-desc">Michelin Selected restaurant in the charming, cobblestoned Jalatlaco neighborhood — the trendy barrio just east of Centro. Chef Gabriel Pomposo does wood-fire cooking in a gorgeous century-old mansion courtyard under a canopy of trees. TripAdvisor's #10 in Oaxaca with a 4.7 rating. Short taxi or 20-min walk.</p>
+                <div class="card-details">
+                    <div class="detail"><div class="detail-label">Location</div><div class="detail-value">5 de Mayo 614, Barrio de Jalatlaco</div></div>
+                    <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>20 min walk / 7 min taxi</strong> from Majagua</div></div>
+                    <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value"><strong>$80–$130</strong> with drinks</div></div>
+                    <div class="detail"><div class="detail-label">Availability</div><div class="detail-value"><strong>8:00 PM</strong> Sat May 23 (Interior Salón). Book on CoverManager.</div></div>
+                    <div class="detail"><div class="detail-label">Mezcal</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span></span>Creative cocktails</div></div>
+                    <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span></span>Gorgeous courtyard, Jalatlaco charm</div></div>
+                </div>
+                <div class="card-dishes"><div class="detail-label">Notable Dishes</div><div class="dish-list"><span class="dish">Octopus w/ Black Rice</span><span class="dish">Sea Bass</span><span class="dish">Baked Cauliflower</span><span class="dish">Ceviche w/ Pineapple Sorbet</span><span class="dish">Basque Cheesecake</span></div></div>
+                <div class="card-reviews"><div class="detail-label">Reviews</div><div class="review-ratings"><span class="review-rating"><strong>4.7</strong>/5 TripAdvisor (191)</span><span class="review-rating">Travelers' Choice 2025</span></div><p class="review-summary">"A culinary gem." "Every dish was a delight." "The courtyard setting is magical." Consistently praised for attentive service. Wood-fire cooking gives everything a distinctive smoky depth. No significant negative patterns.</p></div>
+            </div>
+            <div class="card-footer">
+                <div class="card-links"><a href="https://www.tripadvisor.com/Restaurant_Review-g150801-Reviews-Asador_Bacanora_Oaxaca-Oaxaca_Southern_Mexico.html" target="_blank" rel="noopener">TripAdvisor</a><a href="https://asadorbacanoraoaxaca.com" target="_blank" rel="noopener">Website</a></div>
+                <a href="https://asadorbacanoraoaxaca.com/reservaciones.html" target="_blank" rel="noopener" class="btn-book">Book on CoverManager</a>
+            </div>
+        </div>
+
+        <!-- Casa Oaxaca — STRONG ALTERNATIVE -->
+        <div class="card" id="casa-oaxaca">
+            <div class="card-top">
+                <div class="card-header">
+                    <div class="card-title-row">
+                        <span class="card-title">Casa Oaxaca</span>
+                    </div>
+                    <span class="badge badge-available">Sat 6:45–8:00 PM</span>
+                </div>
+                <div class="card-cuisine">Contemporary Oaxacan · Slow-food · Rooftop terrace</div>
+                <p class="card-desc">18th-century colonial townhouse with a rooftop terrace overlooking Santo Domingo church. Chef Alejandro Ruiz has been a global ambassador for Oaxacan cuisine for 20+ years. The tableside guacamole is a signature. Tagged "Good for special occasions" on OpenTable. Some recent reviews note quality has dipped from its 2022-2023 peak.</p>
+                <div class="card-details">
+                    <div class="detail"><div class="detail-label">Location</div><div class="detail-value">Constitución 104-A, Centro</div></div>
+                    <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>8 min walk</strong> from Majagua</div></div>
+                    <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value"><strong>$80–$150</strong> with drinks</div></div>
+                    <div class="detail"><div class="detail-label">Availability</div><div class="detail-value"><strong>6:45, 7:15, 7:30, 7:45, 8:00 PM</strong> Sat May 23</div></div>
+                    <div class="detail"><div class="detail-label">Mezcal</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span></span>Standard selection</div></div>
+                    <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span></span>Santo Domingo rooftop views</div></div>
+                </div>
+                <div class="card-dishes"><div class="detail-label">Notable Dishes</div><div class="dish-list"><span class="dish">Tableside Guacamole</span><span class="dish">Yellowfin Tuna Carpaccio</span><span class="dish">Turkey in Mole Negro</span><span class="dish">Duck in Coloradito</span></div></div>
+                <div class="card-reviews"><div class="detail-label">Reviews</div><div class="review-ratings"><span class="review-rating"><strong>4.6</strong>/5 OpenTable (1,612)</span><span class="review-rating"><strong>4.4</strong>/5 TripAdvisor (2,588)</span></div><p class="review-summary">The rooftop view of Santo Domingo is genuinely beautiful. Some repeat visitors note food quality has dipped — overcooked dishes and cold rooftop reported. Reddit is mixed. Still solid for the setting and occasion.</p></div>
+            </div>
+            <div class="card-footer">
+                <div class="card-links"><a href="https://www.tripadvisor.com/Restaurant_Review-g150801-d1314211-Reviews-Casa_Oaxaca_El_Restaurante-Oaxaca_Southern_Mexico.html" target="_blank" rel="noopener">TripAdvisor</a><a href="https://www.opentable.com/r/casa-oaxaca-el-restaurante-oaxaca" target="_blank" rel="noopener">OpenTable</a></div>
+                <a href="https://www.opentable.com/r/casa-oaxaca-el-restaurante-oaxaca?dateTime=2026-05-23T20%3A00&covers=2" target="_blank" rel="noopener" class="btn-book">Book on OpenTable</a>
+            </div>
+        </div>
+
+        <!-- Origen — STRONG ALTERNATIVE -->
+        <div class="card" id="origen">
+            <div class="card-gallery">
+                <img src="https://res.cloudinary.com/the-infatuation/image/upload/c_fill,w_1200,ar_4:3,g_center,f_auto/Origen_PR_Oaxaca04_ztlsa3" alt="Origen" loading="lazy">
+            </div>
+            <div class="card-top">
+                <div class="card-header">
+                    <div class="card-title-row">
+                        <span class="card-title">Origen</span>
+                    </div>
+                    <span class="badge badge-available">Sat 7:00–8:00 PM</span>
+                </div>
+                <div class="card-cuisine">Contemporary Oaxacan · Farm-to-table · Top Chef Mexico winner</div>
+                <p class="card-desc">Chef Rodolfo Castellanos — winner of Top Chef Mexico Season 1, Oaxaca native. Beautiful colonial house restoration near the Zócalo. Known for creative, refined takes on traditional Oaxacan cuisine with hyper-local ingredients. The mezcal list is described as "mind-boggling." Tagged "Charming" and "Innovative" on OpenTable.</p>
+                <div class="card-details">
+                    <div class="detail"><div class="detail-label">Location</div><div class="detail-value">Miguel Hidalgo 820, Centro</div></div>
+                    <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>10 min walk</strong> from Majagua</div></div>
+                    <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value"><strong>$80–$150</strong> with drinks</div></div>
+                    <div class="detail"><div class="detail-label">Availability</div><div class="detail-value"><strong>7:00, 7:15, 7:30, 7:45, 8:00 PM</strong> Sat May 23</div></div>
+                    <div class="detail"><div class="detail-label">Mezcal</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span></span>"Mind-boggling" selection</div></div>
+                    <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span></span>Elegant but inconsistent</div></div>
+                </div>
+                <div class="card-dishes"><div class="detail-label">Notable Dishes</div><div class="dish-list"><span class="dish">Guacamole w/ Chapulines</span><span class="dish">Poblano Pepper Risotto</span><span class="dish">Mole Negro</span><span class="dish">Mezcal Sabayon Dessert</span></div></div>
+                <div class="card-reviews"><div class="detail-label">Reviews</div><div class="review-ratings"><span class="review-rating"><strong>4.4</strong>/5 OpenTable (191)</span><span class="review-rating"><strong>4.3</strong>/5 TripAdvisor (784)</span></div><p class="review-summary">When it's on, it's exceptional. Incredible mezcal list. However, highly inconsistent — some visits spectacular, others forgettable. Recent location move caused growing pains. Service can feel rushed.</p></div>
+            </div>
+            <div class="card-footer">
+                <div class="card-links"><a href="https://www.tripadvisor.com/Restaurant_Review-g150801-d2413056-Reviews-Origen-Oaxaca_Southern_Mexico.html" target="_blank" rel="noopener">TripAdvisor</a><a href="https://www.opentable.com/r/origen-oaxaca" target="_blank" rel="noopener">OpenTable</a></div>
+                <a href="https://www.opentable.com/r/origen-oaxaca?dateTime=2026-05-23T20%3A00&covers=2" target="_blank" rel="noopener" class="btn-book">Book on OpenTable</a>
+            </div>
+        </div>
+
+        <!-- Entre Sombras — STRONG ALTERNATIVE -->
+        <div class="card" id="entre-sombras">
+            <div class="card-top">
+                <div class="card-header">
+                    <div class="card-title-row">
+                        <span class="card-title">Entre Sombras</span>
+                    </div>
+                    <span class="badge badge-available">Sat 6:00–9:00 PM</span>
+                </div>
+                <div class="card-cuisine">Mediterranean, Oaxacan-inflected · Boutique hotel · Hilltop valley views</div>
+                <p class="card-desc">Located inside boutique hotel Casa Santo Origen in the hills of San Felipe del Agua, with sweeping valley views. Reddit's pick for "most romantic restaurant in Oaxaca." Moody lighting, thoughtful contemporary design. Dinner unfolds slowly — you can sit on the patio or the terraza, both overlooking the valley. The taxi ride up the hill is part of the experience. Not traditional Oaxacan cuisine.</p>
+                <div class="card-details">
+                    <div class="detail"><div class="detail-label">Location</div><div class="detail-value">San Felipe del Agua (hilltop)</div></div>
+                    <div class="detail"><div class="detail-label">Getting There</div><div class="detail-value"><strong>15–20 min taxi</strong> from Majagua</div></div>
+                    <div class="detail"><div class="detail-label">Price for Two</div><div class="detail-value"><strong>$80–$150</strong> with drinks</div></div>
+                    <div class="detail"><div class="detail-label">Availability</div><div class="detail-value"><strong>All slots 6–9pm</strong> Patio + Terraza, Sat May 23</div></div>
+                    <div class="detail"><div class="detail-label">Mezcal</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star empty">★</span><span class="star empty">★</span><span class="star empty">★</span></span>Wine/cocktail focused</div></div>
+                    <div class="detail"><div class="detail-label">Date Night</div><div class="detail-value"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span>THE most romantic in Oaxaca</div></div>
+                </div>
+                <div class="card-dishes"><div class="detail-label">Notable Dishes</div><div class="dish-list"><span class="dish">Paella</span><span class="dish">Camarones Bravos</span><span class="dish">Seasonal Mediterranean</span></div></div>
+                <div class="card-reviews"><div class="detail-label">Reviews</div><div class="review-ratings"><span class="review-rating"><strong>4.0</strong>/5 TripAdvisor (5)</span><span class="review-rating">~200 Google reviews</span></div><p class="review-summary">Very few TripAdvisor reviews but what exists is glowing. Travel + Leisure featured. The hilltop setting at sunset is purpose-built for date night. Trade-off: Mediterranean cuisine (not Oaxacan), requires a taxi, and thin review data makes consistency hard to assess.</p></div>
+            </div>
+            <div class="card-footer">
+                <div class="card-links"><a href="https://www.tripadvisor.com/Restaurant_Review-g635967-d21494455-Reviews-Entre_Sombras-San_Felipe_del_Agua_Southern_Mexico.html" target="_blank" rel="noopener">TripAdvisor</a><a href="https://www.instagram.com/entresombras.oax/" target="_blank" rel="noopener">Instagram</a></div>
+                <a href="https://resy.com/cities/oaxaca-mexico/venues/entre-sombras" target="_blank" rel="noopener" class="btn-book">Book on Resy</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ DIETARY ═══ -->
+    <div class="section">
+        <div class="section-header"><h2>What We Can Eat</h2></div>
+        <div class="dietary-note">
+            <h3>Our restrictions work well with Oaxacan cuisine</h3>
+            <p>Oaxacan cuisine is naturally on our side — pork, chicken, lamb, fish, and mole dominate, so skipping beef is never a problem. Shrimp and fish are the primary seafood, so no lobster/crab is equally easy. <strong>Levadura de Olla</strong> is the most accommodating (vegetable-forward, explicitly dietary-friendly). <strong>Los Danzantes</strong> handles restrictions professionally with a la carte flexibility. For tasting menus, just mention our restrictions when booking and they'll adjust.</p>
+        </div>
+    </div>
+
+    <div class="page-footer">
+        <p>Put together for our trip. Availability checked May 2, 2026.</p>
+    </div>
+</div>
+
+<script>
+(function() {
+    const PASS_HASH = 'ae222a73';
+    const STORAGE_KEY = 'oaxaca_auth';
+
+    function simpleHash(str) {
+        let h = 0;
+        for (let i = 0; i < str.length; i++) {
+            h = ((h << 5) - h + str.charCodeAt(i)) | 0;
+        }
+        return (h >>> 0).toString(16).slice(0, 8);
+    }
+
+    function unlock() {
+        document.getElementById('gate').classList.add('hidden');
+        document.getElementById('page').classList.add('visible');
+        localStorage.setItem(STORAGE_KEY, '1');
+    }
+
+    if (localStorage.getItem(STORAGE_KEY) === '1') { unlock(); }
+
+    document.getElementById('gate-btn').addEventListener('click', tryAuth);
+    document.getElementById('gate-input').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') tryAuth();
+    });
+
+    function tryAuth() {
+        const val = document.getElementById('gate-input').value.trim().toLowerCase();
+        if (simpleHash(val) === PASS_HASH) { unlock(); }
+        else {
+            const err = document.getElementById('gate-error');
+            err.textContent = 'Incorrect password';
+            err.classList.add('show');
+            document.getElementById('gate-input').value = '';
+            document.getElementById('gate-input').focus();
+            setTimeout(() => err.classList.remove('show'), 2000);
+        }
+    }
+})();
+</script>
+</body>
+</html>
