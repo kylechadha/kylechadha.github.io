@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://api.weather.gov">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://api.weather.gov https://api.open-meteo.com">
 <title>Cachuma Lake — June 19–21, 2026</title>
 <style>
   :root {
@@ -80,6 +80,7 @@
   .day .pp { font-size:.7rem; color:var(--faint); min-height:1em; margin-top:3px; }
   .day .sf { font-size:.74rem; color:var(--soft); margin-top:6px; line-height:1.3; }
   .day.pending { opacity:.5; }
+  .day.est { border-style:dashed; }
   .wxnote { margin-top:13px; color:var(--faint); font-size:.8rem; }
   .wxguide { margin-top:15px; font-size:.96rem; }
 
@@ -135,13 +136,13 @@
   <section class="warn">
     <ul>
       <li><strong>Fire ring:</strong> I think our water/electric sites only have a charcoal BBQ grill, not a wood fire ring — not totally sure, so if anyone knows offhand, let me know. Otherwise we could call the park to check, and/or bring a portable fire pit if anyone has one. Firewood's sold at the camp store.</li>
-      <li><strong>No swimming in the lake:</strong> it's a drinking reservoir, so no body contact for people <em>or dogs</em>. Dogs can ride in the kayak, though.</li>
+      <li><strong>No swimming in the lake:</strong> it's a drinking reservoir, so no body contact for people or dogs. Dogs can ride in the kayak, though.</li>
     </ul>
   </section>
 
   <h2 id="details">📋 Details</h2>
   <section class="facts">
-    <div><span class="k">Where</span><a href="https://maps.google.com/?q=2225+Highway+154,+Santa+Barbara,+CA+93105">Park entrance / check-in</a> — 2225 Hwy 154, Santa Barbara (gate; campground is NW past the kiosk)</div>
+    <div><span class="k">Where</span><a href="https://maps.google.com/?q=2225+Highway+154,+Santa+Barbara,+CA+93105">📍 Park entrance / check-in</a> — 2225 Hwy 154, Santa Barbara (gate; campground is NW past the kiosk)</div>
     <div><span class="k">Map</span><a href="https://content.civicplus.com/api/assets/339704e2-b5f5-46a8-8462-c19e366c2238">Campground map (PDF)</a></div>
     <div><span class="k">When</span>Fri June 19 – Sun June 21 (2 nights)</div>
     <div><span class="k">Sites</span>El Dorado 429 &amp; 431</div>
@@ -244,7 +245,7 @@
     { iso:"2026-06-20", label:"SAT", date:"6/20" },
     { iso:"2026-06-21", label:"SUN", date:"6/21" }
   ];
-  function icon(t){
+  function nwsIcon(t){
     t = (t || "").toLowerCase();
     if (t.indexOf("thunder") >= 0) return "⛈️";
     if (t.indexOf("rain") >= 0 || t.indexOf("shower") >= 0 || t.indexOf("drizzle") >= 0) return "🌧️";
@@ -256,53 +257,79 @@
     if (t.indexOf("sunny") >= 0 || t.indexOf("clear") >= 0) return "☀️";
     return "🌡️";
   }
-  (function loadWx(){
-    var box = document.getElementById("wx");
-    fetch("https://api.weather.gov/points/34.5828,-119.9826")
-      .then(function(r){ if(!r.ok) throw new Error("points"); return r.json(); })
-      .then(function(p){ return fetch(p.properties.forecast); })
-      .then(function(r){ if(!r.ok) throw new Error("forecast"); return r.json(); })
-      .then(function(j){
-        var P = j.properties.periods, cards = "";
-        TRIP.forEach(function(t){
-          var day = null, night = null;
-          for (var i=0;i<P.length;i++){
-            if (P[i].startTime.slice(0,10) === t.iso){
-              if (P[i].isDaytime && !day) day = P[i];
-              if (!P[i].isDaytime && !night) night = P[i];
-            }
+  var WMO = {0:"☀️",1:"🌤️",2:"⛅",3:"☁️",45:"🌫️",48:"🌫️",51:"🌦️",53:"🌦️",55:"🌦️",
+    56:"🌧️",57:"🌧️",61:"🌧️",63:"🌧️",65:"🌧️",66:"🌧️",67:"🌧️",71:"🌨️",73:"🌨️",75:"🌨️",
+    77:"🌨️",80:"🌦️",81:"🌦️",82:"⛈️",85:"🌨️",86:"🌨️",95:"⛈️",96:"⛈️",99:"⛈️"};
+  function omIcon(c){ return WMO[c] || "🌡️"; }
+
+  function card(t, emo, hi, lo, pop, sf, cls){
+    return '<div class="day' + (cls || "") + '"><span class="badge">' + t.label + '</span>' +
+      '<div class="md">' + t.date + '</div>' +
+      '<div class="emo" title="' + (sf || "") + '">' + emo + '</div>' +
+      '<div class="t"><b>' + hi + '</b> / ' + lo + '</div>' +
+      '<div class="pp">' + (pop != null ? pop + '% 💧' : '') + '</div>' +
+      '<div class="sf">' + (sf || "") + '</div></div>';
+  }
+
+  var PT = "34.5828,-119.9826";
+  var nwsReq = fetch("https://api.weather.gov/points/" + PT)
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(p){ return fetch(p.properties.forecast); })
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(j){ return j.properties.periods; })
+    .catch(function(){ return null; });
+  var omReq = fetch("https://api.open-meteo.com/v1/forecast?latitude=34.5828&longitude=-119.9826" +
+      "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max" +
+      "&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles&forecast_days=16")
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(j){ return j.daily; })
+    .catch(function(){ return null; });
+
+  Promise.all([nwsReq, omReq]).then(function(res){
+    var P = res[0], OM = res[1], box = document.getElementById("wx"), cards = "", usedEst = false, any = false;
+    TRIP.forEach(function(t){
+      var day = null, night = null;
+      if (P) {
+        for (var i=0;i<P.length;i++){
+          if (P[i].startTime.slice(0,10) === t.iso){
+            if (P[i].isDaytime && !day) day = P[i];
+            if (!P[i].isDaytime && !night) night = P[i];
           }
-          if (!day && !night) {
-            cards += '<div class="day pending"><span class="badge">' + t.label + '</span>' +
-              '<div class="md">' + t.date + '</div><div class="emo">🗓️</div>' +
-              '<div class="t"><b>—</b> / —</div><div class="pp"></div>' +
-              '<div class="sf">Forecast soon</div></div>';
-            return;
-          }
-          var sf = day ? day.shortForecast : (night ? night.shortForecast : "");
-          var hi = day ? day.temperature + "°" : "—";
-          var lo = night ? night.temperature + "°" : "—";
-          var pop = day && day.probabilityOfPrecipitation && day.probabilityOfPrecipitation.value != null
-            ? day.probabilityOfPrecipitation.value : null;
-          cards += '<div class="day"><span class="badge">' + t.label + '</span>' +
-            '<div class="md">' + t.date + '</div>' +
-            '<div class="emo" title="' + (sf || "") + '">' + icon(sf) + '</div>' +
-            '<div class="t"><b>' + hi + '</b> / ' + lo + '</div>' +
-            '<div class="pp">' + (pop != null ? pop + '% 💧' : '') + '</div>' +
-            '<div class="sf">' + (sf || "") + '</div></div>';
-        });
-        if (!cards) {
-          box.innerHTML = '<div class="wxnote">Your dates aren\'t in the 7-day forecast window yet — check back closer to the trip.</div>';
+        }
+      }
+      if (day || night) {
+        any = true;
+        var sf = day ? day.shortForecast : (night ? night.shortForecast : "");
+        var hi = day ? day.temperature + "°" : "—";
+        var lo = night ? night.temperature + "°" : "—";
+        var pop = day && day.probabilityOfPrecipitation && day.probabilityOfPrecipitation.value != null
+          ? day.probabilityOfPrecipitation.value : null;
+        cards += card(t, nwsIcon(sf), hi, lo, pop, sf, "");
+        return;
+      }
+      if (OM && OM.time) {
+        var k = OM.time.indexOf(t.iso);
+        if (k >= 0) {
+          any = true; usedEst = true;
+          var omhi = Math.round(OM.temperature_2m_max[k]) + "°";
+          var omlo = Math.round(OM.temperature_2m_min[k]) + "°";
+          var ompop = OM.precipitation_probability_max ? OM.precipitation_probability_max[k] : null;
+          cards += card(t, omIcon(OM.weather_code[k]), omhi, omlo, ompop, "longer-range est.", " est");
           return;
         }
-        box.innerHTML = '<div class="days3">' + cards + '</div>' +
-          '<div class="wxnote">Live from the National Weather Service · updates each time you open this page</div>';
-      })
-      .catch(function(){
-        box.innerHTML = '<div class="wxnote">Could not load the live forecast right now — see ' +
-          '<a href="https://forecast.weather.gov/MapClick.php?lon=-119.9826&lat=34.5828">NWS Cachuma</a>.</div>';
-      });
-  })();
+      }
+      cards += card(t, "🗓️", "—", "—", null, "Forecast soon", " pending");
+    });
+    if (!any) {
+      box.innerHTML = '<div class="wxnote">Could not load the forecast right now — see ' +
+        '<a href="https://forecast.weather.gov/MapClick.php?lon=-119.9826&lat=34.5828">NWS Cachuma</a>.</div>';
+      return;
+    }
+    var note = P ? "Live from the National Weather Service" : "Forecast via Open-Meteo";
+    if (usedEst && P) note += " · the dashed day is a longer-range estimate until NWS reaches it";
+    box.innerHTML = '<div class="days3">' + cards + '</div>' +
+      '<div class="wxnote">' + note + ' · updates each time you open this page</div>';
+  });
 </script>
 </body>
 </html>
