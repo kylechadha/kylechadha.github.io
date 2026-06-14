@@ -7,7 +7,7 @@ Personal website for Kyle Chadha - a minimal, static website showcasing social l
 - **Static site**: HTML, CSS, JS only — no frameworks, no build process
 - **Particles**: particles.js via CDN with SRI integrity hash
 - **Font**: Outfit (weight 300) via Google Fonts for heading
-- **Hosting**: GitHub Pages from `master` branch
+- **Hosting**: GitHub Pages from `main` branch
 - **Domain**: kylechadha.dev (CNAME configured)
 
 ## Design Philosophy
@@ -23,9 +23,9 @@ Personal website for Kyle Chadha - a minimal, static website showcasing social l
 - Particles: #404040 (dark gray, subtle)
 
 ## Git Strategy
-- **develop**: Default working branch
-- **master**: Production branch (GitHub Pages deploys from here)
-- Workflow: develop → PR → master
+- **main**: the only branch — and the one GitHub Pages deploys from
+- Workflow: commit to `main` and push → auto-deploys
+- Preview locally with `npx live-server` before pushing; no staging branch, no PRs
 
 ## File Structure
 ```
@@ -44,7 +44,8 @@ npx live-server     # Local dev server with hot reload
 ```
 
 ## Deployment
-1. Develop on `develop` branch
-2. Create PR to `master`
-3. Merge triggers automatic GitHub Pages deployment
-4. Site available at https://kylechadha.dev
+1. Commit changes to `main`
+2. `git push` → GitHub Pages builds and deploys automatically (~1 min)
+3. Live at https://kylechadha.dev
+
+Pages config: source = `main`, path = `/`. A new page is just a folder with an `index.html` (e.g. `cachuma/index.html` → kylechadha.dev/cachuma/).
