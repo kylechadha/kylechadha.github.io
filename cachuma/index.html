@@ -12,6 +12,7 @@
     --accent:#3f6b4c; --accent-d:#2f5239; --warn:#b25b2e; --warnbg:#fdf4ee; --warnline:#f0d8c6;
   }
   * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
   body { margin:0; background:var(--bg); color:var(--ink);
     font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-text-size-adjust:100%; }
@@ -19,15 +20,24 @@
   a:hover { color:var(--accent); border-bottom-color:var(--accent); }
   .wrap { max-width:1040px; margin:0 auto; padding:32px 22px 64px; }
 
-  header { padding:6px 0 16px; }
+  header { padding:6px 0 10px; }
   h1 { font-size:2rem; margin:0 0 6px; letter-spacing:-.015em; }
   .sub { color:var(--soft); font-size:1.02rem; }
 
-  .disclaimer { margin:18px 0 28px; padding:12px 16px; background:#fbf6e9; border:1px solid #e9dcb6;
+  /* sticky tab nav */
+  .toc { position:sticky; top:0; z-index:20; display:flex; gap:7px; overflow-x:auto;
+    background:var(--bg); padding:10px 0; margin:6px 0 14px; border-bottom:1px solid var(--line);
+    -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+  .toc::-webkit-scrollbar { display:none; }
+  .toc a { flex:0 0 auto; font-size:.85rem; color:var(--soft); border:1px solid var(--line);
+    border-radius:999px; padding:5px 13px; background:var(--card); white-space:nowrap; }
+  .toc a:hover { color:var(--accent-d); border-color:var(--accent); }
+
+  .disclaimer { margin:6px 0 26px; padding:12px 16px; background:#fbf6e9; border:1px solid #e9dcb6;
     border-radius:10px; font-size:.92rem; color:#7a6a3a; }
   .disclaimer strong { color:#5f5326; }
 
-  h2 { font-size:1.2rem; margin:34px 0 14px; letter-spacing:-.01em; }
+  h2 { font-size:1.2rem; margin:34px 0 14px; letter-spacing:-.01em; scroll-margin-top:64px; }
   section { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px; }
 
   .facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px 28px; padding:16px 18px; }
@@ -62,13 +72,18 @@
   .grid section p { margin:0; color:var(--soft); font-size:.92rem; }
   .grid section .meta { display:block; margin-top:8px; font-size:.84rem; color:var(--accent-d); }
 
-  /* hikes — spaced for readability */
+  /* hikes */
   .hike { padding:15px 0; border-bottom:1px solid var(--line); }
   .hike:first-child { padding-top:4px; }
   .hike:last-child { border-bottom:0; padding-bottom:4px; }
   .hike .name { font-weight:600; font-size:1.06rem; display:block; }
   .hike .stat { color:var(--soft); font-size:.85rem; display:block; margin-top:4px; }
   .hike .desc { color:var(--soft); font-size:.92rem; display:block; margin-top:6px; }
+
+  /* maps */
+  .mapimg { display:block; width:100%; height:auto; border-radius:10px; border:1px solid var(--line); }
+  .mapcap { margin:10px 0 22px; color:var(--soft); font-size:.88rem; }
+  .mapcap.last { margin-bottom:0; }
 
   footer { color:var(--soft); font-size:.85rem; text-align:center; margin-top:38px; padding-top:18px; border-top:1px solid var(--line); }
   @media (max-width:520px){ h1{font-size:1.6rem;} .wrap{padding:22px 16px 48px;} }
@@ -81,10 +96,29 @@
     <div class="sub">Camping weekend · Fri June 19 – Sun June 21, 2026 · dogs welcome 🐕</div>
   </header>
 
+  <nav class="toc">
+    <a href="#heads-ups">Heads-up</a>
+    <a href="#details">Details</a>
+    <a href="#weather">Weather</a>
+    <a href="#hikes">Hikes</a>
+    <a href="#map">Lake Map</a>
+    <a href="#activities">Activities</a>
+    <a href="#packing">Packing</a>
+  </nav>
+
   <div class="disclaimer">
     <strong>⚠️ Vibe coded — please confirm any important details</strong> (hours, prices, availability, fire rules, reservations).
   </div>
 
+  <h2 id="heads-ups">🔥 Two heads-ups</h2>
+  <section class="warn">
+    <ul>
+      <li><strong>Fire ring:</strong> our water/electric sites may only have a charcoal BBQ grill, not a wood fire ring. If that's true (worth a quick call to the park to check), we could buy or bring a portable fire pit. Firewood's sold at the camp store.</li>
+      <li><strong>No swimming in the lake:</strong> it's a drinking reservoir, so no body contact for people <em>or dogs</em>. Dogs can ride in the kayak, though.</li>
+    </ul>
+  </section>
+
+  <h2 id="details">📋 Details</h2>
   <section class="facts">
     <div><span class="k">Where</span><a href="https://maps.google.com/?q=2225+Highway+154,+Santa+Barbara,+CA+93105">Park entrance / check-in</a> — 2225 Hwy 154, Santa Barbara (gate; campground is NW past the kiosk)</div>
     <div><span class="k">Map</span><a href="https://content.civicplus.com/api/assets/339704e2-b5f5-46a8-8462-c19e366c2238">Campground map (PDF)</a></div>
@@ -94,29 +128,13 @@
     <div><span class="k">Reserve / info</span><a href="https://www.sbparks.org">sbparks.org</a> · (805) 686-5055</div>
   </section>
 
-  <h2>🗺️ The lake</h2>
-  <section>
-    <img src="lake-map.png" alt="Map of Cachuma Lake showing campgrounds, marina, and boating zones" style="display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--line);">
-    <p style="margin:10px 0 0;color:var(--soft);font-size:.88rem;">
-      Our <strong>El Dorado</strong> campground is at the north end of the campground cluster (the green triangles on the SW shore, near Dakota/Barona). See the <a href="https://content.civicplus.com/api/assets/339704e2-b5f5-46a8-8462-c19e366c2238">Campground map (PDF)</a> for exact site locations. Map © <a href="https://www.californiasgreatestlakes.com">californiasgreatestlakes.com</a>.
-    </p>
-  </section>
-
-  <h2>☀️ Weather <span style="font-weight:400;font-size:.8rem;color:var(--soft)">· live forecast, your dates</span></h2>
+  <h2 id="weather">☀️ Weather <span style="font-weight:400;font-size:.8rem;color:var(--soft)">· live forecast, your dates</span></h2>
   <section>
     <div id="wx"><div class="wxnote">Loading live forecast…</div></div>
     <div class="wxguide">Cachuma runs warm by day and cold at night (often a ~30°F swing). <span class="ok">Bring layers and a warm sleeping bag.</span></div>
   </section>
 
-  <h2>🔥 Two heads-ups</h2>
-  <section class="warn">
-    <ul>
-      <li><strong>Fire ring:</strong> our water/electric sites may only have a charcoal BBQ grill, not a wood fire ring. If that's true (worth a quick call to the park to check), we could buy or bring a portable fire pit. Firewood's sold at the camp store.</li>
-      <li><strong>No swimming in the lake:</strong> it's a drinking reservoir, so no body contact for people <em>or dogs</em>. Dogs can ride in the kayak, though. For a dog swim, <a href="https://santabarbarahikes.com/hikes/red-rock">Red Rock</a> on the Santa Ynez River (~25–30 min drive) is the spot.</li>
-    </ul>
-  </section>
-
-  <h2>🥾 Hikes <span style="font-weight:400;font-size:.8rem;color:var(--soft)">· all dog-friendly</span></h2>
+  <h2 id="hikes">🥾 Hikes <span style="font-weight:400;font-size:.8rem;color:var(--soft)">· all dog-friendly</span></h2>
   <section>
     <div class="hike">
       <span class="name"><a href="https://www.alltrails.com/trail/us/california/lake-cachuma-sweetwater-trail">Sweetwater Trail</a></span>
@@ -148,7 +166,15 @@
     </p>
   </section>
 
-  <h2>🚣 Activities</h2>
+  <h2 id="map">🗺️ Lake Map</h2>
+  <section>
+    <img class="mapimg" src="lake-map.png" alt="Cachuma Lake overview map — campgrounds, marina, boating zones">
+    <p class="mapcap">Lake overview — campgrounds (green triangles) are on the SW shore. Map © <a href="https://www.californiasgreatestlakes.com">californiasgreatestlakes.com</a>.</p>
+    <img class="mapimg" src="campground-map.png" alt="Cachuma Lake campground map with site numbers">
+    <p class="mapcap last">Campground detail — our <strong>El Dorado</strong> sites (429 &amp; 431) are up north near El Dorado Vista / Lanford Grove (water/electric loop). Map © Santa Barbara County Parks.</p>
+  </section>
+
+  <h2 id="activities">🚣 Activities</h2>
   <div class="grid">
     <section>
       <h3>Kayaking &amp; boating</h3>
@@ -177,7 +203,7 @@
     </section>
   </div>
 
-  <h2>🎒 Packing essentials</h2>
+  <h2 id="packing">🎒 Packing essentials</h2>
   <section>
     <ul>
       <li>Warm layers + sleeping bag (cold nights)</li>
