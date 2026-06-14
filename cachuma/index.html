@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://api.weather.gov">
 <title>Cachuma Lake — June 19–21, 2026</title>
 <style>
   :root {
@@ -21,16 +23,16 @@
   h1 { font-size:2rem; margin:0 0 6px; letter-spacing:-.015em; }
   .sub { color:var(--soft); font-size:1.02rem; }
 
-  .disclaimer { margin:18px 0 26px; padding:12px 16px; background:#fbf6e9; border:1px solid #e9dcb6;
+  .disclaimer { margin:18px 0 28px; padding:12px 16px; background:#fbf6e9; border:1px solid #e9dcb6;
     border-radius:10px; font-size:.92rem; color:#7a6a3a; }
   .disclaimer strong { color:#5f5326; }
 
-  h2 { font-size:1.2rem; margin:32px 0 12px; letter-spacing:-.01em; }
-  section { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
+  h2 { font-size:1.2rem; margin:34px 0 14px; letter-spacing:-.01em; }
+  section { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px; }
 
-  .facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px 22px; }
-  .facts div { font-size:.97rem; }
-  .facts .k { color:var(--soft); font-size:.78rem; text-transform:uppercase; letter-spacing:.04em; display:block; }
+  .facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px 34px; padding:20px; }
+  .facts div { font-size:.97rem; line-height:1.45; }
+  .facts .k { color:var(--soft); font-size:.74rem; text-transform:uppercase; letter-spacing:.06em; display:block; margin-bottom:4px; }
 
   ul { margin:6px 0 0; padding-left:1.2em; }
   li { margin:5px 0; }
@@ -38,21 +40,20 @@
   .warn { background:var(--warnbg); border-color:var(--warnline); }
   .ok { color:var(--accent-d); font-weight:600; }
 
-  /* weather */
-  .days { display:flex; gap:8px; overflow-x:auto; padding:2px 0 8px; }
-  .day { flex:0 0 auto; min-width:76px; text-align:center; padding:12px 8px 9px; border:1px solid var(--line);
-    border-radius:11px; background:#fff; position:relative; }
-  .day.trip { border-color:var(--accent); background:#eef4ef; }
-  .badge { position:absolute; top:-8px; left:50%; transform:translateX(-50%); background:var(--accent); color:#fff;
-    font-size:.58rem; font-weight:700; padding:1px 7px; border-radius:8px; letter-spacing:.06em; }
-  .day .wd { font-weight:700; font-size:.84rem; }
-  .day .md { color:var(--soft); font-size:.72rem; }
-  .day .emo { font-size:1.35rem; margin:5px 0 3px; }
-  .day .t { font-size:.86rem; }
+  /* weather — trip days */
+  .days3 { display:flex; gap:12px; flex-wrap:wrap; }
+  .day { flex:1 1 130px; min-width:130px; text-align:center; padding:14px 10px; border:1px solid var(--accent);
+    border-radius:12px; background:#eef4ef; position:relative; }
+  .badge { position:absolute; top:-9px; left:50%; transform:translateX(-50%); background:var(--accent); color:#fff;
+    font-size:.62rem; font-weight:700; padding:1px 9px; border-radius:8px; letter-spacing:.05em; }
+  .day .md { color:var(--soft); font-size:.78rem; margin-top:2px; }
+  .day .emo { font-size:1.7rem; margin:6px 0 4px; }
+  .day .t { font-size:1.02rem; }
   .day .t b { color:var(--ink); }
-  .day .pp { font-size:.66rem; color:var(--soft); min-height:1em; margin-top:2px; }
-  .wxnote { margin-top:6px; color:var(--soft); font-size:.8rem; }
-  .wxguide { margin-top:10px; }
+  .day .pp { font-size:.7rem; color:var(--soft); min-height:1em; margin-top:2px; }
+  .day .sf { font-size:.74rem; color:var(--soft); margin-top:5px; line-height:1.25; }
+  .wxnote { margin-top:10px; color:var(--soft); font-size:.8rem; }
+  .wxguide { margin-top:12px; }
 
   /* card grids */
   .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:14px; }
@@ -60,12 +61,13 @@
   .grid section p { margin:0; color:var(--soft); font-size:.92rem; }
   .grid section .meta { display:block; margin-top:8px; font-size:.84rem; color:var(--accent-d); }
 
-  /* hikes */
-  .hike { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 10px; padding:11px 0; border-bottom:1px solid var(--line); }
-  .hike:last-child { border-bottom:0; }
-  .hike .name { font-weight:600; font-size:1rem; }
-  .hike .stat { color:var(--soft); font-size:.86rem; }
-  .hike .desc { flex-basis:100%; color:var(--soft); font-size:.9rem; margin-top:1px; }
+  /* hikes — spaced for readability */
+  .hike { padding:15px 0; border-bottom:1px solid var(--line); }
+  .hike:first-child { padding-top:4px; }
+  .hike:last-child { border-bottom:0; padding-bottom:4px; }
+  .hike .name { font-weight:600; font-size:1.06rem; display:block; }
+  .hike .stat { color:var(--soft); font-size:.85rem; display:block; margin-top:4px; }
+  .hike .desc { color:var(--soft); font-size:.92rem; display:block; margin-top:6px; }
 
   footer { color:var(--soft); font-size:.85rem; text-align:center; margin-top:38px; padding-top:18px; border-top:1px solid var(--line); }
   @media (max-width:520px){ h1{font-size:1.6rem;} .wrap{padding:22px 16px 48px;} }
@@ -79,11 +81,12 @@
   </header>
 
   <div class="disclaimer">
-    <strong>⚠️ Vibe coded — please confirm any important details</strong> (hours, prices, availability, fire rules, reservations) before relying on them.
+    <strong>⚠️ Vibe coded — please confirm any important details</strong> (hours, prices, availability, fire rules, reservations).
   </div>
 
   <section class="facts">
-    <div><span class="k">Where</span><a href="https://maps.google.com/?q=Cachuma+Lake+Recreation+Area">Cachuma Lake Rec Area</a>, Hwy 154, Santa Barbara County</div>
+    <div><span class="k">Where</span><a href="https://maps.google.com/?q=2225+Highway+154,+Santa+Barbara,+CA+93105">Park entrance / check-in</a> — 2225 Hwy 154, Santa Barbara (gate; campground is NW past the kiosk)</div>
+    <div><span class="k">Map</span><a href="https://content.civicplus.com/api/assets/339704e2-b5f5-46a8-8462-c19e366c2238">Campground map (PDF)</a></div>
     <div><span class="k">When</span>Fri June 19 – Sun June 21 (2 nights)</div>
     <div><span class="k">Sites</span>El Dorado 429 &amp; 431</div>
     <div><span class="k">Times</span>Check-in 3 PM · Check-out 1 PM</div>
@@ -91,7 +94,7 @@
     <div><span class="k">Marina rentals</span>(805) 688-4040</div>
   </section>
 
-  <h2>☀️ Weather <span style="font-weight:400;font-size:.8rem;color:var(--soft)">· live forecast</span></h2>
+  <h2>☀️ Weather <span style="font-weight:400;font-size:.8rem;color:var(--soft)">· live forecast, your dates</span></h2>
   <section>
     <div id="wx"><div class="wxnote">Loading live forecast…</div></div>
     <div class="wxguide">Cachuma runs warm by day and cold at night (often a ~30°F swing). <span class="ok">Bring layers and a warm sleeping bag.</span></div>
@@ -100,50 +103,45 @@
   <h2>🔥 Two heads-ups</h2>
   <section class="warn">
     <ul>
-      <li><strong>Fire ring:</strong> our water/electric sites may only have a charcoal BBQ grill, not a wood fire ring. If that's true (worth a quick call to the park to check), we could buy or bring a portable fire pit. Firewood's sold at the camp store. Switching to a standard fire-ring site is an option <em>only if any are still open</em> — checking that.</li>
-      <li><strong>No swimming in the lake:</strong> it's a drinking reservoir, so no body contact for people <em>or dogs</em>. Dogs can ride in the kayak, though. For a dog swim, <a href="https://santabarbarahikes.com/hikes/red-rock">Red Rock</a> on the Santa Ynez River (~25–30 min) is the spot.</li>
+      <li><strong>Fire ring:</strong> our water/electric sites may only have a charcoal BBQ grill, not a wood fire ring. If that's true (worth a quick call to the park to check), we could buy or bring a portable fire pit. Firewood's sold at the camp store.</li>
+      <li><strong>No swimming in the lake:</strong> it's a drinking reservoir, so no body contact for people <em>or dogs</em>. Dogs can ride in the kayak, though. For a dog swim, <a href="https://santabarbarahikes.com/hikes/red-rock">Red Rock</a> on the Santa Ynez River (~25–30 min drive) is the spot.</li>
     </ul>
   </section>
 
-  <h2>🥾 Hikes</h2>
+  <h2>🥾 Hikes <span style="font-weight:400;font-size:.8rem;color:var(--soft)">· all dog-friendly</span></h2>
   <section>
     <div class="hike">
       <span class="name"><a href="https://www.alltrails.com/trail/us/california/lake-cachuma-sweetwater-trail">Sweetwater Trail</a></span>
-      <span class="stat">5.0 mi · 577 ft · Easy–Moderate · 🐕 leashed · ★4.5</span>
+      <span class="stat">5.0 mi · 577 ft · Easy–Moderate · 🐕 leashed · ★4.5 · in the park</span>
       <span class="desc">Lakeside trail right from the campground to the Bradbury Dam overlook. The easy go-to.</span>
     </div>
     <div class="hike">
       <span class="name"><a href="https://www.alltrails.com/trail/us/california/tequepis-trail">Tequepis Trail</a></span>
-      <span class="stat">8.4 mi · 2,300 ft · Hard · 🐕 · ★4.7</span>
-      <span class="desc">The real one — a relentless climb to a ridgeline with ocean + lake views. ~10 min from camp.</span>
+      <span class="stat">8.4 mi · 2,300 ft · Hard · 🐕 · ★4.7 · ~10 min drive</span>
+      <span class="desc">The real one — a relentless climb to a ridgeline with ocean + lake views.</span>
     </div>
     <div class="hike">
       <span class="name"><a href="https://www.alltrails.com/trail/us/california/snyder-trail">Snyder Trail</a></span>
-      <span class="stat">6.9 mi · 1,912 ft · Moderate · 🐕</span>
-      <span class="desc">Steady climb with lake and valley views. ~15 min from camp.</span>
+      <span class="stat">6.9 mi · 1,912 ft · Moderate · 🐕 · ~15 min drive</span>
+      <span class="desc">Steady climb with lake and valley views.</span>
     </div>
     <div class="hike">
       <span class="name"><a href="https://www.alltrails.com/trail/us/california/nojoqui-falls-trail">Nojoqui Falls</a></span>
-      <span class="stat">0.9 mi · 213 ft · Easy · 🐕 leashed · ★4.6</span>
-      <span class="desc">Short, shady walk to a waterfall. Good quick outing, ~20 min drive.</span>
+      <span class="stat">0.9 mi · 213 ft · Easy · 🐕 leashed · ★4.6 · ~20 min drive</span>
+      <span class="desc">Short, shady walk to a waterfall. Good quick outing with the dogs.</span>
     </div>
     <div class="hike">
       <span class="name"><a href="https://www.alltrails.com/trail/us/california/figueroa-mountain">Figueroa Mountain</a></span>
-      <span class="stat">4.0 mi · 925 ft · Moderate · 🐕 leashed</span>
-      <span class="desc">Climb to a fire-lookout with valley views, ~30 min drive.</span>
+      <span class="stat">4.0 mi · 925 ft · Moderate · 🐕 leashed · ~30 min drive</span>
+      <span class="desc">Climb to a fire-lookout with valley views.</span>
     </div>
-    <p style="margin:12px 0 0;color:var(--soft);font-size:.86rem;">
-      Heads up: <a href="https://www.alltrails.com/trail/us/california/gaviota-wind-caves-trail">Gaviota Wind Caves</a> is great but <strong>no dogs</strong>.
-      · <a href="https://www.alltrails.com/parks/us/california/lake-cachuma-recreation-area">All Cachuma-area trails on AllTrails →</a>
+    <p style="margin:14px 0 0;color:var(--soft);font-size:.86rem;">
+      <a href="https://www.alltrails.com/parks/us/california/lake-cachuma-recreation-area">All Cachuma-area trails on AllTrails →</a>
     </p>
   </section>
 
   <h2>🚣 Activities</h2>
   <div class="grid">
-    <section>
-      <h3>Solvang</h3>
-      <p>Danish village <a href="https://maps.google.com/?q=Solvang+CA">~15 min away</a> — wine tasting, breweries, and bakeries. The easy chill-day pick if people want a break from camp.</p>
-    </section>
     <section>
       <h3>Kayaking &amp; boating</h3>
       <p>Rent at the marina — kayaks (1- &amp; 2-person), canoes, pontoons. Dogs allowed aboard, so they can ride along. First-come.</p>
@@ -154,16 +152,20 @@
       <p>One of SoCal's best — trout, bass, crappie, catfish, and the lake's near full right now. License required 16+, buy at the marina.</p>
     </section>
     <section>
+      <h3>Solvang</h3>
+      <p>Danish village <a href="https://maps.google.com/?q=Solvang+CA">~15 min drive</a> — wine tasting, breweries, and bakeries. The easy chill-day pick if people want a break from camp.</p>
+    </section>
+    <section>
       <h3>Disc golf</h3>
       <p>18-hole course on-site, starts/ends at the store. Beginner-friendly — bring discs (park entry applies).</p>
     </section>
     <section>
       <h3>Mountain biking</h3>
-      <p>No rentals at the lake. Bike shops in Buellton/Solvang (~15 min) and Santa Barbara rent bikes — call ahead to confirm mountain bikes. Ride Tequepis/Snyder or the campground roads.</p>
+      <p>No rentals at the lake. Bike shops in Buellton/Solvang (~15 min drive) and Santa Barbara rent bikes — call ahead to confirm mountain bikes. Ride Tequepis/Snyder or the campground roads.</p>
     </section>
     <section>
       <h3>Red Rock (dog swim)</h3>
-      <p>Since the lake is no-swim, <a href="https://santabarbarahikes.com/hikes/red-rock">Red Rock</a> on the Santa Ynez River (~25–30 min) has deep, dog-friendly pools — the spot to let the dogs swim.</p>
+      <p>Since the lake is no-swim, <a href="https://santabarbarahikes.com/hikes/red-rock">Red Rock</a> on the Santa Ynez River (~25–30 min drive) has deep, dog-friendly pools — the spot to let the dogs swim.</p>
     </section>
   </div>
 
@@ -184,44 +186,63 @@
 </div>
 
 <script>
-  var TRIP = { "2026-06-19":1, "2026-06-20":1, "2026-06-21":1 };
-  var WMO = {0:["☀️","Clear"],1:["🌤️","Mainly clear"],2:["⛅","Partly cloudy"],3:["☁️","Overcast"],
-    45:["🌫️","Fog"],48:["🌫️","Fog"],51:["🌦️","Drizzle"],53:["🌦️","Drizzle"],55:["🌦️","Drizzle"],
-    56:["🌦️","Freezing drizzle"],57:["🌦️","Freezing drizzle"],61:["🌧️","Light rain"],63:["🌧️","Rain"],
-    65:["🌧️","Heavy rain"],66:["🌧️","Freezing rain"],67:["🌧️","Freezing rain"],71:["🌨️","Light snow"],
-    73:["🌨️","Snow"],75:["🌨️","Heavy snow"],77:["🌨️","Snow grains"],80:["🌦️","Showers"],81:["🌦️","Showers"],
-    82:["⛈️","Heavy showers"],85:["🌨️","Snow showers"],86:["🌨️","Snow showers"],95:["⛈️","Storm"],
-    96:["⛈️","Storm"],99:["⛈️","Storm"]};
-  function wcode(c){ return WMO[c] || ["🌡️","—"]; }
+  var TRIP = [
+    { iso:"2026-06-19", label:"FRI", date:"6/19" },
+    { iso:"2026-06-20", label:"SAT", date:"6/20" },
+    { iso:"2026-06-21", label:"SUN", date:"6/21" }
+  ];
+  function icon(t){
+    t = (t || "").toLowerCase();
+    if (t.indexOf("thunder") >= 0) return "⛈️";
+    if (t.indexOf("rain") >= 0 || t.indexOf("shower") >= 0 || t.indexOf("drizzle") >= 0) return "🌧️";
+    if (t.indexOf("snow") >= 0) return "🌨️";
+    if (t.indexOf("fog") >= 0) return "🌫️";
+    if (t.indexOf("partly") >= 0) return "⛅";
+    if (t.indexOf("mostly sunny") >= 0 || t.indexOf("mostly clear") >= 0) return "🌤️";
+    if (t.indexOf("cloud") >= 0 || t.indexOf("overcast") >= 0) return "☁️";
+    if (t.indexOf("sunny") >= 0 || t.indexOf("clear") >= 0) return "☀️";
+    return "🌡️";
+  }
   (function loadWx(){
     var box = document.getElementById("wx");
-    var url = "https://api.open-meteo.com/v1/forecast?latitude=34.5703&longitude=-119.9486" +
-      "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max" +
-      "&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles&forecast_days=16";
-    fetch(url).then(function(r){ if(!r.ok) throw new Error("bad"); return r.json(); }).then(function(j){
-      var D = j.daily, cards = "";
-      for (var i=0;i<D.time.length;i++){
-        var iso = D.time[i];
-        var dt = new Date(iso + "T12:00:00");
-        var wd = dt.toLocaleDateString("en-US",{weekday:"short"});
-        var md = (dt.getMonth()+1) + "/" + dt.getDate();
-        var w = wcode(D.weather_code[i]);
-        var hi = Math.round(D.temperature_2m_max[i]);
-        var lo = Math.round(D.temperature_2m_min[i]);
-        var pp = D.precipitation_probability_max[i];
-        var isTrip = TRIP[iso] ? " trip" : "";
-        cards += '<div class="day'+isTrip+'">' + (isTrip ? '<span class="badge">TRIP</span>' : '') +
-          '<div class="wd">'+wd+'</div><div class="md">'+md+'</div>' +
-          '<div class="emo" title="'+w[1]+'">'+w[0]+'</div>' +
-          '<div class="t"><b>'+hi+'°</b> / '+lo+'°</div>' +
-          '<div class="pp">'+((pp!=null&&pp!==undefined)?pp+'% 💧':'')+'</div></div>';
-      }
-      box.innerHTML = '<div class="days">'+cards+'</div>' +
-        '<div class="wxnote">Live forecast for Cachuma Lake · refreshes each time you open this page</div>';
-    }).catch(function(){
-      box.innerHTML = '<div class="wxnote">Could not load the live forecast right now — check ' +
-        '<a href="https://forecast.weather.gov/MapClick.php?lon=-119.9486&lat=34.5703">NWS Santa Ynez</a>.</div>';
-    });
+    fetch("https://api.weather.gov/points/34.5828,-119.9826")
+      .then(function(r){ if(!r.ok) throw new Error("points"); return r.json(); })
+      .then(function(p){ return fetch(p.properties.forecast); })
+      .then(function(r){ if(!r.ok) throw new Error("forecast"); return r.json(); })
+      .then(function(j){
+        var P = j.properties.periods, cards = "";
+        TRIP.forEach(function(t){
+          var day = null, night = null;
+          for (var i=0;i<P.length;i++){
+            if (P[i].startTime.slice(0,10) === t.iso){
+              if (P[i].isDaytime && !day) day = P[i];
+              if (!P[i].isDaytime && !night) night = P[i];
+            }
+          }
+          if (!day && !night) return;
+          var sf = day ? day.shortForecast : (night ? night.shortForecast : "");
+          var hi = day ? day.temperature + "°" : "—";
+          var lo = night ? night.temperature + "°" : "—";
+          var pop = day && day.probabilityOfPrecipitation && day.probabilityOfPrecipitation.value != null
+            ? day.probabilityOfPrecipitation.value : null;
+          cards += '<div class="day"><span class="badge">' + t.label + '</span>' +
+            '<div class="md">' + t.date + '</div>' +
+            '<div class="emo" title="' + (sf || "") + '">' + icon(sf) + '</div>' +
+            '<div class="t"><b>' + hi + '</b> / ' + lo + '</div>' +
+            '<div class="pp">' + (pop != null ? pop + '% 💧' : '') + '</div>' +
+            '<div class="sf">' + (sf || "") + '</div></div>';
+        });
+        if (!cards) {
+          box.innerHTML = '<div class="wxnote">Your dates aren\'t in the 7-day forecast window yet — check back closer to the trip.</div>';
+          return;
+        }
+        box.innerHTML = '<div class="days3">' + cards + '</div>' +
+          '<div class="wxnote">Live from the National Weather Service · updates each time you open this page</div>';
+      })
+      .catch(function(){
+        box.innerHTML = '<div class="wxnote">Could not load the live forecast right now — see ' +
+          '<a href="https://forecast.weather.gov/MapClick.php?lon=-119.9826&lat=34.5828">NWS Cachuma</a>.</div>';
+      });
   })();
 </script>
 </body>
