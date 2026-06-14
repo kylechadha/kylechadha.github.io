@@ -30,9 +30,9 @@
   h2 { font-size:1.2rem; margin:34px 0 14px; letter-spacing:-.01em; }
   section { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px; }
 
-  .facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px 34px; padding:20px; }
-  .facts div { font-size:.97rem; line-height:1.45; }
-  .facts .k { color:var(--soft); font-size:.74rem; text-transform:uppercase; letter-spacing:.06em; display:block; margin-bottom:4px; }
+  .facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px 28px; padding:16px 18px; }
+  .facts div { font-size:.96rem; line-height:1.4; }
+  .facts .k { color:var(--soft); font-size:.73rem; text-transform:uppercase; letter-spacing:.05em; display:block; margin-bottom:2px; }
 
   ul { margin:6px 0 0; padding-left:1.2em; }
   li { margin:5px 0; }
@@ -52,6 +52,7 @@
   .day .t b { color:var(--ink); }
   .day .pp { font-size:.7rem; color:var(--soft); min-height:1em; margin-top:2px; }
   .day .sf { font-size:.74rem; color:var(--soft); margin-top:5px; line-height:1.25; }
+  .day.pending { opacity:.5; }
   .wxnote { margin-top:10px; color:var(--soft); font-size:.8rem; }
   .wxguide { margin-top:12px; }
 
@@ -219,7 +220,13 @@
               if (!P[i].isDaytime && !night) night = P[i];
             }
           }
-          if (!day && !night) return;
+          if (!day && !night) {
+            cards += '<div class="day pending"><span class="badge">' + t.label + '</span>' +
+              '<div class="md">' + t.date + '</div><div class="emo">🗓️</div>' +
+              '<div class="t"><b>—</b> / —</div><div class="pp"></div>' +
+              '<div class="sf">Forecast soon</div></div>';
+            return;
+          }
           var sf = day ? day.shortForecast : (night ? night.shortForecast : "");
           var hi = day ? day.temperature + "°" : "—";
           var lo = night ? night.temperature + "°" : "—";
