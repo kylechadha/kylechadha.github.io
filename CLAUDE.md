@@ -49,3 +49,14 @@ npx live-server     # Local dev server with hot reload
 3. Live at https://kylechadha.dev
 
 Pages config: source = `main`, path = `/`. A new page is just a folder with an `index.html` (e.g. `cachuma/index.html` → kylechadha.dev/cachuma/).
+
+## Password-Gated Pages
+`oaxaca/` and `m/engagement-party/` use a client-side SHA-256 gate (same password; it's in Kyle's records, never commit it in plaintext). The gate hides the page but isn't real security: the page text is readable via view-source.
+
+## m/engagement-party (Firestore persistence)
+Myra's engagement-picnic planner. Shared, editable state syncs live through Firestore.
+- Firebase project `mk-engagement-party` under kylechadha@gmail.com (Spark plan, no billing linked, so it can't cost money). Console: https://console.firebase.google.com/u/1/project/mk-engagement-party
+- One doc at `plans/{sha256('mk-engagement-party:' + password)}`. The data stays private because only password holders can compute the doc ID
+- Writes send only changed sub-keys (FieldPath updates), so two people editing different items don't overwrite each other
+- Rules live in `m/engagement-party/firestore.rules`. Deploy them via the Firebase Rules REST API (create ruleset, then PATCH release `cloud.firestore`) or the Firebase CLI
+- When Myra sends a new HTML version: keep her markup, then re-apply the gate, the `save()` → `window.mkSync` hook, `renderAll`/`window.mkApp`, `esc()` in templates, and the Firestore module

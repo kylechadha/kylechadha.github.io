@@ -1,0 +1,15 @@
+rules_version = '2';
+
+// Firebase project: mk-engagement-party (under kylechadha@gmail.com).
+// Plan doc IDs are sha256 hashes derived from the page password, so only
+// password holders can find a plan. No listing, no deletes.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /plans/{planId} {
+      allow get: if planId.size() == 64;
+      allow create, update: if planId.size() == 64
+        && request.resource.data.keys().hasOnly(
+          ['checks', 'statuses', 'notes', 'sharedNotes', 'supplies', 'todos', 'consider']);
+    }
+  }
+}
