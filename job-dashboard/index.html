@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Jobs">
+<meta name="theme-color" content="#f5f4ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+<title>Job Dashboard</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg:#f5f4ef; --surface:#ffffff; --surface-2:#efede6; --bar-bg:rgba(245,244,239,.86);
+    --line:#e2dfd5; --line-strong:#bdb8a9;
+    --ink:#1c1c1a; --soft:#5d5c56; --faint:#6e6c65;
+    --accent:#2a6f52; --accent-bg:#e3f1ea;
+    --new:#875500; --new-bg:#fbefd6;
+    --risk:#a8502a;
+    --range:#2a6f52; --range-track:#e6e2d7; --tick:rgba(0,0,0,.09);
+    --shadow:0 1px 2px rgba(30,28,20,.04), 0 3px 12px rgba(30,28,20,.05);
+    --radius:14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#0a0a0a; --surface:#141414; --surface-2:#1c1c1c; --bar-bg:rgba(10,10,10,.86);
+      --line:#2a2a2a; --line-strong:#4a4a4a;
+      --ink:#e6e6e6; --soft:#a8a8a8; --faint:#8a8a8a;
+      --accent:#6cc39c; --accent-bg:#14261e;
+      --new:#e8b04a; --new-bg:#2a2010;
+      --risk:#e0906e;
+      --range:#6cc39c; --range-track:#2c2c2c; --tick:rgba(255,255,255,.08);
+      --shadow:none;
+    }
+  }
+
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent; }
+  @media (min-width:760px) { body { font-size:17px; } }
+  button, a { touch-action:manipulation; }
+  button { font:inherit; color:inherit; cursor:pointer; -webkit-user-select:none; user-select:none; }
+  a { color:inherit; }
+  :focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+
+  /* ── Gate ── */
+  #gate { position:fixed; inset:0; background:var(--bg); z-index:1000;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2rem;
+    transition:opacity .6s ease, visibility .6s ease; }
+  #gate.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+  #gate h1 { font-family:'Outfit',sans-serif; font-weight:300; font-size:2.5rem; color:var(--soft); letter-spacing:.05em; margin:0; }
+  .gate-form { display:flex; width:320px; max-width:90vw; }
+  .gate-form input { flex:1; min-width:0; padding:.875rem 1.25rem; background:var(--surface); border:1px solid var(--line);
+    border-right:none; border-radius:8px 0 0 8px; color:var(--ink); font-size:1rem; font-family:inherit; outline:none; transition:border-color .2s; }
+  .gate-form input:focus { border-color:var(--accent); }
+  .gate-form input::placeholder { color:var(--faint); }
+  .gate-form button { padding:.875rem 1.5rem; background:var(--accent); border:1px solid var(--accent);
+    border-radius:0 8px 8px 0; color:var(--bg); font-size:.9rem; font-weight:500; }
+  .gate-error { opacity:0; color:#c85a5a; font-size:.8125rem; height:1.25rem; transition:opacity .2s; }
+  .gate-error.show { opacity:1; }
+  #page { opacity:0; transition:opacity .8s ease; }
+  #page.visible { opacity:1; }
+
+  .wrap { max-width:1320px; margin:0 auto;
+    padding-left:max(16px, env(safe-area-inset-left)); padding-right:max(16px, env(safe-area-inset-right)); }
+  @media (min-width:760px) { .wrap { padding-left:max(28px, env(safe-area-inset-left)); padding-right:max(28px, env(safe-area-inset-right)); } }
+
+  /* ── Header ── */
+  .top { padding-top:max(24px, env(safe-area-inset-top)); padding-bottom:18px; }
+  .title-row { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+  .eyebrow { margin:0 0 4px; color:var(--accent); font-size:.75rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
+  h1 { margin:0; font-family:'Outfit',sans-serif; font-weight:300; font-size:clamp(1.7rem, 3.6vw, 2.5rem); line-height:1.1; letter-spacing:-.01em; }
+  .asof { margin:8px 0 0; color:var(--soft); font-size:.9rem; }
+  .asof .warn { color:var(--risk); font-weight:500; }
+  .tool { flex:0 0 auto; min-height:44px; padding:0 14px; border-radius:999px; border:1px solid var(--line);
+    background:var(--surface); color:var(--soft); font-size:.85rem; white-space:nowrap; }
+  .tool[aria-pressed="true"] { color:var(--accent); border-color:var(--accent); background:var(--accent-bg); }
+
+  .stats { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-top:18px; }
+  .stat { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:clamp(14px, 2.4vw, 22px) 10px; box-shadow:var(--shadow);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+  .stat b { display:block; font-size:clamp(2.6rem, 7vw, 4.25rem); font-weight:700; line-height:1; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+  .stat span { margin-top:8px; color:var(--soft); font-size:clamp(.85rem, 1.6vw, 1.05rem); line-height:1.25; }
+  .stat.is-new b { color:var(--new); }
+
+  /* ── Controls ── */
+  .bar { position:sticky; top:0; z-index:20; background:var(--bar-bg);
+    -webkit-backdrop-filter:saturate(140%) blur(10px); backdrop-filter:saturate(140%) blur(10px);
+    border-bottom:1px solid var(--line); padding-top:env(safe-area-inset-top); }
+  @media (max-height:520px) { .bar { position:static; } }
+  .bar .wrap { display:flex; flex-direction:column; gap:8px; padding-top:10px; padding-bottom:10px; }
+  .chips { display:flex; align-items:center; gap:8px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .chips::-webkit-scrollbar { display:none; }
+  .chips.overflow { -webkit-mask-image:linear-gradient(to right, #000 calc(100% - 36px), transparent); mask-image:linear-gradient(to right, #000 calc(100% - 36px), transparent); }
+  .chip { flex:0 0 auto; min-height:44px; padding:0 16px; border-radius:999px; border:1px solid var(--line);
+    background:var(--surface); color:var(--soft); font-size:.92rem; white-space:nowrap; }
+  .chip .n { margin-left:6px; color:var(--faint); font-variant-numeric:tabular-nums; }
+  .chip[aria-pressed="true"] { background:var(--ink); border-color:var(--ink); color:var(--bg); }
+  .chip[aria-pressed="true"] .n { color:inherit; opacity:.7; }
+  .sep { flex:0 0 1px; align-self:stretch; margin:6px 4px; background:var(--line); }
+  .push { margin-left:auto; }
+  @media (hover:hover) {
+    .chip:hover, .tool:hover { border-color:var(--line-strong); color:var(--ink); }
+    .chip[aria-pressed="true"]:hover { color:var(--bg); }
+  }
+
+  /* ── List ── */
+  main { padding-top:8px; padding-bottom:40px; }
+  .notice { margin:16px 0 0; padding:12px 16px; border-radius:10px; background:var(--new-bg); color:var(--ink); font-size:.92rem; }
+  .region-head { margin:44px 0 0; padding-bottom:10px; border-bottom:1px solid var(--line); }
+  .cities { margin:4px 0 0; color:var(--soft); font-size:clamp(.92rem, 1.6vw, 1.02rem); }
+  .region { margin:0;
+    font-family:'Outfit',sans-serif; font-size:clamp(1.5rem, 2.8vw, 1.9rem); font-weight:400; letter-spacing:-.01em; color:var(--ink); }
+  .region .n { margin-left:12px; color:var(--faint); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-size:.95rem; font-weight:500; }
+  .cos-wrap { container-type:inline-size; }
+  .cos { display:grid; grid-template-columns:1fr; grid-auto-flow:row dense; align-items:start; gap:32px 12px; margin-top:22px; }
+  @container (min-width:680px) { .cos { grid-template-columns:repeat(2, 1fr); } .company.s2, .company.s3 { grid-column:span 2; } }
+  @container (min-width:1030px) { .cos { grid-template-columns:repeat(3, 1fr); } .company.s3 { grid-column:span 3; } }
+  .co-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 12px; }
+  .co-head h3 { margin:0; font-size:clamp(1.35rem, 2.4vw, 1.6rem); font-weight:600; letter-spacing:-.01em; }
+  .co-sub { color:var(--soft); font-size:.9rem; font-variant-numeric:tabular-nums; }
+  .co-sub .new { color:var(--new); font-weight:500; }
+  .overview { margin:4px 0 0; max-width:80ch; color:var(--soft); font-size:.92rem; }
+  .profile { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .profile span { padding:2px 10px; border-radius:999px; background:var(--surface-2); color:var(--soft); font-size:.8rem; }
+  .jobs { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap:12px; margin-top:12px; }
+  .flat .jobs { margin-top:18px; }
+
+  .job { container-type:inline-size; display:flex; flex-direction:column; gap:8px;
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow); }
+  .job.closed { background:transparent; border-style:dashed; box-shadow:none; }
+  .job.closed h4, .job.closed .amt, .job.closed .where, .job.closed .fit { color:var(--soft); }
+  .job.closed .range span { background:var(--faint); }
+  .job.closed .open { background:transparent; color:var(--soft); border:1px solid var(--line-strong); }
+  .tags { display:flex; flex-wrap:wrap; align-items:center; gap:6px; min-height:22px; }
+  .badge { padding:1px 8px; border-radius:6px; font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+  .badge.new { background:var(--new-bg); color:var(--new); }
+  .badge.gone { background:var(--surface-2); color:var(--soft); letter-spacing:.04em; }
+  .badge.fam { background:var(--accent-bg); color:var(--accent); letter-spacing:.04em; text-transform:none; font-weight:600; }
+  .level { color:var(--soft); font-size:.82rem; }
+  .job h4 { margin:0; font-size:1.06rem; font-weight:600; line-height:1.3; }
+  .job .co { margin:-4px 0 0; color:var(--ink); font-size:1.02rem; font-weight:500; }
+  .pay { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; }
+  .pay .amt { font-size:1.05rem; font-weight:600; font-variant-numeric:tabular-nums; }
+  .pay .note { color:var(--faint); font-size:.8rem; }
+  .pay .unknown { color:var(--faint); font-size:.92rem; }
+  .range { position:relative; height:8px; border-radius:4px; background-color:var(--range-track);
+    background-image:repeating-linear-gradient(to right, transparent 0 calc(var(--step) - 1px), var(--tick) calc(var(--step) - 1px) var(--step)); }
+  .range span { position:absolute; top:0; bottom:0; border-radius:4px; background:var(--range); }
+  .range span.over { border-radius:4px 0 0 4px; -webkit-mask-image:linear-gradient(to right, #000 calc(100% - 28px), transparent); mask-image:linear-gradient(to right, #000 calc(100% - 28px), transparent); }
+  .legend { display:flex; align-items:center; gap:12px; margin:14px 0 0; color:var(--soft); font-size:.86rem; line-height:1.4; }
+  .legend .range { flex:0 0 56px; }
+  .range span.approx { background:repeating-linear-gradient(135deg, var(--range) 0 4px, transparent 4px 7px); outline:1px solid var(--range); outline-offset:-1px; }
+  .where { margin:0; color:var(--ink); font-size:.98rem; font-weight:500; }
+  .fit { margin:0; font-size:.94rem; }
+  .risk { margin:0; color:var(--soft); font-size:.88rem; }
+  .risk b { color:var(--risk); font-weight:600; }
+  .foot { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:auto; padding-top:6px; }
+  .open { min-height:44px; padding:0 16px; border-radius:10px; background:var(--ink); color:var(--bg);
+    display:inline-flex; align-items:center; gap:6px; font-size:.88rem; font-weight:600; text-decoration:none; white-space:nowrap; }
+  .verify { margin:0; color:var(--faint); font-size:.78rem; }
+  @media (hover:hover) {
+    .open:hover { opacity:.85; }
+  }
+
+  .empty { padding:48px 0; text-align:center; color:var(--soft); }
+  .empty button { margin-top:12px; }
+
+  /* ── Footer sections ── */
+  .more { padding-bottom:max(48px, env(safe-area-inset-bottom)); }
+  details { border-top:1px solid var(--line); }
+  details:last-child { border-bottom:1px solid var(--line); }
+  summary { min-height:52px; display:flex; align-items:center; cursor:pointer; color:var(--soft); font-weight:500; list-style:none; }
+  summary::-webkit-details-marker { display:none; }
+  summary::before { content:"›"; display:inline-block; width:20px; font-size:1.2rem; transition:transform .15s; }
+  details[open] summary::before { transform:rotate(90deg); }
+  .about { margin:0 0 16px; padding-left:20px; color:var(--soft); font-size:.9rem; }
+  .about li { margin-bottom:6px; }
+</style>
+</head>
+<body>
+
+<!-- ── Gate ── -->
+<div id="gate">
+  <h1>Job Dashboard</h1>
+  <div class="gate-form">
+    <input type="password" id="gate-input" placeholder="Password" autocomplete="off" autofocus>
+    <button id="gate-btn">Enter</button>
+  </div>
+  <div class="gate-error" id="gate-error">&nbsp;</div>
+</div>
+
+<!-- ── Page ── -->
+<div id="page">
+  <header class="top wrap">
+    <div class="title-row">
+      <div>
+        <p class="eyebrow">Job search</p>
+        <h1 id="title">Job Dashboard</h1>
+        <p class="asof" id="asof">Loading…</p>
+      </div>
+      <button class="tool" id="wake" aria-pressed="false" hidden>Keep screen on</button>
+    </div>
+    <div class="stats" id="stats"></div>
+    <p class="legend" id="legend"></p>
+  </header>
+
+  <nav class="bar" aria-label="Filters">
+    <div class="wrap">
+      <div class="chips" id="regions"></div>
+      <div class="chips" id="filters"></div>
+    </div>
+  </nav>
+
+  <main class="wrap" id="list"></main>
+
+  <section class="more wrap">
+    <details>
+      <summary>About this data</summary>
+      <ul class="about" id="about"></ul>
+    </details>
+  </section>
+</div>
+
+<script>
+// Client-side gate using SHA-256, same as oaxaca/. It hides the page but isn't
+// real security: jobs.json is still readable by URL and in the public repo.
+(function() {
+  var PASS_HASH = 'c353c1e21f0b55f610e5f4f59923e7a81b50f8e86e0cc76e54cff322f37f0a59';
+  var STORAGE_KEY = 'jobdash_auth';
+
+  function sha256(str) {
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function(buf) {
+      return Array.from(new Uint8Array(buf)).map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+    });
+  }
+
+  function unlock() {
+    document.getElementById('gate').classList.add('hidden');
+    document.getElementById('page').classList.add('visible');
+    try { localStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
+    window.startDashboard();
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    var authed = false;
+    try { authed = localStorage.getItem(STORAGE_KEY) === '1'; } catch (e) {}
+    if (authed) unlock();
+  });
+
+  document.getElementById('gate-btn').addEventListener('click', tryAuth);
+  document.getElementById('gate-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') tryAuth();
+  });
+
+  function tryAuth() {
+    var val = document.getElementById('gate-input').value.trim().toLowerCase();
+    sha256(val).then(function(hash) {
+      if (hash === PASS_HASH) { unlock(); }
+      else {
+        var err = document.getElementById('gate-error');
+        err.textContent = 'Incorrect password';
+        err.classList.add('show');
+        document.getElementById('gate-input').value = '';
+        document.getElementById('gate-input').focus();
+        setTimeout(function() { err.classList.remove('show'); }, 2000);
+      }
+    });
+  }
+})();
+</script>
+
+<script>
+(function() {
+  const REFRESH_MS = 30 * 60 * 1000;   // re-check jobs.json every 30 min
+  const RELOAD_MS = 24 * 60 * 60 * 1000; // full reload once a day to pick up page changes
+  const STALE_DAYS = 9;                 // weekly refresh plus slack
+
+  const REGION_ORDER = ['la', 'sd', 'other_socal', 'sf', 'elsewhere']; // Kyle's preference; overrides display.region_order
+  const LABELS = { la:'Los Angeles', sd:'San Diego', other_socal:'Other SoCal', sf:'SF Bay', elsewhere:'Remote / other' }; // override display.region_labels
+  // Extra cities that count toward a region when listed after a role's first location.
+  const CITIES = {
+    la: ['Los Angeles', 'Santa Monica', 'Long Beach', 'Torrance', 'El Segundo', 'Playa Vista', 'Culver City', 'Pasadena', 'Burbank', 'Glendale', 'Hawthorne', 'Venice', 'Marina del Rey'],
+    sf: ['San Francisco', 'South San Francisco', 'San Mateo', 'Sunnyvale', 'San Jose', 'Santa Clara', 'Mountain View', 'Palo Alto', 'Menlo Park', 'Redwood City', 'Cupertino', 'Foster City', 'Burlingame', 'Oakland', 'Berkeley', 'Emeryville', 'Fremont'],
+  };
+  const FAMILY = { forward_deployed:'Forward deployed', player_coach:'Player-coach' };
+  const WORK = { onsite:'On-site', hybrid:'Hybrid', remote:'Remote' };
+  const GONE = { unverified:'Maybe closed' };
+
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+  const safeUrl = u => { try { const x = new URL(u, location.href); return /^https?:$/.test(x.protocol) ? x.href : ''; } catch { return ''; } };
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+  };
+
+  let data = null, raw = '', checkedAt = null, loadError = '';
+  let companies = {}, scale = { lo:0, hi:1, step:10 };
+  let view = Object.assign({ region:'all', scope:'open', newOnly:false, mode:'company' }, store.get('jobdash.view.v2', {}));
+  const bootAt = Date.now();
+
+  /** Parses a YYYY-MM-DD string as a local date. */
+  function day(s) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || '');
+    return m ? new Date(+m[1], m[2] - 1, +m[3]) : null;
+  }
+  const fmtDay = s => { const d = day(s); return d ? d.toLocaleDateString('en-US', { month:'short', day:'numeric' }) : ''; };
+  const k = n => '$' + Math.round(n / 1000) + 'k';
+
+  /** Formats large money values like valuation or revenue. */
+  function big(n) {
+    if (typeof n !== 'number') return String(n);
+    if (n >= 1e9) return '$' + (n / 1e9).toFixed(n >= 1e10 ? 0 : 1) + 'B';
+    if (n >= 1e6) return '$' + (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + 'M';
+    return '$' + n.toLocaleString('en-US');
+  }
+
+  const comp = j => j.compensation || {};
+  /** Base salary midpoint, or null when unknown. */
+  function mid(j) {
+    const c = comp(j);
+    if (c.base_midpoint != null) return c.base_midpoint;
+    if (c.base_min != null && c.base_max != null) return (c.base_min + c.base_max) / 2;
+    return c.base_min ?? c.base_max ?? null;
+  }
+  /** Sorts closed roles last, then by pay (unknown last), then title. */
+  const byPay = (a, b) => (!!a.closed - !!b.closed)
+    || ((mid(b) ?? -1) - (mid(a) ?? -1)) || String(a.title).localeCompare(String(b.title));
+
+  const jobs = () => (data && Array.isArray(data.jobs)) ? data.jobs : [];
+  /** Roles in archived_jobs that are not open again, normalized to look like open jobs. */
+  function closedJobs() {
+    const open = new Set(jobs().map(j => j.id));
+    const archived = Array.isArray(data?.archived_jobs) ? data.archived_jobs : [];
+    return archived.filter(a => a && !open.has(a.id)).map(a => ({ ...a, closed:true, is_new:false,
+      primary_region: a.primary_region || companies[a.company_id]?.primary_region || 'elsewhere' }));
+  }
+  /** Open roles, plus closed roles when the All time scope is on. */
+  const pool = () => view.scope === 'all' ? jobs().concat(closedJobs()) : jobs();
+  const regionLabel = r => LABELS[r] || (data?.display?.region_labels || {})[r] || r;
+
+  /** Cities a region's roles sit in, most roles first, e.g. "San Francisco 15 · Mountain View 3". */
+  function regionCities(r, list) {
+    const counts = new Map();
+    for (const j of list) {
+      const parts = String(j.location_text || '').split(';').map(x => x.trim()).filter(Boolean);
+      const mine = new Set(parts.filter((c, i) => i === 0 || (CITIES[r] || []).includes(c)));
+      for (const c of mine) counts.set(c, (counts.get(c) || 0) + 1);
+    }
+    const sorted = [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    if (!sorted.length || (sorted.length === 1 && sorted[0][0] === regionLabel(r))) return '';
+    return sorted.map(([c, n]) => `${c} ${n}`).join(' · ');
+  }
+  function regionOrder() {
+    const order = [...REGION_ORDER];
+    for (const r of (data?.display?.region_order || [])) if (!order.includes(r)) order.push(r);
+    for (const j of pool()) if (!order.includes(j.primary_region)) order.push(j.primary_region);
+    return order;
+  }
+
+  function visible(j) {
+    if (view.region !== 'all' && j.primary_region !== view.region) return false;
+    if (view.newOnly && !j.is_new) return false;
+    return true;
+  }
+
+  /** "22 roles" for open-only lists, "22 open · 3 closed" when closed roles are mixed in. */
+  function roleCount(list) {
+    const closed = list.filter(j => j.closed).length, open = list.length - closed;
+    return closed ? `${open} open · ${closed} closed` : `${open} role${open === 1 ? '' : 's'}`;
+  }
+
+  /** Builds the company index and the shared salary scale for range bars. */
+  function index() {
+    companies = {};
+    for (const c of (data.companies || [])) companies[c.id] = c;
+    const all = jobs().concat(closedJobs());
+    const lows = all.map(j => comp(j).base_min ?? comp(j).base_max).filter(v => typeof v === 'number' && v > 0);
+    const highs = all.map(j => comp(j).base_max ?? comp(j).base_min).filter(v => typeof v === 'number' && v > 0).sort((a, b) => a - b);
+    // Cap at the 90th-percentile top so one outlier doesn't squash every bar; longer bars fade at the edge.
+    const lo = lows.length ? Math.floor(Math.min(...lows) / 50000) * 50000 : 0;
+    const hi = highs.length ? Math.ceil(highs[Math.floor((highs.length - 1) * 0.9)] / 50000) * 50000 : 1;
+    scale = { lo, hi: hi > lo ? hi : lo + 50000 };
+    scale.step = 50000 / (scale.hi - scale.lo) * 100;
+  }
+
+  function renderHeader() {
+    const all = jobs();
+    const title = data?.meta?.title;
+    $('title').textContent = title || 'Job Dashboard';
+    const coCount = new Set(all.map(j => j.company_id)).size;
+    const stats = [
+      ['', all.length, 'Open roles'],
+      ['is-new', all.filter(j => j.is_new).length, 'New this report'],
+      ['', coCount, 'Companies'],
+    ];
+    $('stats').innerHTML = data ? stats.map(([cls, n, label]) => `<div class="stat ${cls}"><b>${n}</b><span>${label}</span></div>`).join('') : '';
+    $('legend').innerHTML = data ? `<span class="range" style="--step:${100 / 3}%"><span style="left:33.3%;width:33.3%"></span></span>
+      Bars show base salary on one shared scale: ${k(scale.lo)} at the left edge, ${k(scale.hi)} at the right, a tick every $50k. A bar that fades out pays more than ${k(scale.hi)}. A striped bar is approximate.` : '';
+
+    const parts = [];
+    if (day(data?.report_date)) {
+      const age = Math.floor((Date.now() - day(data.report_date)) / 864e5);
+      parts.push(`Report ${esc(fmtDay(data.report_date))}`);
+      if (age > STALE_DAYS) parts.push(`<span class="warn">${age} days old, weekly refresh may have missed</span>`);
+    }
+    if (checkedAt) parts.push(`checked ${checkedAt.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' })}`);
+    if (loadError) parts.push(`<span class="warn">couldn't refresh (${esc(loadError)})${data ? ', showing last copy' : ''}</span>`);
+    $('asof').innerHTML = parts.join(' · ') || 'Loading…';
+  }
+
+  function chip(key, val, label, pressed, n) {
+    return `<button class="chip" data-k="${key}" data-v="${esc(val)}" aria-pressed="${pressed}">${esc(label)}${n != null ? `<span class="n">${n}</span>` : ''}</button>`;
+  }
+
+  function renderControls() {
+    const all = pool();
+    const regions = regionOrder().filter(r => all.some(j => j.primary_region === r));
+    if (view.region !== 'all' && !regions.includes(view.region)) view.region = 'all';
+    $('regions').innerHTML = chip('region', 'all', 'All regions', view.region === 'all', all.length)
+      + regions.map(r => chip('region', r, regionLabel(r), view.region === r, all.filter(j => j.primary_region === r).length)).join('');
+
+    $('filters').innerHTML = chip('scope', 'open', 'Currently open', view.scope === 'open')
+      + chip('scope', 'all', 'All time', view.scope === 'all', `+${closedJobs().length} closed`)
+      + '<span class="sep"></span>'
+      + chip('newOnly', '1', 'New', view.newOnly, jobs().filter(j => j.is_new).length)
+      + `<span class="push"></span>`
+      + chip('mode', 'company', 'By company', view.mode === 'company')
+      + chip('mode', 'pay', 'By pay', view.mode === 'pay');
+  }
+
+  function payBlock(j) {
+    const c = comp(j);
+    if (c.base_min == null && c.base_max == null) return `<div class="pay"><span class="unknown">Salary not listed</span></div>`;
+    const lo = c.base_min ?? c.base_max, hi = c.base_max ?? c.base_min;
+    const amt = (c.is_approximate ? '~' : '') + (lo === hi ? k(lo) : `${k(lo)}–${k(hi)}`);
+    const notes = [c.is_approximate && 'approximate', c.salary_location && `pay for ${c.salary_location}`, c.bonus && `bonus ${c.bonus}`, c.equity && `equity ${c.equity}`].filter(Boolean);
+    const span = scale.hi - scale.lo, over = hi > scale.hi;
+    const left = Math.min((lo - scale.lo) / span * 100, 97), width = Math.max((Math.min(hi, scale.hi) - lo) / span * 100, 3);
+    return `<div class="pay"><span class="amt">${esc(amt)}</span>${notes.length ? `<span class="note">${esc(notes.join(' · '))}</span>` : ''}</div>
+      <div class="range" style="--step:${scale.step}%" title="Base ${esc(amt)} on a ${k(scale.lo)}–${k(scale.hi)} scale"><span class="${[c.is_approximate && 'approx', over && 'over'].filter(Boolean).join(' ')}" style="left:${left}%;width:${width}%"></span></div>`;
+  }
+
+  function jobCard(j, showCompany) {
+    const url = safeUrl(j.application_url);
+    const fam = FAMILY[j.role_family];
+    const where = [j.location_text, WORK[j.work_arrangement]].filter(Boolean).join(' · ');
+    const v = j.verification || {};
+    const verified = v.last_verified_on ? `Verified ${fmtDay(v.last_verified_on)}` : 'Not rechecked yet';
+    const co = companies[j.company_id];
+    const closedOn = fmtDay(j.closed_on || j.removed_on);
+    const gone = j.closed ? `<span class="badge gone">${esc(GONE[j.lifecycle_status || j.status] || 'Closed')}${closedOn ? ' ' + esc(closedOn) : ''}</span>` : '';
+    const note = j.closed ? (j.close_reason || j.reason || 'No longer listed') : verified;
+    return `<article class="job${j.closed ? ' closed' : ''}">
+      <div class="tags">${gone}${j.is_new ? '<span class="badge new">New</span>' : ''}${fam ? `<span class="badge fam">${esc(fam)}</span>` : ''}${j.level?.label ? `<span class="level">${esc(j.level.label)}</span>` : ''}</div>
+      <h4>${esc(j.title)}</h4>
+      ${showCompany ? `<p class="co">${esc(co?.name || j.company_id)}</p>` : ''}
+      ${payBlock(j)}
+      ${where ? `<p class="where">${esc(where)}</p>` : ''}
+      ${j.fit_summary ? `<p class="fit">${esc(j.fit_summary)}</p>` : ''}
+      ${j.biggest_risk ? `<p class="risk"><b>Risk</b> ${esc(j.biggest_risk)}</p>` : ''}
+      <div class="foot">
+        <p class="verify">${esc(note)}</p>
+        ${url ? `<a class="open" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${j.closed ? 'Old listing' : 'Listing'} ↗</a>` : ''}
+      </div>
+    </article>`;
+  }
+
+  function profileChips(c) {
+    const p = c?.profile || {};
+    const out = [];
+    if (p.employee_count != null) out.push(`${Number(p.employee_count).toLocaleString('en-US')} employees${p.employee_count_as_of ? ` (${fmtDay(p.employee_count_as_of) || p.employee_count_as_of})` : ''}`);
+    if (p.ownership_status) out.push(p.ownership_status + (p.ticker ? ` · ${p.ticker}` : ''));
+    if (p.parent_company) out.push(`Part of ${p.parent_company}`);
+    if (p.funding_stage) out.push(p.funding_stage);
+    if (p.valuation != null) out.push(`Valued ${big(p.valuation)}`);
+    if (p.revenue != null) out.push(`${p.revenue_metric || 'Revenue'} ${big(p.revenue)}${p.revenue_period ? ` (${p.revenue_period})` : ''}`);
+    return out.length ? `<div class="profile">${out.map(s => `<span>${esc(s)}</span>`).join('')}</div>` : '';
+  }
+
+  function companyBlock(id, list) {
+    const c = companies[id];
+    const pays = list.flatMap(j => [comp(j).base_min, comp(j).base_max]).filter(v => typeof v === 'number');
+    const fresh = list.filter(j => j.is_new).length;
+    const sub = [roleCount(list)];
+    if (fresh) sub.push(`<span class="new">${fresh} new</span>`);
+    if (pays.length) sub.push(Math.min(...pays) === Math.max(...pays) ? k(pays[0]) : `${k(Math.min(...pays))}–${k(Math.max(...pays))}`);
+    return `<section class="company s${Math.min(list.length, 3)}">
+      <div class="co-head"><h3>${esc(c?.name || id)}</h3><span class="co-sub">${sub.join(' · ')}</span></div>
+      ${c?.overview ? `<p class="overview">${esc(c.overview)}</p>` : ''}
+      ${profileChips(c)}
+      <div class="jobs">${list.map(j => jobCard(j, false)).join('')}</div>
+    </section>`;
+  }
+
+  function renderList() {
+    const shown = pool().filter(visible).sort(byPay);
+    if (!data) { $('list').innerHTML = loadError ? `<p class="notice">Couldn't load jobs.json (${esc(loadError)}).</p>` : ''; return; }
+    if (!shown.length) {
+      $('list').innerHTML = `<div class="empty">No roles match these filters.<br><button class="chip" data-k="reset" data-v="1">Clear filters</button></div>`;
+      return;
+    }
+    const byPayMode = view.mode === 'pay';
+    let regions = regionOrder().map(r => [r, shown.filter(j => j.primary_region === r)]).filter(([, list]) => list.length);
+    // By pay: regions sort by their best visible role (lists are already pay-sorted).
+    if (byPayMode) regions.sort((a, b) => (mid(b[1][0]) ?? -1) - (mid(a[1][0]) ?? -1));
+    let html = '';
+    for (const [r, inRegion] of regions) {
+      const cities = regionCities(r, inRegion);
+      html += `<div class="region-head"><h2 class="region">${esc(regionLabel(r))}<span class="n">${roleCount(inRegion)}</span></h2>${cities ? `<p class="cities">${esc(cities)}</p>` : ''}</div>`;
+      if (byPayMode) { html += `<div class="flat"><div class="jobs">${inRegion.map(j => jobCard(j, true)).join('')}</div></div>`; continue; }
+      // Group by company, keeping the pay order; companies sort by their best visible role.
+      const groups = new Map();
+      for (const j of inRegion) { if (!groups.has(j.company_id)) groups.set(j.company_id, []); groups.get(j.company_id).push(j); }
+      html += `<div class="cos-wrap"><div class="cos">${[...groups].map(([id, list]) => companyBlock(id, list)).join('')}</div></div>`;
+    }
+    $('list').innerHTML = html;
+  }
+
+  function renderFooter() {
+    const m = data?.meta || {};
+    const items = [m.count_scope, m.history_note, m.company_profiles_note,
+      data?.generated_on && `Generated ${fmtDay(data.generated_on)}, schema ${data.schema_version || '?'}.`,
+      'All time adds roles that closed since tracking began. Closed roles keep the details from their last report.'];
+    $('about').innerHTML = items.filter(Boolean).map(s => `<li>${esc(s)}</li>`).join('');
+  }
+
+  /** Fades the right edge of chip rows that scroll horizontally. */
+  function markOverflow() {
+    for (const row of document.querySelectorAll('.chips')) {
+      row.classList.toggle('overflow', row.scrollWidth > row.clientWidth + 1 && row.scrollLeft + row.clientWidth < row.scrollWidth - 1);
+    }
+  }
+
+  function render() {
+    if (data) index();
+    renderHeader();
+    renderControls();
+    markOverflow();
+    renderList();
+    if (data) renderFooter();
+  }
+
+  /** Fetches jobs.json, re-rendering only when the content changed. */
+  async function load() {
+    try {
+      const r = await fetch('jobs.json?t=' + Date.now(), { cache:'no-store' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const text = await r.text();
+      if (text !== raw) {
+        const d = JSON.parse(text);
+        if (!Array.isArray(d.jobs)) throw new Error('no jobs list');
+        data = d; raw = text;
+        store.set('jobdash.cache.v1', d);
+      }
+      loadError = '';
+    } catch (e) {
+      loadError = e.message || 'error';
+      if (!data) data = store.get('jobdash.cache.v1', null);
+    }
+    checkedAt = new Date();
+    render();
+  }
+
+  // ── Screen wake lock, for the kitchen tablet ──
+  let lock = null, wantAwake = store.get('jobdash.awake.v1', false);
+  function paintWake() {
+    const b = $('wake');
+    b.setAttribute('aria-pressed', String(!!lock));
+    b.textContent = lock ? 'Screen stays on' : 'Keep screen on';
+  }
+  async function setAwake(on) {
+    wantAwake = on;
+    store.set('jobdash.awake.v1', on);
+    if (on) {
+      try {
+        lock = await navigator.wakeLock.request('screen');
+        lock.addEventListener('release', () => { lock = null; paintWake(); });
+      } catch { lock = null; }
+    } else if (lock) {
+      await lock.release();
+      lock = null;
+    }
+    paintWake();
+  }
+
+  function onClick(e) {
+    const t = e.target.closest('button');
+    if (!t) return;
+    if (t.id === 'wake') return setAwake(!lock);
+    const key = t.dataset.k;
+    if (!key) return;
+    if (key === 'reset') Object.assign(view, { region:'all', newOnly:false });
+    else if (key === 'newOnly') view.newOnly = !view.newOnly;
+    else view[key] = t.dataset.v;
+    store.set('jobdash.view.v2', view);
+    render();
+  }
+
+  let started = false;
+  window.startDashboard = function() {
+    if (started) return;
+    started = true;
+    document.addEventListener('click', onClick);
+    window.addEventListener('resize', markOverflow);
+    for (const row of document.querySelectorAll('.chips')) row.addEventListener('scroll', markOverflow, { passive:true });
+    if ('wakeLock' in navigator) {
+      $('wake').hidden = false;
+      paintWake();
+      if (wantAwake) setAwake(true);
+    }
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState !== 'visible') return;
+      if (wantAwake && !lock) setAwake(true);
+      load();
+    });
+    setInterval(() => {
+      if (Date.now() - bootAt > RELOAD_MS && document.visibilityState === 'visible') location.reload();
+      else load();
+    }, REFRESH_MS);
+    load();
+  };
+})();
+</script>
+</body>
+</html>

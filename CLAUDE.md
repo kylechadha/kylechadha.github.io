@@ -51,7 +51,16 @@ npx live-server     # Local dev server with hot reload
 Pages config: source = `main`, path = `/`. A new page is just a folder with an `index.html` (e.g. `cachuma/index.html` → kylechadha.dev/cachuma/).
 
 ## Password-Gated Pages
-`oaxaca/` and `m/engagement-party/` use a client-side SHA-256 gate (same password; it's in Kyle's records, never commit it in plaintext). The gate hides the page but isn't real security: the page text is readable via view-source.
+`oaxaca/`, `m/engagement-party/` and `job-dashboard/` use a client-side SHA-256 gate (same password; it's in Kyle's records, never commit it in plaintext). The gate hides the page but isn't real security: the page text is readable via view-source, and `job-dashboard/jobs.json` is public in the repo and at its URL.
+
+## job-dashboard (weekly job search data)
+Kitchen-tablet dashboard for Kyle's job search, also used on a laptop. ChatGPT refreshes the search weekly and produces `jobs.json`.
+- The page fetches `job-dashboard/jobs.json` on load, every 30 min, and when the tab becomes visible. It reloads itself once a day
+- Weekly update: `job-dashboard/update.sh` validates `~/Downloads/jobs.json`, copies it in, commits only that file, and pushes. Pass a path to use a different file
+- "Currently open" shows `jobs[]`. "All time" also shows `archived_jobs` (closed roles) inline, dashed and tagged Closed
+- "By company" uses Kyle's fixed region order (`REGION_ORDER`: LA, SD, other SoCal, Bay Area, elsewhere). It overrides `display.region_order`. "By pay" orders regions by their top role midpoint
+- Within a region: companies by best role midpoint, roles by midpoint, unknown salary last, closed roles last
+- `chatgpt-instructions.md` is the schema 1.1.0 change request for ChatGPT: archived_jobs keeps full job records forever, with `lifecycle_status`, `closed_on` and `close_reason`. The page also reads the 1.0.0 fields (`status`, `removed_on`, `reason`)
 
 ## m/engagement-party (Firestore persistence)
 Myra's engagement-picnic planner. Shared, editable state syncs live through Firestore.
