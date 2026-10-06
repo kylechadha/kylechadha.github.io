@@ -1,22 +1,45 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "report_date": "2026-10-05",
   "generated_on": "2026-10-06",
   "meta": {
     "title": "High-Fit Staff + FDE Roles",
-    "basis": "prior_report_export",
-    "companies": 27,
-    "reported_open_roles": 42,
+    "basis": "prior_report_export_with_historical_reconciliation",
+    "companies": 44,
+    "reported_open_roles": 62,
     "new_roles": 9,
     "count_scope": "Shortlisted roles only, not all company openings.",
     "complete_history": false,
-    "history_note": "This export preserves the October 5 report's 42-role snapshot. Earlier entries omitted by that report need individual reconciliation at the next research run.",
-    "company_profiles_note": "Company size, ownership and revenue are null pending sourced enrichment. Overviews reflect prior descriptions."
+    "history_note": "Schema 1.1.0 permanent full-object archives are in place. Existing archives were backfilled and recoverable omissions restored or archived individually. Some September 28 report details remain unrecoverable; complete_history stays false until those gaps are reconciled. Current inherited entries retain their prior-report verification status; this migration does not claim a fresh search of every role.",
+    "company_profiles_note": "Company descriptions are preserved; unsourced size, ownership, and financial statistics remain null. Partially recovered profile facts carry dated sources; funding and ARR are not substituted for annual revenue.",
+    "history_reconciled_on": "2026-10-05",
+    "history_gaps": [
+      {
+        "report_date": "2026-09-28",
+        "company": "E2B",
+        "reported_title": "Product Engineer",
+        "reason": "The retrieved report omits the exact application URL/variant; multiple distinct AI, backend, and dashboard openings exist. No arbitrary match was made."
+      },
+      {
+        "report_date": "2026-09-28",
+        "company": "TypeSafe AI",
+        "reported_title": null,
+        "reason": "Retrieved report identifies multiple roles but does not recover their exact titles, IDs, or application URLs."
+      },
+      {
+        "report_date": "2026-09-28",
+        "company": null,
+        "reported_title": null,
+        "reason": "Retrieved report mentions 16 NEW roles and five removals but the complete inventory is unavailable. Remaining unspecified additions/removals are not fabricated."
+      }
+    ],
+    "archived_roles": 8,
+    "total_tracked_roles": 70
   },
   "display": {
     "region_order": [
-      "sd",
       "la",
+      "sd",
       "other_socal",
       "sf",
       "elsewhere"
@@ -42,84 +65,16 @@
       "Keep personal applied/saved notes outside this public dataset, keyed by job ID.",
       "Retain dropped roles with reason/evidence rather than deleting history.",
       "Company counts refer to shortlisted openings, not total hiring.",
-      "Financial stats require dated sources; distinguish revenue, ARR and valuation."
+      "Financial stats require dated sources; distinguish revenue, ARR and valuation.",
+      "Schema 1.1.0: archived_jobs permanently retains full last-reported job objects, is_new false, immutable closed_on and evidence-based close_reason.",
+      "Use lifecycle_status closed only for confirmed listing removal; unverified for unresolved absence.",
+      "A reopened role moves back to jobs with the same id and is removed from archived_jobs; IDs never overlap.",
+      "Keep archived-only companies with reported_open_count zero.",
+      "Read job-dashboard/chatgpt-instructions.md before future refreshes; LA, SD, other SoCal, SF, elsewhere is the display order.",
+      "Keep complete_history false while explicitly documented historical inventory gaps remain."
     ]
   },
   "companies": [
-    {
-      "id": "shield-ai",
-      "name": "Shield AI",
-      "primary_region": "sd",
-      "overview": "Defense autonomy software and aircraft; the shortlisted roles span CTO special projects, distributed platforms, data infrastructure and operator tools.",
-      "profile": {
-        "employee_count": null,
-        "employee_count_as_of": null,
-        "ownership_status": null,
-        "ticker": null,
-        "parent_company": null,
-        "revenue": null,
-        "revenue_metric": null,
-        "revenue_period": null,
-        "funding_stage": null,
-        "valuation": null,
-        "sources": [],
-        "enrichment_status": "pending_verified_sources"
-      },
-      "summary": {
-        "reported_open_count": 5,
-        "new_count": 2,
-        "base_min": 150000,
-        "base_max": 330000,
-        "highest_role_midpoint": 275000,
-        "locations": [
-          "San Diego",
-          "San Mateo",
-          "Dallas",
-          "Washington, DC",
-          "Boston"
-        ],
-        "work_arrangements": [
-          "hybrid",
-          "onsite"
-        ]
-      }
-    },
-    {
-      "id": "google-cloud",
-      "name": "Google Cloud",
-      "primary_region": "sd",
-      "overview": "Cloud infrastructure and applied AI; this shortlist focuses on hands-on customer problem discovery and production deployment.",
-      "profile": {
-        "employee_count": null,
-        "employee_count_as_of": null,
-        "ownership_status": null,
-        "ticker": null,
-        "parent_company": null,
-        "revenue": null,
-        "revenue_metric": null,
-        "revenue_period": null,
-        "funding_stage": null,
-        "valuation": null,
-        "sources": [],
-        "enrichment_status": "pending_verified_sources"
-      },
-      "summary": {
-        "reported_open_count": 1,
-        "new_count": 0,
-        "base_min": 207000,
-        "base_max": 300000,
-        "highest_role_midpoint": 253500,
-        "locations": [
-          "San Diego",
-          "Los Angeles/Playa Vista",
-          "Irvine",
-          "other offices"
-        ],
-        "work_arrangements": [
-          "unspecified"
-        ]
-      }
-    },
     {
       "id": "snap",
       "name": "Snap",
@@ -184,6 +139,42 @@
         ],
         "work_arrangements": [
           "onsite"
+        ]
+      }
+    },
+    {
+      "id": "google-cloud",
+      "name": "Google Cloud",
+      "primary_region": "la",
+      "overview": "Cloud infrastructure and applied AI; this shortlist focuses on hands-on customer problem discovery and production deployment.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 1,
+        "new_count": 0,
+        "base_min": 207000,
+        "base_max": 300000,
+        "highest_role_midpoint": 253500,
+        "locations": [
+          "San Diego",
+          "Los Angeles/Playa Vista",
+          "Irvine",
+          "other offices"
+        ],
+        "work_arrangements": [
+          "unspecified"
         ]
       }
     },
@@ -355,6 +346,169 @@
       }
     },
     {
+      "id": "commure",
+      "name": "Commure",
+      "primary_region": "la",
+      "overview": "Builds healthcare software and automation for clinical and administrative workflows.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 0,
+        "new_count": 0,
+        "base_min": null,
+        "base_max": null,
+        "highest_role_midpoint": null,
+        "locations": [],
+        "work_arrangements": []
+      }
+    },
+    {
+      "id": "shield-ai",
+      "name": "Shield AI",
+      "primary_region": "sd",
+      "overview": "Defense autonomy software and aircraft; the shortlisted roles span CTO special projects, distributed platforms, data infrastructure and operator tools.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 6,
+        "new_count": 2,
+        "base_min": 150000,
+        "base_max": 330000,
+        "highest_role_midpoint": 275000,
+        "locations": [
+          "San Diego",
+          "San Mateo",
+          "Dallas",
+          "Washington, DC",
+          "Boston"
+        ],
+        "work_arrangements": [
+          "hybrid",
+          "onsite"
+        ]
+      }
+    },
+    {
+      "id": "google-core",
+      "name": "Google Core",
+      "primary_region": "other_socal",
+      "overview": "Builds shared technology across Google; the reported Principal charter shapes company-wide agentic data tools.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 1,
+        "new_count": 0,
+        "base_min": 307000,
+        "base_max": 428000,
+        "highest_role_midpoint": 367500,
+        "locations": [
+          "Irvine",
+          "San Jose"
+        ],
+        "work_arrangements": [
+          "unspecified"
+        ]
+      }
+    },
+    {
+      "id": "rivian",
+      "name": "Rivian",
+      "primary_region": "other_socal",
+      "overview": "Electric vehicle company; the shortlisted role builds agent infrastructure for engineering productivity.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 1,
+        "new_count": 0,
+        "base_min": 206500,
+        "base_max": 258000,
+        "highest_role_midpoint": 232250,
+        "locations": [
+          "Palo Alto"
+        ],
+        "work_arrangements": [
+          "onsite"
+        ]
+      }
+    },
+    {
+      "id": "anduril",
+      "name": "Anduril",
+      "primary_region": "other_socal",
+      "overview": "Builds autonomous defense systems and software-defined manufacturing; the archived role shaped manufacturing-quality platforms.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 0,
+        "new_count": 0,
+        "base_min": null,
+        "base_max": null,
+        "highest_role_midpoint": null,
+        "locations": [],
+        "work_arrangements": []
+      }
+    },
+    {
       "id": "anthropic",
       "name": "Anthropic",
       "primary_region": "sf",
@@ -374,7 +528,7 @@
         "enrichment_status": "pending_verified_sources"
       },
       "summary": {
-        "reported_open_count": 3,
+        "reported_open_count": 5,
         "new_count": 1,
         "base_min": 300000,
         "base_max": 605000,
@@ -382,7 +536,9 @@
         "locations": [
           "San Francisco",
           "New York",
-          "Seattle"
+          "Seattle",
+          "London",
+          "at least 25% office attendance"
         ],
         "work_arrangements": [
           "hybrid"
@@ -409,16 +565,17 @@
         "enrichment_status": "pending_verified_sources"
       },
       "summary": {
-        "reported_open_count": 4,
+        "reported_open_count": 6,
         "new_count": 0,
         "base_min": 185000,
-        "base_max": 385000,
-        "highest_role_midpoint": 366000,
+        "base_max": 445000,
+        "highest_role_midpoint": 396000,
         "locations": [
           "San Francisco"
         ],
         "work_arrangements": [
-          "hybrid"
+          "hybrid",
+          "unspecified"
         ]
       }
     },
@@ -442,7 +599,7 @@
         "enrichment_status": "pending_verified_sources"
       },
       "summary": {
-        "reported_open_count": 2,
+        "reported_open_count": 3,
         "new_count": 0,
         "base_min": 220000,
         "base_max": 405000,
@@ -452,8 +609,8 @@
           "New York"
         ],
         "work_arrangements": [
-          "hybrid",
-          "unspecified"
+          "unspecified",
+          "hybrid"
         ]
       }
     },
@@ -526,6 +683,41 @@
       }
     },
     {
+      "id": "nuro",
+      "name": "Nuro",
+      "primary_region": "sf",
+      "overview": "Builds autonomous-driving technology; the reported agent infrastructure role supports its engineering and autonomy workflows.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 1,
+        "new_count": 0,
+        "base_min": 193930,
+        "base_max": 352290,
+        "highest_role_midpoint": 273110,
+        "locations": [
+          "Mountain View",
+          "San Francisco",
+          "four office days including Thursday at Mountain View"
+        ],
+        "work_arrangements": [
+          "hybrid"
+        ]
+      }
+    },
+    {
       "id": "traba",
       "name": "Traba",
       "primary_region": "sf",
@@ -560,6 +752,40 @@
       }
     },
     {
+      "id": "postman",
+      "name": "Postman",
+      "primary_region": "sf",
+      "overview": "Builds an API development platform; the reported role leads agent development.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 1,
+        "new_count": 0,
+        "base_min": 256000,
+        "base_max": 276000,
+        "highest_role_midpoint": 266000,
+        "locations": [
+          "San Francisco Bay Area",
+          "five office days"
+        ],
+        "work_arrangements": [
+          "onsite"
+        ]
+      }
+    },
+    {
       "id": "nvidia",
       "name": "NVIDIA",
       "primary_region": "sf",
@@ -589,6 +815,44 @@
         ],
         "work_arrangements": [
           "hybrid"
+        ]
+      }
+    },
+    {
+      "id": "vercel",
+      "name": "Vercel",
+      "primary_region": "sf",
+      "overview": "Builds infrastructure and developer tools for web applications and agents, including Next.js and the AI SDK.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 2,
+        "new_count": 0,
+        "base_min": 137000,
+        "base_max": 312000,
+        "highest_role_midpoint": 260000,
+        "locations": [
+          "Remote, United States",
+          "disclosed pay band is San Francisco-based",
+          "San Francisco",
+          "Austin",
+          "New York City",
+          "remote-friendly with customer travel"
+        ],
+        "work_arrangements": [
+          "remote"
         ]
       }
     },
@@ -660,10 +924,10 @@
       }
     },
     {
-      "id": "rivian",
-      "name": "Rivian",
+      "id": "sully",
+      "name": "Sully",
       "primary_region": "sf",
-      "overview": "Electric vehicle company; the shortlisted role builds agent infrastructure for engineering productivity.",
+      "overview": "Builds AI medical employees to reduce hospital and clinic administrative work.",
       "profile": {
         "employee_count": null,
         "employee_count_as_of": null,
@@ -681,14 +945,14 @@
       "summary": {
         "reported_open_count": 1,
         "new_count": 0,
-        "base_min": 206500,
-        "base_max": 258000,
-        "highest_role_midpoint": 232250,
+        "base_min": 200000,
+        "base_max": 300000,
+        "highest_role_midpoint": 250000,
         "locations": [
-          "Palo Alto"
+          "Mountain View"
         ],
         "work_arrangements": [
-          "onsite"
+          "unspecified"
         ]
       }
     },
@@ -722,6 +986,48 @@
         ],
         "work_arrangements": [
           "onsite"
+        ]
+      }
+    },
+    {
+      "id": "vapi",
+      "name": "Vapi",
+      "primary_region": "sf",
+      "overview": "Builds a configurable platform for developers deploying voice agents.",
+      "profile": {
+        "employee_count": 50,
+        "employee_count_as_of": "2026-10-05",
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [
+          {
+            "url": "https://www.ycombinator.com/companies/vapi/jobs/3GU4CIx-member-of-technical-staff-forward-deployed",
+            "kind": "company_profile",
+            "retrieved_on": "2026-10-05",
+            "note": "YC company-reported team size; current annual revenue not disclosed."
+          }
+        ],
+        "enrichment_status": "partial_verified_sources",
+        "employee_count_is_approximate": true
+      },
+      "summary": {
+        "reported_open_count": 1,
+        "new_count": 0,
+        "base_min": 150000,
+        "base_max": 300000,
+        "highest_role_midpoint": 225000,
+        "locations": [
+          "San Francisco",
+          "enterprise customer sites"
+        ],
+        "work_arrangements": [
+          "unspecified"
         ]
       }
     },
@@ -792,6 +1098,40 @@
       }
     },
     {
+      "id": "letta",
+      "name": "Letta",
+      "primary_region": "sf",
+      "overview": "Builds stateful, self-improving agents, an open-source framework, and a hosted service.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 1,
+        "new_count": 0,
+        "base_min": null,
+        "base_max": null,
+        "highest_role_midpoint": null,
+        "locations": [
+          "San Francisco",
+          "five days onsite"
+        ],
+        "work_arrangements": [
+          "onsite"
+        ]
+      }
+    },
+    {
       "id": "moveworks-servicenow",
       "name": "Moveworks / ServiceNow",
       "primary_region": "sf",
@@ -825,6 +1165,35 @@
       }
     },
     {
+      "id": "plenful",
+      "name": "Plenful",
+      "primary_region": "sf",
+      "overview": "Builds workflow automation for healthcare and pharmacy operators, including compliance and administrative processes.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 0,
+        "new_count": 0,
+        "base_min": null,
+        "base_max": null,
+        "highest_role_midpoint": null,
+        "locations": [],
+        "work_arrangements": []
+      }
+    },
+    {
       "id": "sable",
       "name": "Sable",
       "primary_region": "sf",
@@ -846,6 +1215,47 @@
       "summary": {
         "reported_open_count": 1,
         "new_count": 1,
+        "base_min": null,
+        "base_max": null,
+        "highest_role_midpoint": null,
+        "locations": [
+          "San Francisco"
+        ],
+        "work_arrangements": [
+          "onsite"
+        ]
+      }
+    },
+    {
+      "id": "temper",
+      "name": "Temper",
+      "primary_region": "sf",
+      "overview": "Builds an agentic integration platform that automates requirements, code generation, deployment, and recovery for enterprise systems.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": "2026-10-05",
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": "Seed",
+        "valuation": null,
+        "sources": [
+          {
+            "url": "https://jobs.ashbyhq.com/temper/a1f46cab-6e47-4203-a8b8-95c2b47d60c6",
+            "kind": "company_profile",
+            "retrieved_on": "2026-10-05",
+            "note": "Posting describes an early team of under 10 and over $8M raised; neither is annual revenue."
+          }
+        ],
+        "enrichment_status": "partial_verified_sources",
+        "employee_count_upper_bound": 9
+      },
+      "summary": {
+        "reported_open_count": 1,
+        "new_count": 0,
         "base_min": null,
         "base_max": null,
         "highest_role_midpoint": null,
@@ -888,6 +1298,137 @@
         "work_arrangements": [
           "remote"
         ]
+      }
+    },
+    {
+      "id": "gc-ai",
+      "name": "GC AI",
+      "primary_region": "elsewhere",
+      "overview": "Builds legal intelligence and automation software for in-house legal teams.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 1,
+        "new_count": 0,
+        "base_min": 165000,
+        "base_max": 350000,
+        "highest_role_midpoint": 257500,
+        "locations": [
+          "Remote, United States or Canada",
+          "three hub days for Bay Area/Provo residents",
+          "up to 25% customer travel"
+        ],
+        "work_arrangements": [
+          "remote"
+        ]
+      }
+    },
+    {
+      "id": "eagle",
+      "name": "Eagle",
+      "primary_region": "elsewhere",
+      "overview": "Builds applied AI tools for civil, structural, and MEP engineering firms.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 1,
+        "new_count": 0,
+        "base_min": 150000,
+        "base_max": 300000,
+        "highest_role_midpoint": 225000,
+        "locations": [
+          "New York City",
+          "customer sites and travel"
+        ],
+        "work_arrangements": [
+          "onsite"
+        ]
+      }
+    },
+    {
+      "id": "openhands",
+      "name": "OpenHands",
+      "primary_region": "elsewhere",
+      "overview": "Builds an open-source coding-agent platform and software for enterprise deployments.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 1,
+        "new_count": 0,
+        "base_min": 175000,
+        "base_max": 240000,
+        "highest_role_midpoint": 207500,
+        "locations": [
+          "Remote, United States"
+        ],
+        "work_arrangements": [
+          "remote"
+        ]
+      }
+    },
+    {
+      "id": "apollo-graphql",
+      "name": "Apollo GraphQL",
+      "primary_region": "elsewhere",
+      "overview": "Builds GraphQL developer infrastructure; the archived AI Runtime role extended its platform to agents.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 0,
+        "new_count": 0,
+        "base_min": null,
+        "base_max": null,
+        "highest_role_midpoint": null,
+        "locations": [],
+        "work_arrangements": []
       }
     },
     {
@@ -955,9 +1496,702 @@
           "remote"
         ]
       }
+    },
+    {
+      "id": "mastra",
+      "name": "Mastra",
+      "primary_region": "elsewhere",
+      "overview": "Builds an open-source TypeScript agent framework, with customer engineering contributing directly to the core platform.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 1,
+        "new_count": 0,
+        "base_min": null,
+        "base_max": null,
+        "highest_role_midpoint": null,
+        "locations": [
+          "Remote",
+          "team works across North American and European time zones"
+        ],
+        "work_arrangements": [
+          "remote"
+        ]
+      }
+    },
+    {
+      "id": "sourcegraph",
+      "name": "Sourcegraph",
+      "primary_region": "elsewhere",
+      "overview": "Builds code search and agent tools for understanding and changing large codebases.",
+      "profile": {
+        "employee_count": null,
+        "employee_count_as_of": null,
+        "ownership_status": null,
+        "ticker": null,
+        "parent_company": null,
+        "revenue": null,
+        "revenue_metric": null,
+        "revenue_period": null,
+        "funding_stage": null,
+        "valuation": null,
+        "sources": [],
+        "enrichment_status": "pending_verified_sources"
+      },
+      "summary": {
+        "reported_open_count": 1,
+        "new_count": 0,
+        "base_min": null,
+        "base_max": null,
+        "highest_role_midpoint": null,
+        "locations": [
+          "Remote",
+          "Europe or EST preferred",
+          "at least 20 hours/week overlap with CEST"
+        ],
+        "work_arrangements": [
+          "remote"
+        ]
+      }
     }
   ],
   "jobs": [
+    {
+      "id": "snap-H226PE10",
+      "company_id": "snap",
+      "title": "Principal Software Engineer",
+      "application_url": "https://careers.snap.com/job?id=H226PE10",
+      "primary_region": "la",
+      "location_text": "Los Angeles",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Principal / inferred L7",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 276000,
+        "base_max": 414000,
+        "base_midpoint": 345000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://careers.snap.com/job?id=H226PE10"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-07",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": null,
+        "evidence": "prior_report",
+        "note": "Imported from the October 5 report; not independently rechecked for this export."
+      },
+      "fit_summary": "Portfolio-scale technical direction and ambiguous distributed-systems initiatives.",
+      "biggest_risk": "Team and charter unspecified.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://careers.snap.com/job?id=H226PE10",
+          "kind": "application",
+          "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-07",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "snap-R0046092",
+      "company_id": "snap",
+      "title": "Staff Software Engineer, Core Infrastructure",
+      "application_url": "https://careers.snap.com/job?id=R0046092",
+      "primary_region": "la",
+      "location_text": "Los Angeles",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Staff / inferred L6",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 229000,
+        "base_max": 343000,
+        "base_midpoint": 286000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://careers.snap.com/job?id=R0046092"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-07",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": null,
+        "evidence": "prior_report",
+        "note": "Imported from the October 5 report; not independently rechecked for this export."
+      },
+      "fit_summary": "Hands-on orchestration and infrastructure leadership.",
+      "biggest_risk": "Conventional infrastructure charter.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://careers.snap.com/job?id=R0046092",
+          "kind": "application",
+          "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-07",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "snap-R0045781",
+      "company_id": "snap",
+      "title": "Staff Software Engineer, Platform Engineering",
+      "application_url": "https://careers.snap.com/job?id=R0045781",
+      "primary_region": "la",
+      "location_text": "Los Angeles",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Staff / inferred L6",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 229000,
+        "base_max": 343000,
+        "base_midpoint": 286000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://careers.snap.com/job?id=R0045781"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-07",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": null,
+        "evidence": "prior_report",
+        "note": "Imported from the October 5 report; not independently rechecked for this export."
+      },
+      "fit_summary": "Agent harnesses, MCP, Temporal, evaluations and roadmap ownership.",
+      "biggest_risk": "Internal developer productivity.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://careers.snap.com/job?id=R0045781",
+          "kind": "application",
+          "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-07",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "twg-ai-B659B8B6BC",
+      "company_id": "twg-ai",
+      "title": "Staff Full-Stack Engineer, AI Engineering",
+      "application_url": "https://apply.workable.com/twgai/j/B659B8B6BC",
+      "primary_region": "la",
+      "location_text": "Santa Monica; New York",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Staff",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 290000,
+        "base_max": 300000,
+        "base_midpoint": 295000,
+        "is_approximate": true,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://apply.workable.com/twgai/j/B659B8B6BC"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-14",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": null,
+        "evidence": "prior_report",
+        "note": "Imported from the October 5 report; not independently rechecked for this export."
+      },
+      "fit_summary": "Stateful agent applications and 0-to-1 workflows.",
+      "biggest_risk": "Portfolio-company consulting rather than durable product ownership.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://apply.workable.com/twgai/j/B659B8B6BC",
+          "kind": "application",
+          "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-14",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "google-cloud-129988979490464454-forward-deployed-engineer-iv-genai-google-cloud",
+      "company_id": "google-cloud",
+      "title": "Forward Deployed Engineer IV, GenAI, Google Cloud",
+      "application_url": "https://www.google.com/about/careers/applications/jobs/results/129988979490464454-forward-deployed-engineer-iv-genai-google-cloud",
+      "primary_region": "la",
+      "location_text": "San Diego; Los Angeles/Playa Vista; Irvine; other offices",
+      "work_arrangement": "unspecified",
+      "level": {
+        "label": "Advanced / inferred L6-ish",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 207000,
+        "base_max": 300000,
+        "base_midpoint": 253500,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://www.google.com/about/careers/applications/jobs/results/129988979490464454-forward-deployed-engineer-iv-genai-google-cloud"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-14",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": null,
+        "evidence": "prior_report",
+        "note": "Imported from the October 5 report; not independently rechecked for this export."
+      },
+      "fit_summary": "Customer discovery through production multi-agent/MCP systems.",
+      "biggest_risk": "GTM incentives could favor bespoke delivery.",
+      "role_family": "forward_deployed",
+      "sources": [
+        {
+          "url": "https://www.google.com/about/careers/applications/jobs/results/129988979490464454-forward-deployed-engineer-iv-genai-google-cloud",
+          "kind": "application",
+          "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-14",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "vast-staff-software-engineer-ai-tooling-at-vast-4394999690",
+      "company_id": "vast",
+      "title": "Staff Software Engineer, AI Tooling",
+      "application_url": "https://www.linkedin.com/jobs/view/staff-software-engineer-ai-tooling-at-vast-4394999690",
+      "primary_region": "la",
+      "location_text": "Long Beach",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Staff",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 188600,
+        "base_max": 267700,
+        "base_midpoint": 228150,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://www.linkedin.com/jobs/view/staff-software-engineer-ai-tooling-at-vast-4394999690"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-07",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": null,
+        "evidence": "prior_report",
+        "note": "Imported from the October 5 report; not independently rechecked for this export."
+      },
+      "fit_summary": "AI-platform roadmap, MCP gateways and production integrations.",
+      "biggest_risk": "Weaker mission alignment.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://www.linkedin.com/jobs/view/staff-software-engineer-ai-tooling-at-vast-4394999690",
+          "kind": "application",
+          "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-07",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "relativity-space-8694874002",
+      "company_id": "relativity-space",
+      "title": "Staff Software Engineer, Agentic Infrastructure",
+      "application_url": "https://job-boards.greenhouse.io/relativity/jobs/8694874002",
+      "primary_region": "la",
+      "location_text": "Long Beach",
+      "work_arrangement": "hybrid",
+      "level": {
+        "label": "Staff",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 181000,
+        "base_max": 271000,
+        "base_midpoint": 226000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://job-boards.greenhouse.io/relativity/jobs/8694874002"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-07",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": null,
+        "evidence": "prior_report",
+        "note": "Imported from the October 5 report; not independently rechecked for this export."
+      },
+      "fit_summary": "Agent sessions, context, routing and recovery.",
+      "biggest_risk": "Physical infrastructure and operations central.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://job-boards.greenhouse.io/relativity/jobs/8694874002",
+          "kind": "application",
+          "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-07",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "observable-space-1886d8ea-88d4-490a-b360-d638108df58d",
+      "company_id": "observable-space",
+      "title": "Staff Full Stack Software Engineer",
+      "application_url": "https://jobs.ashbyhq.com/observable-space/1886d8ea-88d4-490a-b360-d638108df58d",
+      "primary_region": "la",
+      "location_text": "Los Angeles",
+      "work_arrangement": "hybrid",
+      "level": {
+        "label": "Staff",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 180000,
+        "base_max": 230000,
+        "base_midpoint": 205000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://jobs.ashbyhq.com/observable-space/1886d8ea-88d4-490a-b360-d638108df58d"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-28",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": null,
+        "evidence": "prior_report",
+        "note": "Imported from the October 5 report; not independently rechecked for this export."
+      },
+      "fit_summary": "Small-company architectural ownership around precision optical systems.",
+      "biggest_risk": "Less direct human-leverage alignment.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/observable-space/1886d8ea-88d4-490a-b360-d638108df58d",
+          "kind": "application",
+          "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-28",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "divergent-5281525008",
+      "company_id": "divergent",
+      "title": "Staff Full Stack Software Engineer",
+      "application_url": "https://job-boards.greenhouse.io/divergent/jobs/5281525008",
+      "primary_region": "la",
+      "location_text": "Torrance",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Staff / E06",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 163270,
+        "base_max": 224500,
+        "base_midpoint": 193885,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://job-boards.greenhouse.io/divergent/jobs/5281525008"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-07",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": null,
+        "evidence": "prior_report",
+        "note": "Imported from the October 5 report; not independently rechecked for this export."
+      },
+      "fit_summary": "Architecture spanning robotics, manufacturing and factory operations.",
+      "biggest_risk": "Expert React/Node requirements.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://job-boards.greenhouse.io/divergent/jobs/5281525008",
+          "kind": "application",
+          "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-07",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "first-resonance-f116c1b3-d74e-4f6f-b96d-50b1734f70c8",
+      "company_id": "first-resonance",
+      "title": "Staff Software Engineer",
+      "application_url": "https://jobs.ashbyhq.com/first-resonance/f116c1b3-d74e-4f6f-b96d-50b1734f70c8",
+      "primary_region": "la",
+      "location_text": "Los Angeles",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Staff",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 175000,
+        "base_max": 210000,
+        "base_midpoint": 192500,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://jobs.ashbyhq.com/first-resonance/f116c1b3-d74e-4f6f-b96d-50b1734f70c8"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-08-24",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": null,
+        "evidence": "prior_report",
+        "note": "Imported from the October 5 report; not independently rechecked for this export."
+      },
+      "fit_summary": "Advanced-manufacturing backend/platform leadership.",
+      "biggest_risk": "Less charter authorship.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/first-resonance/f116c1b3-d74e-4f6f-b96d-50b1734f70c8",
+          "kind": "application",
+          "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-24",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "first-resonance-e12450fb-f9d0-4799-80ef-6a5c26224f29",
+      "company_id": "first-resonance",
+      "title": "Principal Platform Engineer",
+      "application_url": "https://jobs.ashbyhq.com/first-resonance/e12450fb-f9d0-4799-80ef-6a5c26224f29",
+      "primary_region": "la",
+      "location_text": "Los Angeles; El Segundo",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Principal",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 170000,
+        "base_max": 210000,
+        "base_midpoint": 190000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://jobs.ashbyhq.com/first-resonance/e12450fb-f9d0-4799-80ef-6a5c26224f29"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-07",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": null,
+        "evidence": "prior_report",
+        "note": "Imported from the October 5 report; not independently rechecked for this export."
+      },
+      "fit_summary": "Converts field needs into reusable Factory OS architecture.",
+      "biggest_risk": "Compensation regression.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/first-resonance/e12450fb-f9d0-4799-80ef-6a5c26224f29",
+          "kind": "application",
+          "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-07",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "first-resonance-39d950b6-e211-497b-8519-4abce8c26ab4",
+      "company_id": "first-resonance",
+      "title": "Forward Deployed Software Engineer, Los Angeles",
+      "application_url": "https://jobs.ashbyhq.com/first-resonance/39d950b6-e211-497b-8519-4abce8c26ab4",
+      "primary_region": "la",
+      "location_text": "Los Angeles; customer sites",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Inferred Senior-equivalent",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 145000,
+        "base_max": 175000,
+        "base_midpoint": 160000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://jobs.ashbyhq.com/first-resonance/39d950b6-e211-497b-8519-4abce8c26ab4"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-07",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": null,
+        "evidence": "prior_report",
+        "note": "Imported from the October 5 report; not independently rechecked for this export."
+      },
+      "fit_summary": "Factory discovery through production code.",
+      "biggest_risk": "Significant down-leveling.",
+      "role_family": "forward_deployed",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/first-resonance/39d950b6-e211-497b-8519-4abce8c26ab4",
+          "kind": "application",
+          "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-07",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
     {
       "id": "shield-ai-22e914d8-488d-4f22-96a9-61dd4b15ea04",
       "company_id": "shield-ai",
@@ -984,7 +2218,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-09-14",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -1000,6 +2234,65 @@
           "url": "https://jobs.lever.co/shieldai/22e914d8-488d-4f22-96a9-61dd4b15ea04",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-14",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "shield-ai-aa3d2845-c311-4132-bd4d-7992f9affa7b",
+      "company_id": "shield-ai",
+      "title": "Staff Engineer, Core Platform Integration (R5411)",
+      "application_url": "https://jobs.lever.co/shieldai/aa3d2845-c311-4132-bd4d-7992f9affa7b",
+      "primary_region": "sd",
+      "location_text": "San Diego",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Staff",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 190000,
+        "base_max": 290000,
+        "base_midpoint": 240000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://jobs.lever.co/shieldai/aa3d2845-c311-4132-bd4d-7992f9affa7b"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-14",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Owns platform integration, developer tooling, automation, reference implementations, orchestration, and durable cross-team fixes.",
+      "biggest_risk": "Embedded C++/Python, hardware bring-up, diagnostic tools, and SIL/HIL/VIL are substantive experience gaps.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://jobs.lever.co/shieldai/aa3d2845-c311-4132-bd4d-7992f9affa7b",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-14",
+          "note": "Earliest known dated report appearance."
         }
       ]
     },
@@ -1029,7 +2322,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-09-14",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -1045,6 +2338,13 @@
           "url": "https://jobs.lever.co/shieldai/16461fb3-7163-45c0-b115-3edda60ae289",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-14",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
         }
       ]
     },
@@ -1164,7 +2464,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-09-28",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -1180,546 +2480,65 @@
           "url": "https://jobs.lever.co/shieldai/b6dcf09f-1fb2-4ac1-b2e6-9fab8acb4e79",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-28",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
         }
       ]
     },
     {
-      "id": "google-cloud-129988979490464454-forward-deployed-engineer-iv-genai-google-cloud",
-      "company_id": "google-cloud",
-      "title": "Forward Deployed Engineer IV, GenAI, Google Cloud",
-      "application_url": "https://www.google.com/about/careers/applications/jobs/results/129988979490464454-forward-deployed-engineer-iv-genai-google-cloud",
-      "primary_region": "sd",
-      "location_text": "San Diego; Los Angeles/Playa Vista; Irvine; other offices",
+      "id": "google-core-117158999496762054",
+      "company_id": "google-core",
+      "title": "Principal Engineer, Agentic AI Data and Insights",
+      "application_url": "https://www.google.com/about/careers/applications/jobs/results/117158999496762054-principal-engineer-agentic-ai-data-and-insights",
+      "primary_region": "other_socal",
+      "location_text": "Irvine; San Jose",
       "work_arrangement": "unspecified",
       "level": {
-        "label": "Advanced / inferred L6-ish",
+        "label": "Principal / Google L8",
         "is_inferred": true
       },
       "compensation": {
         "currency": "USD",
         "period": "year",
-        "base_min": 207000,
-        "base_max": 300000,
-        "base_midpoint": 253500,
+        "base_min": 307000,
+        "base_max": 428000,
+        "base_midpoint": 367500,
         "is_approximate": false,
         "salary_location": null,
-        "bonus": null,
-        "equity": null,
-        "source_url": "https://www.google.com/about/careers/applications/jobs/results/129988979490464454-forward-deployed-engineer-iv-genai-google-cloud"
+        "bonus": "30% target bonus (previously reported)",
+        "equity": "Offered",
+        "source_url": "https://www.google.com/about/careers/applications/jobs/results/117158999496762054-principal-engineer-agentic-ai-data-and-insights"
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-08-17",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
-        "last_verified_on": null,
-        "evidence": "prior_report",
-        "note": "Imported from the October 5 report; not independently rechecked for this export."
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
       },
-      "fit_summary": "Customer discovery through production multi-agent/MCP systems.",
-      "biggest_risk": "GTM incentives could favor bespoke delivery.",
-      "role_family": "forward_deployed",
-      "sources": [
-        {
-          "url": "https://www.google.com/about/careers/applications/jobs/results/129988979490464454-forward-deployed-engineer-iv-genai-google-cloud",
-          "kind": "application",
-          "retrieved_on": null
-        }
-      ]
-    },
-    {
-      "id": "snap-H226PE10",
-      "company_id": "snap",
-      "title": "Principal Software Engineer",
-      "application_url": "https://careers.snap.com/job?id=H226PE10",
-      "primary_region": "la",
-      "location_text": "Los Angeles",
-      "work_arrangement": "onsite",
-      "level": {
-        "label": "Principal / inferred L7",
-        "is_inferred": true
-      },
-      "compensation": {
-        "currency": "USD",
-        "period": "year",
-        "base_min": 276000,
-        "base_max": 414000,
-        "base_midpoint": 345000,
-        "is_approximate": false,
-        "salary_location": null,
-        "bonus": null,
-        "equity": null,
-        "source_url": "https://careers.snap.com/job?id=H226PE10"
-      },
-      "report_tag": "PREVIOUSLY REPORTED",
-      "is_new": false,
-      "first_reported_on": null,
-      "last_reported_on": "2026-10-05",
-      "lifecycle_status": "reported_open",
-      "verification": {
-        "last_verified_on": null,
-        "evidence": "prior_report",
-        "note": "Imported from the October 5 report; not independently rechecked for this export."
-      },
-      "fit_summary": "Portfolio-scale technical direction and ambiguous distributed-systems initiatives.",
-      "biggest_risk": "Team and charter unspecified.",
+      "fit_summary": "Defines strategy and architecture for company-wide agentic analysis, skills, APIs, and developer tooling across Core, Cloud, and DeepMind.",
+      "biggest_risk": "Portfolio-level authority is a substantial level stretch and could reduce hands-on coding.",
       "role_family": "technical_ic",
       "sources": [
         {
-          "url": "https://careers.snap.com/job?id=H226PE10",
+          "url": "https://www.google.com/about/careers/applications/jobs/results/117158999496762054-principal-engineer-agentic-ai-data-and-insights",
           "kind": "application",
-          "retrieved_on": null
-        }
-      ]
-    },
-    {
-      "id": "snap-R0046092",
-      "company_id": "snap",
-      "title": "Staff Software Engineer, Core Infrastructure",
-      "application_url": "https://careers.snap.com/job?id=R0046092",
-      "primary_region": "la",
-      "location_text": "Los Angeles",
-      "work_arrangement": "onsite",
-      "level": {
-        "label": "Staff / inferred L6",
-        "is_inferred": true
-      },
-      "compensation": {
-        "currency": "USD",
-        "period": "year",
-        "base_min": 229000,
-        "base_max": 343000,
-        "base_midpoint": 286000,
-        "is_approximate": false,
-        "salary_location": null,
-        "bonus": null,
-        "equity": null,
-        "source_url": "https://careers.snap.com/job?id=R0046092"
-      },
-      "report_tag": "PREVIOUSLY REPORTED",
-      "is_new": false,
-      "first_reported_on": null,
-      "last_reported_on": "2026-10-05",
-      "lifecycle_status": "reported_open",
-      "verification": {
-        "last_verified_on": null,
-        "evidence": "prior_report",
-        "note": "Imported from the October 5 report; not independently rechecked for this export."
-      },
-      "fit_summary": "Hands-on orchestration and infrastructure leadership.",
-      "biggest_risk": "Conventional infrastructure charter.",
-      "role_family": "technical_ic",
-      "sources": [
+          "retrieved_on": "2026-10-05"
+        },
         {
-          "url": "https://careers.snap.com/job?id=R0046092",
-          "kind": "application",
-          "retrieved_on": null
-        }
-      ]
-    },
-    {
-      "id": "snap-R0045781",
-      "company_id": "snap",
-      "title": "Staff Software Engineer, Platform Engineering",
-      "application_url": "https://careers.snap.com/job?id=R0045781",
-      "primary_region": "la",
-      "location_text": "Los Angeles",
-      "work_arrangement": "onsite",
-      "level": {
-        "label": "Staff / inferred L6",
-        "is_inferred": true
-      },
-      "compensation": {
-        "currency": "USD",
-        "period": "year",
-        "base_min": 229000,
-        "base_max": 343000,
-        "base_midpoint": 286000,
-        "is_approximate": false,
-        "salary_location": null,
-        "bonus": null,
-        "equity": null,
-        "source_url": "https://careers.snap.com/job?id=R0045781"
-      },
-      "report_tag": "PREVIOUSLY REPORTED",
-      "is_new": false,
-      "first_reported_on": null,
-      "last_reported_on": "2026-10-05",
-      "lifecycle_status": "reported_open",
-      "verification": {
-        "last_verified_on": null,
-        "evidence": "prior_report",
-        "note": "Imported from the October 5 report; not independently rechecked for this export."
-      },
-      "fit_summary": "Agent harnesses, MCP, Temporal, evaluations and roadmap ownership.",
-      "biggest_risk": "Internal developer productivity.",
-      "role_family": "technical_ic",
-      "sources": [
-        {
-          "url": "https://careers.snap.com/job?id=R0045781",
-          "kind": "application",
-          "retrieved_on": null
-        }
-      ]
-    },
-    {
-      "id": "twg-ai-B659B8B6BC",
-      "company_id": "twg-ai",
-      "title": "Staff Full-Stack Engineer, AI Engineering",
-      "application_url": "https://apply.workable.com/twgai/j/B659B8B6BC",
-      "primary_region": "la",
-      "location_text": "Santa Monica; New York",
-      "work_arrangement": "onsite",
-      "level": {
-        "label": "Staff",
-        "is_inferred": false
-      },
-      "compensation": {
-        "currency": "USD",
-        "period": "year",
-        "base_min": 290000,
-        "base_max": 300000,
-        "base_midpoint": 295000,
-        "is_approximate": true,
-        "salary_location": null,
-        "bonus": null,
-        "equity": null,
-        "source_url": "https://apply.workable.com/twgai/j/B659B8B6BC"
-      },
-      "report_tag": "PREVIOUSLY REPORTED",
-      "is_new": false,
-      "first_reported_on": null,
-      "last_reported_on": "2026-10-05",
-      "lifecycle_status": "reported_open",
-      "verification": {
-        "last_verified_on": null,
-        "evidence": "prior_report",
-        "note": "Imported from the October 5 report; not independently rechecked for this export."
-      },
-      "fit_summary": "Stateful agent applications and 0-to-1 workflows.",
-      "biggest_risk": "Portfolio-company consulting rather than durable product ownership.",
-      "role_family": "technical_ic",
-      "sources": [
-        {
-          "url": "https://apply.workable.com/twgai/j/B659B8B6BC",
-          "kind": "application",
-          "retrieved_on": null
-        }
-      ]
-    },
-    {
-      "id": "vast-staff-software-engineer-ai-tooling-at-vast-4394999690",
-      "company_id": "vast",
-      "title": "Staff Software Engineer, AI Tooling",
-      "application_url": "https://www.linkedin.com/jobs/view/staff-software-engineer-ai-tooling-at-vast-4394999690",
-      "primary_region": "la",
-      "location_text": "Long Beach",
-      "work_arrangement": "onsite",
-      "level": {
-        "label": "Staff",
-        "is_inferred": false
-      },
-      "compensation": {
-        "currency": "USD",
-        "period": "year",
-        "base_min": 188600,
-        "base_max": 267700,
-        "base_midpoint": 228150,
-        "is_approximate": false,
-        "salary_location": null,
-        "bonus": null,
-        "equity": null,
-        "source_url": "https://www.linkedin.com/jobs/view/staff-software-engineer-ai-tooling-at-vast-4394999690"
-      },
-      "report_tag": "PREVIOUSLY REPORTED",
-      "is_new": false,
-      "first_reported_on": null,
-      "last_reported_on": "2026-10-05",
-      "lifecycle_status": "reported_open",
-      "verification": {
-        "last_verified_on": null,
-        "evidence": "prior_report",
-        "note": "Imported from the October 5 report; not independently rechecked for this export."
-      },
-      "fit_summary": "AI-platform roadmap, MCP gateways and production integrations.",
-      "biggest_risk": "Weaker mission alignment.",
-      "role_family": "technical_ic",
-      "sources": [
-        {
-          "url": "https://www.linkedin.com/jobs/view/staff-software-engineer-ai-tooling-at-vast-4394999690",
-          "kind": "application",
-          "retrieved_on": null
-        }
-      ]
-    },
-    {
-      "id": "relativity-space-8694874002",
-      "company_id": "relativity-space",
-      "title": "Staff Software Engineer, Agentic Infrastructure",
-      "application_url": "https://job-boards.greenhouse.io/relativity/jobs/8694874002",
-      "primary_region": "la",
-      "location_text": "Long Beach",
-      "work_arrangement": "hybrid",
-      "level": {
-        "label": "Staff",
-        "is_inferred": false
-      },
-      "compensation": {
-        "currency": "USD",
-        "period": "year",
-        "base_min": 181000,
-        "base_max": 271000,
-        "base_midpoint": 226000,
-        "is_approximate": false,
-        "salary_location": null,
-        "bonus": null,
-        "equity": null,
-        "source_url": "https://job-boards.greenhouse.io/relativity/jobs/8694874002"
-      },
-      "report_tag": "PREVIOUSLY REPORTED",
-      "is_new": false,
-      "first_reported_on": null,
-      "last_reported_on": "2026-10-05",
-      "lifecycle_status": "reported_open",
-      "verification": {
-        "last_verified_on": null,
-        "evidence": "prior_report",
-        "note": "Imported from the October 5 report; not independently rechecked for this export."
-      },
-      "fit_summary": "Agent sessions, context, routing and recovery.",
-      "biggest_risk": "Physical infrastructure and operations central.",
-      "role_family": "technical_ic",
-      "sources": [
-        {
-          "url": "https://job-boards.greenhouse.io/relativity/jobs/8694874002",
-          "kind": "application",
-          "retrieved_on": null
-        }
-      ]
-    },
-    {
-      "id": "observable-space-1886d8ea-88d4-490a-b360-d638108df58d",
-      "company_id": "observable-space",
-      "title": "Staff Full Stack Software Engineer",
-      "application_url": "https://jobs.ashbyhq.com/observable-space/1886d8ea-88d4-490a-b360-d638108df58d",
-      "primary_region": "la",
-      "location_text": "Los Angeles",
-      "work_arrangement": "hybrid",
-      "level": {
-        "label": "Staff",
-        "is_inferred": false
-      },
-      "compensation": {
-        "currency": "USD",
-        "period": "year",
-        "base_min": 180000,
-        "base_max": 230000,
-        "base_midpoint": 205000,
-        "is_approximate": false,
-        "salary_location": null,
-        "bonus": null,
-        "equity": null,
-        "source_url": "https://jobs.ashbyhq.com/observable-space/1886d8ea-88d4-490a-b360-d638108df58d"
-      },
-      "report_tag": "PREVIOUSLY REPORTED",
-      "is_new": false,
-      "first_reported_on": null,
-      "last_reported_on": "2026-10-05",
-      "lifecycle_status": "reported_open",
-      "verification": {
-        "last_verified_on": null,
-        "evidence": "prior_report",
-        "note": "Imported from the October 5 report; not independently rechecked for this export."
-      },
-      "fit_summary": "Small-company architectural ownership around precision optical systems.",
-      "biggest_risk": "Less direct human-leverage alignment.",
-      "role_family": "technical_ic",
-      "sources": [
-        {
-          "url": "https://jobs.ashbyhq.com/observable-space/1886d8ea-88d4-490a-b360-d638108df58d",
-          "kind": "application",
-          "retrieved_on": null
-        }
-      ]
-    },
-    {
-      "id": "divergent-5281525008",
-      "company_id": "divergent",
-      "title": "Staff Full Stack Software Engineer",
-      "application_url": "https://job-boards.greenhouse.io/divergent/jobs/5281525008",
-      "primary_region": "la",
-      "location_text": "Torrance",
-      "work_arrangement": "onsite",
-      "level": {
-        "label": "Staff / E06",
-        "is_inferred": true
-      },
-      "compensation": {
-        "currency": "USD",
-        "period": "year",
-        "base_min": 163270,
-        "base_max": 224500,
-        "base_midpoint": 193885,
-        "is_approximate": false,
-        "salary_location": null,
-        "bonus": null,
-        "equity": null,
-        "source_url": "https://job-boards.greenhouse.io/divergent/jobs/5281525008"
-      },
-      "report_tag": "PREVIOUSLY REPORTED",
-      "is_new": false,
-      "first_reported_on": null,
-      "last_reported_on": "2026-10-05",
-      "lifecycle_status": "reported_open",
-      "verification": {
-        "last_verified_on": null,
-        "evidence": "prior_report",
-        "note": "Imported from the October 5 report; not independently rechecked for this export."
-      },
-      "fit_summary": "Architecture spanning robotics, manufacturing and factory operations.",
-      "biggest_risk": "Expert React/Node requirements.",
-      "role_family": "technical_ic",
-      "sources": [
-        {
-          "url": "https://job-boards.greenhouse.io/divergent/jobs/5281525008",
-          "kind": "application",
-          "retrieved_on": null
-        }
-      ]
-    },
-    {
-      "id": "first-resonance-f116c1b3-d74e-4f6f-b96d-50b1734f70c8",
-      "company_id": "first-resonance",
-      "title": "Staff Software Engineer",
-      "application_url": "https://jobs.ashbyhq.com/first-resonance/f116c1b3-d74e-4f6f-b96d-50b1734f70c8",
-      "primary_region": "la",
-      "location_text": "Los Angeles",
-      "work_arrangement": "onsite",
-      "level": {
-        "label": "Staff",
-        "is_inferred": false
-      },
-      "compensation": {
-        "currency": "USD",
-        "period": "year",
-        "base_min": 175000,
-        "base_max": 210000,
-        "base_midpoint": 192500,
-        "is_approximate": false,
-        "salary_location": null,
-        "bonus": null,
-        "equity": null,
-        "source_url": "https://jobs.ashbyhq.com/first-resonance/f116c1b3-d74e-4f6f-b96d-50b1734f70c8"
-      },
-      "report_tag": "PREVIOUSLY REPORTED",
-      "is_new": false,
-      "first_reported_on": null,
-      "last_reported_on": "2026-10-05",
-      "lifecycle_status": "reported_open",
-      "verification": {
-        "last_verified_on": null,
-        "evidence": "prior_report",
-        "note": "Imported from the October 5 report; not independently rechecked for this export."
-      },
-      "fit_summary": "Advanced-manufacturing backend/platform leadership.",
-      "biggest_risk": "Less charter authorship.",
-      "role_family": "technical_ic",
-      "sources": [
-        {
-          "url": "https://jobs.ashbyhq.com/first-resonance/f116c1b3-d74e-4f6f-b96d-50b1734f70c8",
-          "kind": "application",
-          "retrieved_on": null
-        }
-      ]
-    },
-    {
-      "id": "first-resonance-e12450fb-f9d0-4799-80ef-6a5c26224f29",
-      "company_id": "first-resonance",
-      "title": "Principal Platform Engineer",
-      "application_url": "https://jobs.ashbyhq.com/first-resonance/e12450fb-f9d0-4799-80ef-6a5c26224f29",
-      "primary_region": "la",
-      "location_text": "Los Angeles; El Segundo",
-      "work_arrangement": "onsite",
-      "level": {
-        "label": "Principal",
-        "is_inferred": false
-      },
-      "compensation": {
-        "currency": "USD",
-        "period": "year",
-        "base_min": 170000,
-        "base_max": 210000,
-        "base_midpoint": 190000,
-        "is_approximate": false,
-        "salary_location": null,
-        "bonus": null,
-        "equity": null,
-        "source_url": "https://jobs.ashbyhq.com/first-resonance/e12450fb-f9d0-4799-80ef-6a5c26224f29"
-      },
-      "report_tag": "PREVIOUSLY REPORTED",
-      "is_new": false,
-      "first_reported_on": null,
-      "last_reported_on": "2026-10-05",
-      "lifecycle_status": "reported_open",
-      "verification": {
-        "last_verified_on": null,
-        "evidence": "prior_report",
-        "note": "Imported from the October 5 report; not independently rechecked for this export."
-      },
-      "fit_summary": "Converts field needs into reusable Factory OS architecture.",
-      "biggest_risk": "Compensation regression.",
-      "role_family": "technical_ic",
-      "sources": [
-        {
-          "url": "https://jobs.ashbyhq.com/first-resonance/e12450fb-f9d0-4799-80ef-6a5c26224f29",
-          "kind": "application",
-          "retrieved_on": null
-        }
-      ]
-    },
-    {
-      "id": "first-resonance-39d950b6-e211-497b-8519-4abce8c26ab4",
-      "company_id": "first-resonance",
-      "title": "Forward Deployed Software Engineer, Los Angeles",
-      "application_url": "https://jobs.ashbyhq.com/first-resonance/39d950b6-e211-497b-8519-4abce8c26ab4",
-      "primary_region": "la",
-      "location_text": "Los Angeles; customer sites",
-      "work_arrangement": "onsite",
-      "level": {
-        "label": "Inferred Senior-equivalent",
-        "is_inferred": true
-      },
-      "compensation": {
-        "currency": "USD",
-        "period": "year",
-        "base_min": 145000,
-        "base_max": 175000,
-        "base_midpoint": 160000,
-        "is_approximate": false,
-        "salary_location": null,
-        "bonus": null,
-        "equity": null,
-        "source_url": "https://jobs.ashbyhq.com/first-resonance/39d950b6-e211-497b-8519-4abce8c26ab4"
-      },
-      "report_tag": "PREVIOUSLY REPORTED",
-      "is_new": false,
-      "first_reported_on": null,
-      "last_reported_on": "2026-10-05",
-      "lifecycle_status": "reported_open",
-      "verification": {
-        "last_verified_on": null,
-        "evidence": "prior_report",
-        "note": "Imported from the October 5 report; not independently rechecked for this export."
-      },
-      "fit_summary": "Factory discovery through production code.",
-      "biggest_risk": "Significant down-leveling.",
-      "role_family": "forward_deployed",
-      "sources": [
-        {
-          "url": "https://jobs.ashbyhq.com/first-resonance/39d950b6-e211-497b-8519-4abce8c26ab4",
-          "kind": "application",
-          "retrieved_on": null
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-17",
+          "note": "Earliest known dated report appearance."
         }
       ]
     },
@@ -1749,7 +2568,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-08-10",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -1765,6 +2584,13 @@
           "url": "https://job-boards.greenhouse.io/anthropic/jobs/5367436008",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-10",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
         }
       ]
     },
@@ -1794,7 +2620,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-08-17",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -1810,6 +2636,117 @@
           "url": "https://job-boards.greenhouse.io/anthropic/jobs/5290360008",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-17",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "anthropic-5368034008",
+      "company_id": "anthropic",
+      "title": "Staff+ Software Engineer, Enterprise AI Products",
+      "application_url": "https://job-boards.greenhouse.io/anthropic/jobs/5368034008",
+      "primary_region": "sf",
+      "location_text": "San Francisco; New York; at least 25% office attendance",
+      "work_arrangement": "hybrid",
+      "level": {
+        "label": "Staff+",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 405000,
+        "base_max": 485000,
+        "base_midpoint": 445000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://job-boards.greenhouse.io/anthropic/jobs/5368034008"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-21",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Turns enterprise customer workflows into shipped products and multi-player asynchronous agents; owns design, technical direction, and the research feedback loop.",
+      "biggest_risk": "Enterprise delivery and GTM pressure could constrain bottom-up product bets.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5368034008",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-21",
+          "note": "Earliest known dated report appearance."
+        }
+      ]
+    },
+    {
+      "id": "anthropic-5394948008",
+      "company_id": "anthropic",
+      "title": "Staff+ Software Engineer, Platform Connectivity",
+      "application_url": "https://job-boards.greenhouse.io/anthropic/jobs/5394948008",
+      "primary_region": "sf",
+      "location_text": "San Francisco; London; at least 25% office attendance",
+      "work_arrangement": "hybrid",
+      "level": {
+        "label": "Staff+",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 405000,
+        "base_max": 485000,
+        "base_midpoint": 445000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://job-boards.greenhouse.io/anthropic/jobs/5394948008"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-21",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Owns MCP connectivity, proxy infrastructure, identity, permissions, and SDKs with hands-on cross-team technical direction.",
+      "biggest_risk": "Reliability, security, and on-call commitments may constrain exploratory charter creation.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5394948008",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-21",
+          "note": "Earliest known dated report appearance."
         }
       ]
     },
@@ -1859,6 +2796,58 @@
       ]
     },
     {
+      "id": "openai-software-engineer-cloud-agents-san-francisco",
+      "company_id": "openai",
+      "title": "Software Engineer, Cloud Agents",
+      "application_url": "https://openai.com/careers/software-engineer-cloud-agents-san-francisco/",
+      "primary_region": "sf",
+      "location_text": "San Francisco",
+      "work_arrangement": "unspecified",
+      "level": {
+        "label": "Senior / Staff-equivalent",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 347000,
+        "base_max": 445000,
+        "base_midpoint": 396000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": "Offered",
+        "source_url": "https://openai.com/careers/software-engineer-cloud-agents-san-francisco/"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-28",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Builds durable runtimes, sandboxing, orchestration, and recovery for long-running cloud agents, informed by developers and product usage.",
+      "biggest_risk": "Unlevelled infrastructure scope may execute product and research priorities rather than originate them.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://openai.com/careers/software-engineer-cloud-agents-san-francisco/",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-28",
+          "note": "Earliest known dated report appearance."
+        }
+      ]
+    },
+    {
       "id": "openai-0432731c-f229-476e-92b6-d53491e79096",
       "company_id": "openai",
       "title": "Software Engineer, Agent Productivity",
@@ -1884,7 +2873,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-08-10",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -1900,6 +2889,65 @@
           "url": "https://jobs.ashbyhq.com/openai/0432731c-f229-476e-92b6-d53491e79096",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-10",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "openai-full-stack-software-engineer-agent-enablement-san-francisco",
+      "company_id": "openai",
+      "title": "Full Stack Software Engineer, Agent Enablement",
+      "application_url": "https://openai.com/careers/full-stack-software-engineer-agent-enablement-san-francisco/",
+      "primary_region": "sf",
+      "location_text": "San Francisco",
+      "work_arrangement": "unspecified",
+      "level": {
+        "label": "Senior / Staff-equivalent",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 255000,
+        "base_max": 405000,
+        "base_midpoint": 330000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": "Offered",
+        "source_url": "https://openai.com/careers/full-stack-software-engineer-agent-enablement-san-francisco/"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-21",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Designs identity primitives and interfaces for an open agent ecosystem, driving technical decisions plus product and partnership direction.",
+      "biggest_risk": "Unlevelled title requires calibration of Staff-sized authority and full-stack scope.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://openai.com/careers/full-stack-software-engineer-agent-enablement-san-francisco/",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-21",
+          "note": "Earliest known dated report appearance."
         }
       ]
     },
@@ -1929,7 +2977,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-09-14",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -1945,6 +2993,13 @@
           "url": "https://openai.com/careers/software-engineer-distributed-data-systems-robotics-san-francisco/",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-14",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
         }
       ]
     },
@@ -1974,7 +3029,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-08-24",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -1990,6 +3045,13 @@
           "url": "https://openai.com/careers/forward-deployed-software-engineer-sf-san-francisco/",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-24",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
         }
       ]
     },
@@ -2019,7 +3081,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-09-14",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -2035,6 +3097,13 @@
           "url": "https://openai.com/careers/forward-deployed-engineer-%28fde%29-sf-san-francisco/",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-14",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
         }
       ]
     },
@@ -2064,7 +3133,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-09-14",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -2080,6 +3149,65 @@
           "url": "https://jobs.ashbyhq.com/Perplexity/a172ada5-1a6e-4646-8e0d-26747422af24",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-14",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "perplexity-5c561bd0-c180-4ee1-b079-647f3c20bdc0",
+      "company_id": "perplexity",
+      "title": "Member of Technical Staff (Applied AI Engineer, Agent Capabilities)",
+      "application_url": "https://jobs.ashbyhq.com/perplexity/5c561bd0-c180-4ee1-b079-647f3c20bdc0",
+      "primary_region": "sf",
+      "location_text": "San Francisco; New York",
+      "work_arrangement": "unspecified",
+      "level": {
+        "label": "Senior / Staff-equivalent MTS",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 220000,
+        "base_max": 405000,
+        "base_midpoint": 312500,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": "Offered",
+        "source_url": "https://jobs.ashbyhq.com/perplexity/5c561bd0-c180-4ee1-b079-647f3c20bdc0"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-21",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Turns frontier capabilities into production agent features spanning tools, context, memory, permissions, long-running tasks, and user-driven evaluations.",
+      "biggest_risk": "The unlevelled six-year experience bar may calibrate below Senior Staff.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/perplexity/5c561bd0-c180-4ee1-b079-647f3c20bdc0",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-21",
+          "note": "Earliest known dated report appearance."
         }
       ]
     },
@@ -2109,7 +3237,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-09-28",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -2125,6 +3253,13 @@
           "url": "https://jobs.ashbyhq.com/Perplexity/7f2b3619-5ffa-467b-be6f-7a6b7d487892/",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-28",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
         }
       ]
     },
@@ -2154,7 +3289,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-08-10",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -2170,6 +3305,13 @@
           "url": "https://job-boards.greenhouse.io/figureai/jobs/4685172006",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-10",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
         }
       ]
     },
@@ -2199,7 +3341,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-08-10",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -2215,6 +3357,65 @@
           "url": "https://jobs.ashbyhq.com/sierra/e2d3e1f5-03cb-4e18-9f3d-a32f0bb6ff91",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-10",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "nuro-8097555",
+      "company_id": "nuro",
+      "title": "Senior/Staff Software Engineer, AI Agent Infrastructure",
+      "application_url": "https://www.nuro.ai/careersitem?gh_jid=8097555&utm_source=greatrobots.ai&utm_medium=jobboard&utm_campaign=organic&gh_src=greatrobots",
+      "primary_region": "sf",
+      "location_text": "Mountain View; San Francisco; four office days including Thursday at Mountain View",
+      "work_arrangement": "hybrid",
+      "level": {
+        "label": "Senior / Staff",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 193930,
+        "base_max": 352290,
+        "base_midpoint": 273110,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://www.nuro.ai/careersitem?gh_jid=8097555&utm_source=greatrobots.ai&utm_medium=jobboard&utm_campaign=organic&gh_src=greatrobots"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-14",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Builds agent infrastructure, execution sandboxes, orchestration, and evaluations supporting real-world autonomy development.",
+      "biggest_risk": "Current requirements include substantial LLM training, post-training, and inference expertise; this weakens transferability.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://www.nuro.ai/careersitem?gh_jid=8097555&utm_source=greatrobots.ai&utm_medium=jobboard&utm_campaign=organic&gh_src=greatrobots",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-14",
+          "note": "Earliest known dated report appearance."
         }
       ]
     },
@@ -2244,7 +3445,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-08-24",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -2260,6 +3461,65 @@
           "url": "https://jobs.ashbyhq.com/traba/3479b52b-adf4-4fb0-a8dc-d762330413b1",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-24",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "postman-7452542003",
+      "company_id": "postman",
+      "title": "Member of Technical Staff, AI Agent Development Lead",
+      "application_url": "https://job-boards.greenhouse.io/postman/jobs/7452542003?gh_src=gojobs.run",
+      "primary_region": "sf",
+      "location_text": "San Francisco Bay Area; five office days",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Staff-equivalent technical lead",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 256000,
+        "base_max": 276000,
+        "base_midpoint": 266000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": "Offered",
+        "source_url": "https://job-boards.greenhouse.io/postman/jobs/7452542003?gh_src=gojobs.run"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-21",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Leads agent architecture from concept to deployment, collaborating across research, product, and engineering and mentoring technical staff.",
+      "biggest_risk": "Deep ML frameworks, reinforcement learning, and alignment knowledge are explicit requirements.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://job-boards.greenhouse.io/postman/jobs/7452542003?gh_src=gojobs.run",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-21",
+          "note": "Earliest known dated report appearance."
         }
       ]
     },
@@ -2289,7 +3549,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-09-07",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -2305,6 +3565,13 @@
           "url": "https://jobs.nvidia.com/careers/job/893397574094-senior-staff-software-engineer-agentic-automation-us-ca-santa-clara?domain=nvidia.com",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-07",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
         }
       ]
     },
@@ -2399,6 +3666,58 @@
       ]
     },
     {
+      "id": "sully-DuoVsUf",
+      "company_id": "sully",
+      "title": "Staff Full Stack Engineer",
+      "application_url": "https://www.ycombinator.com/companies/sully/jobs/DuoVsUf-staff-full-stack-engineer",
+      "primary_region": "sf",
+      "location_text": "Mountain View",
+      "work_arrangement": "unspecified",
+      "level": {
+        "label": "Staff",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 200000,
+        "base_max": 300000,
+        "base_midpoint": 250000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://www.ycombinator.com/companies/sully/jobs/DuoVsUf-staff-full-stack-engineer"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-21",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Discovers requirements, designs systems, and ships core AI healthcare products while spending more than 75% of working hours coding.",
+      "biggest_risk": "The intense execution culture and broad full-stack obligations may limit sustainable leadership leverage.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://www.ycombinator.com/companies/sully/jobs/DuoVsUf-staff-full-stack-engineer",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-21",
+          "note": "Earliest known dated report appearance."
+        }
+      ]
+    },
+    {
       "id": "rivian-33355",
       "company_id": "rivian",
       "title": "Staff Software Engineer, AI Developer Productivity, Autonomy",
@@ -2424,7 +3743,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-09-07",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -2440,6 +3759,13 @@
           "url": "https://careers.rivian.com/careers-home/jobs/33355",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-07",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
         }
       ]
     },
@@ -2469,7 +3795,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-08-10",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -2485,6 +3811,117 @@
           "url": "https://jobs.ashbyhq.com/browserbase/7724fbe3-6a27-4418-9705-2dcc40751a16",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-10",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "vapi-3GU4CIx",
+      "company_id": "vapi",
+      "title": "Member of Technical Staff, Forward Deployed",
+      "application_url": "https://www.ycombinator.com/companies/vapi/jobs/3GU4CIx-member-of-technical-staff-forward-deployed",
+      "primary_region": "sf",
+      "location_text": "San Francisco; enterprise customer sites",
+      "work_arrangement": "unspecified",
+      "level": {
+        "label": "Unlevelled MTS / FDE",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 150000,
+        "base_max": 300000,
+        "base_midpoint": 225000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://www.ycombinator.com/companies/vapi/jobs/3GU4CIx-member-of-technical-staff-forward-deployed"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-28",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Discovers enterprise voice-agent use cases, deploys production systems, and builds product that makes subsequent deployments repeatable.",
+      "biggest_risk": "The listing's one-year minimum and enterprise-expansion incentives create substantial level and delivery-risk uncertainty.",
+      "role_family": "forward_deployed",
+      "sources": [
+        {
+          "url": "https://www.ycombinator.com/companies/vapi/jobs/3GU4CIx-member-of-technical-staff-forward-deployed",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-28",
+          "note": "Earliest known dated report appearance."
+        }
+      ]
+    },
+    {
+      "id": "vercel-5752684004",
+      "company_id": "vercel",
+      "title": "Forward-Deployed Engineer",
+      "application_url": "https://vercel.com/careers/forward-deployed-engineer-5752684004",
+      "primary_region": "sf",
+      "location_text": "San Francisco; Austin; New York City; remote-friendly with customer travel",
+      "work_arrangement": "remote",
+      "level": {
+        "label": "Senior Forward-Deployed Engineer",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 137000,
+        "base_max": 207000,
+        "base_midpoint": 172000,
+        "is_approximate": true,
+        "salary_location": "San Francisco",
+        "bonus": null,
+        "equity": "Offered",
+        "source_url": "https://vercel.com/careers/forward-deployed-engineer-5752684004"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-21",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Builds production agents and applications alongside strategic customers, identifying useful AI workflows and reusable deployment patterns.",
+      "biggest_risk": "Professional Services positioning and Next.js migrations could dominate core product contribution.",
+      "role_family": "forward_deployed",
+      "sources": [
+        {
+          "url": "https://vercel.com/careers/forward-deployed-engineer-5752684004",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-21",
+          "note": "Earliest known dated report appearance."
         }
       ]
     },
@@ -2579,6 +4016,58 @@
       ]
     },
     {
+      "id": "letta-5375a3dc-c886-41c0-a2de-08d0412204d8",
+      "company_id": "letta",
+      "title": "Software Engineer, Agent Harness",
+      "application_url": "https://jobs.ashbyhq.com/letta/5375a3dc-c886-41c0-a2de-08d0412204d8/",
+      "primary_region": "sf",
+      "location_text": "San Francisco; five days onsite",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Senior / Staff-caliber; flat IC structure",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": null,
+        "base_max": null,
+        "base_midpoint": null,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": null
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-28",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Defines developer APIs and builds the OSS framework, hosted agent service, and scalable backend supporting production agents.",
+      "biggest_risk": "The posting explicitly rejects a strict 9–5 and clear work/life separation.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/letta/5375a3dc-c886-41c0-a2de-08d0412204d8/",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-28",
+          "note": "Earliest known dated report appearance."
+        }
+      ]
+    },
+    {
       "id": "moveworks-servicenow-senior-staff-software-engineer-agentic-ai-harness-quality-moveworks",
       "company_id": "moveworks-servicenow",
       "title": "Senior Staff Software Engineer, Agentic AI Harness & Quality",
@@ -2604,7 +4093,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-09-14",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -2620,6 +4109,13 @@
           "url": "https://careers.servicenow.com/jobs/744000141813404/senior-staff-software-engineer-agentic-ai-harness-quality-moveworks/",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-14",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
         }
       ]
     },
@@ -2649,7 +4145,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-09-07",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -2665,6 +4161,13 @@
           "url": "https://careers.servicenow.com/jobs/744000147349629/senior-staff-software-engineer-agentic-systems-moveworks/",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-07",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
         }
       ]
     },
@@ -2714,6 +4217,58 @@
       ]
     },
     {
+      "id": "temper-a1f46cab-6e47-4203-a8b8-95c2b47d60c6",
+      "company_id": "temper",
+      "title": "Forward Deployed Engineer",
+      "application_url": "https://jobs.ashbyhq.com/temper/a1f46cab-6e47-4203-a8b8-95c2b47d60c6",
+      "primary_region": "sf",
+      "location_text": "San Francisco",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Senior / Staff-caliber founding scope",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": null,
+        "base_max": null,
+        "base_midpoint": null,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": null
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-28",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Owns integrations from scoping to production, writes fixes directly in the product, and feeds field patterns into an agentic integration platform.",
+      "biggest_risk": "A sub-ten-person, high-intensity company creates substantial operational and business concentration risk.",
+      "role_family": "forward_deployed",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/temper/a1f46cab-6e47-4203-a8b8-95c2b47d60c6",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-28",
+          "note": "Earliest known dated report appearance."
+        }
+      ]
+    },
+    {
       "id": "gitlab-8512432002",
       "company_id": "gitlab",
       "title": "Staff Forward Deployed Engineer, Agentic SDLC",
@@ -2739,7 +4294,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-08-24",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -2755,6 +4310,221 @@
           "url": "https://job-boards.greenhouse.io/gitlab/jobs/8512432002",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-24",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
+        }
+      ]
+    },
+    {
+      "id": "vercel-6134374004",
+      "company_id": "vercel",
+      "title": "Member of Technical Staff, Internal Agent",
+      "application_url": "https://job-boards.greenhouse.io/vercel/jobs/6134374004?gh_src=3d7d0c634us",
+      "primary_region": "elsewhere",
+      "location_text": "Remote, United States; disclosed pay band is San Francisco-based",
+      "work_arrangement": "remote",
+      "level": {
+        "label": "Senior / Staff-equivalent MTS",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 208000,
+        "base_max": 312000,
+        "base_midpoint": 260000,
+        "is_approximate": false,
+        "salary_location": "San Francisco",
+        "bonus": null,
+        "equity": "Offered",
+        "source_url": "https://job-boards.greenhouse.io/vercel/jobs/6134374004?gh_src=3d7d0c634us"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-21",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Builds an internal agent platform with tools, memory, evaluations, queues, permissions, and workflow interfaces.",
+      "biggest_risk": "The charter primarily automates Vercel's internal work, with uncertain Senior Staff calibration.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://job-boards.greenhouse.io/vercel/jobs/6134374004?gh_src=3d7d0c634us",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-21",
+          "note": "Earliest known dated report appearance."
+        }
+      ]
+    },
+    {
+      "id": "gc-ai-d036dab4-1dd9-41d3-b551-8d53e2e54284",
+      "company_id": "gc-ai",
+      "title": "Member of Technical Staff, Forward Deployed Engineer",
+      "application_url": "https://jobs.ashbyhq.com/gc-ai/d036dab4-1dd9-41d3-b551-8d53e2e54284?embed=js",
+      "primary_region": "elsewhere",
+      "location_text": "Remote, United States or Canada; three hub days for Bay Area/Provo residents; up to 25% customer travel",
+      "work_arrangement": "remote",
+      "level": {
+        "label": "Senior / Staff-caliber MTS",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 165000,
+        "base_max": 350000,
+        "base_midpoint": 257500,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": "Offered",
+        "source_url": "https://jobs.ashbyhq.com/gc-ai/d036dab4-1dd9-41d3-b551-8d53e2e54284?embed=js"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-28",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Founding FDE function: discovers legal workflows, writes production integrations, and converts recurring field patterns into platform capabilities.",
+      "biggest_risk": "Core product coding is described as something the engineer may do early on, rather than guaranteed ongoing ownership.",
+      "role_family": "forward_deployed",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/gc-ai/d036dab4-1dd9-41d3-b551-8d53e2e54284?embed=js",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-28",
+          "note": "Earliest known dated report appearance."
+        }
+      ]
+    },
+    {
+      "id": "eagle-ddd07f46-a42a-4709-8e19-091d5145a9e7",
+      "company_id": "eagle",
+      "title": "Forward Deployed Engineer",
+      "application_url": "https://jobs.ashbyhq.com/eagle/ddd07f46-a42a-4709-8e19-091d5145a9e7/",
+      "primary_region": "elsewhere",
+      "location_text": "New York City; customer sites and travel",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Senior / Staff-caliber founding scope",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 150000,
+        "base_max": 300000,
+        "base_midpoint": 225000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": "Offered",
+        "source_url": "https://jobs.ashbyhq.com/eagle/ddd07f46-a42a-4709-8e19-091d5145a9e7/"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-28",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Embeds with engineering firms, discovers high-leverage workflows, ships tools from discovery to production, and shapes the reusable platform with the CTO.",
+      "biggest_risk": "Bespoke deployments, legacy Windows/AEC integrations, and travel may overwhelm platform invention.",
+      "role_family": "forward_deployed",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/eagle/ddd07f46-a42a-4709-8e19-091d5145a9e7/",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-28",
+          "note": "Earliest known dated report appearance."
+        }
+      ]
+    },
+    {
+      "id": "openhands-80bfc775-3197-407d-8742-ccb5ddae8709",
+      "company_id": "openhands",
+      "title": "Forward Deployed Engineer",
+      "application_url": "https://jobs.ashbyhq.com/openhands/80bfc775-3197-407d-8742-ccb5ddae8709",
+      "primary_region": "elsewhere",
+      "location_text": "Remote, United States",
+      "work_arrangement": "remote",
+      "level": {
+        "label": "Senior; potentially below current level",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 175000,
+        "base_max": 240000,
+        "base_midpoint": 207500,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": "Offered",
+        "source_url": "https://jobs.ashbyhq.com/openhands/80bfc775-3197-407d-8742-ccb5ddae8709"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-08-24",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Deploys coding-agent software, builds MCP connectors and agent identity integrations, and turns production lessons into reusable skills.",
+      "biggest_risk": "Explicit post-sales onboarding and operational support may outweigh core product ownership.",
+      "role_family": "forward_deployed",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/openhands/80bfc775-3197-407d-8742-ccb5ddae8709",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-24",
+          "note": "Earliest known dated report appearance."
         }
       ]
     },
@@ -2784,7 +4554,7 @@
       },
       "report_tag": "PREVIOUSLY REPORTED",
       "is_new": false,
-      "first_reported_on": null,
+      "first_reported_on": "2026-08-10",
       "last_reported_on": "2026-10-05",
       "lifecycle_status": "reported_open",
       "verification": {
@@ -2800,6 +4570,13 @@
           "url": "https://job-boards.greenhouse.io/apptronik/jobs/5977180004",
           "kind": "application",
           "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-10",
+          "note": "Earliest dated appearance recoverable from report history; initial undated mentions do not establish an earlier date."
         }
       ]
     },
@@ -2847,34 +4624,555 @@
           "retrieved_on": null
         }
       ]
+    },
+    {
+      "id": "mastra-05172cb0-47ec-44f9-9fe8-07d4896d10ad",
+      "company_id": "mastra",
+      "title": "Customer Engineer",
+      "application_url": "https://jobs.ashbyhq.com/Mastra/05172cb0-47ec-44f9-9fe8-07d4896d10ad",
+      "primary_region": "elsewhere",
+      "location_text": "Remote; team works across North American and European time zones",
+      "work_arrangement": "remote",
+      "level": {
+        "label": "Senior / Staff-caliber scope",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": null,
+        "base_max": null,
+        "base_midpoint": null,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": null
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-28",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Builds production agents with customers, then ships OSS primitives, reliability improvements, and roadmap changes directly into Mastra's framework.",
+      "biggest_risk": "Growth-team positioning and customer training could dilute core engineering time.",
+      "role_family": "forward_deployed",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/Mastra/05172cb0-47ec-44f9-9fe8-07d4896d10ad",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-28",
+          "note": "Earliest known dated report appearance."
+        }
+      ]
+    },
+    {
+      "id": "sourcegraph-6194803004",
+      "company_id": "sourcegraph",
+      "title": "Tech Lead - Code Plane [IC5]",
+      "application_url": "https://job-boards.greenhouse.io/sourcegraph91/jobs/6194803004",
+      "primary_region": "elsewhere",
+      "location_text": "Remote; Europe or EST preferred; at least 20 hours/week overlap with CEST",
+      "work_arrangement": "remote",
+      "level": {
+        "label": "IC5 / Tech Lead",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": null,
+        "base_max": null,
+        "base_midpoint": null,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": null,
+        "disclosed_zone_starting_salaries": [
+          {
+            "zone": 2,
+            "amount": 192000
+          },
+          {
+            "zone": 3,
+            "amount": 144000
+          }
+        ],
+        "note": "Only location-zone starting salaries are disclosed; no complete band or applicable California zone is established, so no midpoint is calculated."
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-28",
+      "last_reported_on": "2026-10-05",
+      "lifecycle_status": "reported_open",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "application_page",
+        "note": "Restored during schema migration after reconciliation with earlier report history."
+      },
+      "fit_summary": "Sets technical and product direction for Agentic Batch Changes, MCP, CLI, and cross-repository automation while shipping critical pieces himself.",
+      "biggest_risk": "Required CEST overlap is a significant constraint from Southern California.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://job-boards.greenhouse.io/sourcegraph91/jobs/6194803004",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-28",
+          "note": "Earliest known dated report appearance."
+        }
+      ]
     }
   ],
   "archived_jobs": [
     {
-      "id": "anthropic-5302966008",
-      "company_id": "anthropic",
-      "title": "Forward Deployed Engineer",
-      "application_url": "https://job-boards.greenhouse.io/anthropic/jobs/5302966008",
-      "removed_on": "2026-10-05",
-      "status": "reported_closed",
-      "reason": "Prior report removed this redirected listing; not rechecked during export.",
+      "id": "commure-86956673",
+      "company_id": "commure",
+      "title": "Staff Software Engineer, Frameworks",
+      "application_url": "https://careers.quiet.com/companies/commure/jobs/86956673-staff-software-engineer-frameworks",
+      "primary_region": "la",
+      "location_text": "Los Angeles; Bay Area",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Staff",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 210000,
+        "base_max": 250000,
+        "base_midpoint": 230000,
+        "is_approximate": true,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://careers.quiet.com/companies/commure/jobs/86956673-staff-software-engineer-frameworks"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-07",
+      "last_reported_on": "2026-09-07",
+      "lifecycle_status": "closed",
       "verification": {
-        "last_verified_on": null,
-        "evidence": "prior_report"
-      }
+        "last_verified_on": "2026-10-05",
+        "evidence": "listing_removed_or_redirected",
+        "note": "September 14 report detected the URL resolving to a different Senior Identity Platform role; recheck confirms replacement."
+      },
+      "fit_summary": "Sets technical direction for shared frameworks supporting AI healthcare documentation, patient workflows, and revenue operations.",
+      "biggest_risk": "The original public charter was insufficiently specific.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://careers.quiet.com/companies/commure/jobs/86956673-staff-software-engineer-frameworks",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-07",
+          "note": "Earliest known dated report appearance."
+        }
+      ],
+      "closed_on": "2026-09-14",
+      "close_reason": "September 14 report detected the URL resolving to a different Senior Identity Platform role; recheck confirms replacement."
+    },
+    {
+      "id": "anduril-5130340007",
+      "company_id": "anduril",
+      "title": "Staff Software Engineer",
+      "application_url": "https://job-boards.greenhouse.io/andurilindustries/jobs/5130340007",
+      "primary_region": "other_socal",
+      "location_text": "Costa Mesa",
+      "work_arrangement": "unspecified",
+      "level": {
+        "label": "Staff",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 220000,
+        "base_max": 330000,
+        "base_midpoint": 275000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://job-boards.greenhouse.io/andurilindustries/jobs/5130340007"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-08-10",
+      "last_reported_on": "2026-09-07",
+      "lifecycle_status": "closed",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "listing_removed_or_redirected",
+        "note": "September 14 report could not find the exact opening; original URL now redirects to Anduril's general board."
+      },
+      "fit_summary": "QualityOS / Forge MES: sets distributed manufacturing-quality architecture, shapes product decisions, and raises the technical bar across teams.",
+      "biggest_risk": "Defense manufacturing is less aligned with the candidate's core human-productivity mission.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://job-boards.greenhouse.io/andurilindustries/jobs/5130340007",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-10",
+          "note": "Earliest known dated report appearance."
+        }
+      ],
+      "closed_on": "2026-09-14",
+      "close_reason": "September 14 report could not find the exact opening; original URL now redirects to Anduril's general board."
+    },
+    {
+      "id": "google-cloud-105418748269077190",
+      "company_id": "google-cloud",
+      "title": "Senior Staff Software Engineer, AI Infrastructure, Google Cloud Applied AI",
+      "application_url": "https://www.google.com/about/careers/applications/jobs/results/105418748269077190-senior-staff-software-engineer-ai-infrastructure-google-cloud-applied-ai",
+      "primary_region": "other_socal",
+      "location_text": "Irvine; Sunnyvale; Kirkland; Seattle",
+      "work_arrangement": "unspecified",
+      "level": {
+        "label": "Senior Staff / Google L7",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 262000,
+        "base_max": 365000,
+        "base_midpoint": 313500,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": "25% target bonus (previously reported)",
+        "equity": "Offered",
+        "source_url": "https://www.google.com/about/careers/applications/jobs/results/105418748269077190-senior-staff-software-engineer-ai-infrastructure-google-cloud-applied-ai"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-08-10",
+      "last_reported_on": "2026-08-24",
+      "lifecycle_status": "closed",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "listing_removed_or_redirected",
+        "note": "September 7 report first detected Google Careers 'Job not found'; recheck still returns that message."
+      },
+      "fit_summary": "Technical leadership for production agentic and multi-agent infrastructure, distributed systems architecture, customer feedback, and 0-to-1 platform building.",
+      "biggest_risk": "Low-level C++ and high-performance computing are explicit requirements.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://www.google.com/about/careers/applications/jobs/results/105418748269077190-senior-staff-software-engineer-ai-infrastructure-google-cloud-applied-ai",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-10",
+          "note": "Earliest known dated report appearance."
+        }
+      ],
+      "closed_on": "2026-09-07",
+      "close_reason": "September 7 report first detected Google Careers 'Job not found'; recheck still returns that message."
     },
     {
       "id": "rivian-29677",
       "company_id": "rivian",
       "title": "Staff Software Engineer, Enterprise Services",
       "application_url": "https://careers.rivian.com/careers-home/jobs/29677",
-      "removed_on": "2026-10-05",
-      "status": "unverified",
-      "reason": "Exact opening missing from prior report's checks; closure is not confirmed.",
+      "primary_region": "other_socal",
+      "location_text": "Irvine; Palo Alto; Atlanta",
+      "work_arrangement": "onsite",
+      "level": {
+        "label": "Staff",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 206000,
+        "base_max": 258000,
+        "base_midpoint": 232000,
+        "is_approximate": true,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://careers.rivian.com/careers-home/jobs/29677"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-07",
+      "last_reported_on": "2026-09-28",
+      "lifecycle_status": "unverified",
       "verification": {
-        "last_verified_on": null,
-        "evidence": "prior_report"
-      }
+        "last_verified_on": "2026-10-05",
+        "evidence": "unverified_listing",
+        "note": "October 5 report could not locate the exact opening; this reconciliation encountered HTTP 403, which does not confirm closure."
+      },
+      "fit_summary": "Architects AI-enabled enterprise workflows that replace manual ticketing and employee-service processes.",
+      "biggest_risk": "Could execute an internal IT roadmap rather than originate a major product charter.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://careers.rivian.com/careers-home/jobs/29677",
+          "kind": "application",
+          "retrieved_on": null
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-07",
+          "note": "Earliest known dated report appearance."
+        }
+      ],
+      "closed_on": "2026-10-05",
+      "close_reason": "October 5 report could not locate the exact opening; this reconciliation encountered HTTP 403, which does not confirm closure."
+    },
+    {
+      "id": "anthropic-5302966008",
+      "company_id": "anthropic",
+      "title": "Forward Deployed Engineer",
+      "application_url": "https://job-boards.greenhouse.io/anthropic/jobs/5302966008",
+      "primary_region": "sf",
+      "location_text": "San Francisco; Seattle; New York; about 25% travel",
+      "work_arrangement": "hybrid",
+      "level": {
+        "label": "Senior / Staff-caliber",
+        "is_inferred": true
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 280000,
+        "base_max": 320000,
+        "base_midpoint": 300000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://job-boards.greenhouse.io/anthropic/jobs/5302966008"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-08-24",
+      "last_reported_on": "2026-09-28",
+      "lifecycle_status": "closed",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "listing_removed_or_redirected",
+        "note": "Original role URL redirects to Anthropic's board with an error instead of the application."
+      },
+      "fit_summary": "Builds production MCP servers, sub-agents, and skills with strategic customers, then turns engagement learning into reusable product capabilities.",
+      "biggest_risk": "White-glove deployment pressure and likely down-leveling.",
+      "role_family": "forward_deployed",
+      "sources": [
+        {
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5302966008",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-08-24",
+          "note": "Earliest known dated report appearance."
+        }
+      ],
+      "closed_on": "2026-10-05",
+      "close_reason": "Original role URL redirects to Anthropic's board with an error instead of the application."
+    },
+    {
+      "id": "nvidia-893394980306",
+      "company_id": "nvidia",
+      "title": "Senior Staff Software Engineer, AI Agent Platform",
+      "application_url": "https://jobs.nvidia.com/careers/job/893394980306",
+      "primary_region": "sf",
+      "location_text": null,
+      "work_arrangement": "unspecified",
+      "level": {
+        "label": "Senior Staff",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": null,
+        "base_max": null,
+        "base_midpoint": null,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": null
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-21",
+      "last_reported_on": "2026-09-21",
+      "lifecycle_status": "unverified",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "unverified_listing",
+        "note": "Official detail page renders only 'Single Position' and no role title, description, or application; removal is not confirmed."
+      },
+      "fit_summary": null,
+      "biggest_risk": null,
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://jobs.nvidia.com/careers/job/893394980306",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-21",
+          "note": "Earliest known dated report appearance."
+        }
+      ],
+      "closed_on": "2026-10-05",
+      "close_reason": "Official detail page renders only 'Single Position' and no role title, description, or application; removal is not confirmed."
+    },
+    {
+      "id": "plenful-c0d950c2-290b-4dc4-bbe2-66575764b66d",
+      "company_id": "plenful",
+      "title": "Staff Full-Stack Engineer",
+      "application_url": "https://jobs.ashbyhq.com/plenful/c0d950c2-290b-4dc4-bbe2-66575764b66d",
+      "primary_region": "sf",
+      "location_text": "San Francisco; Chicago; San Francisco in-office Mondays and Wednesdays",
+      "work_arrangement": "hybrid",
+      "level": {
+        "label": "Staff",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": null,
+        "base_max": null,
+        "base_midpoint": null,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": null
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-28",
+      "last_reported_on": "2026-09-28",
+      "lifecycle_status": "closed",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "listing_removed_or_redirected",
+        "note": "Live Ashby application says 'Job not found'; a cached indexed description is not evidence that it remains open."
+      },
+      "fit_summary": "Owns compliance-critical pharmacy workflows from rough product ideas to production, working directly with operations experts.",
+      "biggest_risk": "Healthcare compliance and broad customer-facing full-stack delivery require domain ramp-up.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/plenful/c0d950c2-290b-4dc4-bbe2-66575764b66d",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-28",
+          "note": "Earliest known dated report appearance."
+        }
+      ],
+      "closed_on": "2026-10-05",
+      "close_reason": "Live Ashby application says 'Job not found'; a cached indexed description is not evidence that it remains open."
+    },
+    {
+      "id": "apollo-graphql-ee0698f5-04ab-4694-8364-efd3f3a37ec3",
+      "company_id": "apollo-graphql",
+      "title": "Staff Software Engineer, AI Runtime",
+      "application_url": "https://jobs.ashbyhq.com/apollo-graphql/ee0698f5-04ab-4694-8364-efd3f3a37ec3",
+      "primary_region": "elsewhere",
+      "location_text": "Remote, United States",
+      "work_arrangement": "remote",
+      "level": {
+        "label": "Staff",
+        "is_inferred": false
+      },
+      "compensation": {
+        "currency": "USD",
+        "period": "year",
+        "base_min": 192000,
+        "base_max": 226000,
+        "base_midpoint": 209000,
+        "is_approximate": false,
+        "salary_location": null,
+        "bonus": null,
+        "equity": null,
+        "source_url": "https://jobs.ashbyhq.com/apollo-graphql/ee0698f5-04ab-4694-8364-efd3f3a37ec3"
+      },
+      "report_tag": "PREVIOUSLY REPORTED",
+      "is_new": false,
+      "first_reported_on": "2026-09-07",
+      "last_reported_on": "2026-09-07",
+      "lifecycle_status": "closed",
+      "verification": {
+        "last_verified_on": "2026-10-05",
+        "evidence": "listing_removed_or_redirected",
+        "note": "Exact role absent in September 14 report; matching title/salary application recovered during reconciliation now says 'Job not found'."
+      },
+      "fit_summary": "Builds reusable agent-runtime and platform capabilities on Apollo's developer infrastructure.",
+      "biggest_risk": "Large compensation reduction; original application URL was not captured in the report.",
+      "role_family": "technical_ic",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/apollo-graphql/ee0698f5-04ab-4694-8364-efd3f3a37ec3",
+          "kind": "application",
+          "retrieved_on": "2026-10-05"
+        },
+        {
+          "url": null,
+          "kind": "conversation_report",
+          "retrieved_on": "2026-10-05",
+          "report_date": "2026-09-07",
+          "note": "Earliest known dated report appearance."
+        }
+      ],
+      "closed_on": "2026-09-14",
+      "close_reason": "Exact role absent in September 14 report; matching title/salary application recovered during reconciliation now says 'Job not found'."
     }
   ]
 }
