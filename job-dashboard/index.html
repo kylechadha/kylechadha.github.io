@@ -153,6 +153,7 @@
   .pay { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; }
   .pay .amt { font-size:1.05rem; font-weight:600; font-variant-numeric:tabular-nums; }
   .pay .base { color:var(--soft); font-size:.8rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
+  .pay .extra { color:var(--soft); font-size:.85rem; }
   .pay .info { width:18px; height:18px; border-radius:50%; border:1px solid var(--line-strong); color:var(--soft);
     font:italic 600 11px/16px Georgia, serif; text-align:center; align-self:center; }
   .paywrap { position:relative; display:flex; flex-direction:column; gap:8px; margin:-6px; padding:6px; border-radius:10px; cursor:help; outline:none; }
@@ -464,7 +465,7 @@
       over && `Pays above ${k(scale.hi)}, so the bar fades at the right edge.`,
     ].filter(Boolean);
     return `<div class="paywrap" tabindex="0" aria-label="Salary details">
-      <div class="pay"><span class="base">Base</span><span class="amt">${esc(amt)}</span><span class="info" aria-hidden="true">i</span></div>
+      <div class="pay"><span class="base">Base</span><span class="amt">${esc(amt)}</span>${c.bonus || c.equity ? `<span class="extra">+ ${[c.bonus && 'bonus', c.equity && 'equity'].filter(Boolean).join(' + ')}</span>` : ''}<span class="info" aria-hidden="true">i</span></div>
       <div class="range" style="--step:${scale.step}%"><span class="${[c.is_approximate && 'approx', over && 'over'].filter(Boolean).join(' ')}" style="left:${left}%;width:${width}%"></span></div>
       <div class="tip" role="tooltip">${tip.map(t => `<p>${esc(t)}</p>`).join('')}</div>
     </div>`;
