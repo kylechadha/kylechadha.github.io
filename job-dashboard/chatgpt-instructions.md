@@ -42,7 +42,18 @@ If an archived role is posted again, move it back into `jobs[]` with the **same 
 
 Set `display.region_order` to `["la", "sd", "other_socal", "sf", "elsewhere"]`. Use `other_socal` for Southern California outside LA and San Diego, for example Irvine, Orange County, Santa Barbara and the Inland Empire.
 
-## 7. Version
+## 7. Longer descriptions and downsides
+
+The dashboard shows `fit_summary` and `biggest_risk` in full on every card. Today they are one short line each. Write them longer, for every role in every export, open and archived:
+
+- `fit_summary`: 3 to 5 sentences, about 350 to 600 characters. Say what the company or team builds, what the role owns day to day, the main tech stack, and why it fits the candidate's background. Be concrete. Use facts from the listing, not generic praise
+- `biggest_risk`: 2 to 3 sentences, about 200 to 400 characters. The dashboard labels it "Potential downsides". Name the concrete drawbacks: a pay cut against the candidate's current comp, an on-site or relocation requirement, a level below Staff, unclear scope, company stability, or a long interview process. Keep the field name `biggest_risk`
+
+## 8. Salary is base only
+
+`base_min`, `base_max` and `base_midpoint` are annual base salary only. The dashboard labels them "Base". If a listing gives only total comp or OTE, set the base fields to `null` and describe the total in `compensation.bonus` or `compensation.equity` as text. Never put total comp in the base fields.
+
+## 9. Version
 
 Set `schema_version` to `"1.1.0"`. Update `meta.complete_history` to `true` once rules 1 to 4 are in place and the backfill is done.
 

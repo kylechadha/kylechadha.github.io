@@ -136,7 +136,7 @@
   .jobs { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap:12px; margin-top:12px; }
   .flat .jobs { margin-top:18px; }
 
-  .job { container-type:inline-size; display:flex; flex-direction:column; gap:8px;
+  .job { display:flex; flex-direction:column; gap:8px;
     background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow); }
   .job.closed { background:transparent; border-style:dashed; box-shadow:none; }
   .job.closed h4, .job.closed .amt, .job.closed .where, .job.closed .fit { color:var(--soft); }
@@ -152,19 +152,28 @@
   .job .co { margin:-4px 0 0; color:var(--ink); font-size:1.02rem; font-weight:500; }
   .pay { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; }
   .pay .amt { font-size:1.05rem; font-weight:600; font-variant-numeric:tabular-nums; }
-  .pay .note { color:var(--faint); font-size:.8rem; }
+  .pay .base { color:var(--soft); font-size:.8rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
+  .pay .info { width:18px; height:18px; border-radius:50%; border:1px solid var(--line-strong); color:var(--soft);
+    font:italic 600 11px/16px Georgia, serif; text-align:center; align-self:center; }
+  .paywrap { position:relative; display:flex; flex-direction:column; gap:8px; margin:-6px; padding:6px; border-radius:10px; cursor:help; outline:none; }
+  .tip { display:none; position:absolute; z-index:10; top:calc(100% + 4px); left:0; right:0; padding:12px 14px; border-radius:10px;
+    background:var(--ink); color:var(--bg); font-size:.85rem; line-height:1.4; box-shadow:0 8px 24px rgba(0,0,0,.25); cursor:auto; }
+  .tip p { margin:0; }
+  .tip p + p { margin-top:6px; }
+  .paywrap.show .tip, .paywrap:focus-visible .tip { display:block; }
+  .paywrap.show, .paywrap:focus-visible { background:var(--surface-2); }
+  @media (hover:hover) { .paywrap:hover .tip { display:block; } .paywrap:hover { background:var(--surface-2); } }
   .pay .unknown { color:var(--faint); font-size:.92rem; }
   .range { position:relative; height:8px; border-radius:4px; background-color:var(--range-track);
     background-image:repeating-linear-gradient(to right, transparent 0 calc(var(--step) - 1px), var(--tick) calc(var(--step) - 1px) var(--step)); }
   .range span { position:absolute; top:0; bottom:0; border-radius:4px; background:var(--range); }
   .range span.over { border-radius:4px 0 0 4px; -webkit-mask-image:linear-gradient(to right, #000 calc(100% - 28px), transparent); mask-image:linear-gradient(to right, #000 calc(100% - 28px), transparent); }
-  .legend { display:flex; align-items:center; gap:12px; margin:14px 0 0; color:var(--soft); font-size:.86rem; line-height:1.4; }
-  .legend .range { flex:0 0 56px; }
   .range span.approx { background:repeating-linear-gradient(135deg, var(--range) 0 4px, transparent 4px 7px); outline:1px solid var(--range); outline-offset:-1px; }
   .where { margin:0; color:var(--ink); font-size:.98rem; font-weight:500; }
   .fit { margin:0; font-size:.94rem; }
-  .risk { margin:0; color:var(--soft); font-size:.88rem; }
-  .risk b { color:var(--risk); font-weight:600; }
+  .risk { color:var(--soft); font-size:.9rem; }
+  .risk b { display:block; color:var(--risk); font-size:.76rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
+  .risk p { margin:2px 0 0; }
   .foot { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-top:auto; padding-top:6px; }
   .foot .verify { flex:1 1 160px; }
   .open { min-height:44px; padding:0 16px; border-radius:10px; background:var(--ink); color:var(--bg);
@@ -213,7 +222,6 @@
       <button class="tool" id="wake" aria-pressed="false" hidden>Keep screen on</button>
     </div>
     <div class="stats" id="stats"></div>
-    <p class="legend" id="legend"></p>
   </header>
 
   <nav class="bar" aria-label="Filters">
@@ -407,8 +415,6 @@
       ['', coCount, 'Companies'],
     ];
     $('stats').innerHTML = data ? stats.map(([cls, n, label]) => `<div class="stat ${cls}"><b>${n}</b><span>${label}</span></div>`).join('') : '';
-    $('legend').innerHTML = data ? `<span class="range" style="--step:${100 / 3}%"><span style="left:33.3%;width:33.3%"></span></span>
-      Base salary, ${k(scale.lo)} to ${k(scale.hi)}, tick every $50k. Faded end: above ${k(scale.hi)}. Striped: approximate.` : '';
 
     const parts = [];
     if (day(data?.report_date)) {
@@ -446,11 +452,22 @@
     if (c.base_min == null && c.base_max == null) return `<div class="pay"><span class="unknown">Salary not listed</span></div>`;
     const lo = c.base_min ?? c.base_max, hi = c.base_max ?? c.base_min;
     const amt = (c.is_approximate ? '~' : '') + (lo === hi ? k(lo) : `${k(lo)}–${k(hi)}`);
-    const notes = [c.is_approximate && 'approximate', c.salary_location && `pay for ${c.salary_location}`, c.bonus && `bonus ${c.bonus}`, c.equity && `equity ${c.equity}`].filter(Boolean);
     const span = scale.hi - scale.lo, over = hi > scale.hi;
     const left = Math.min((lo - scale.lo) / span * 100, 97), width = Math.max((Math.min(hi, scale.hi) - lo) / span * 100, 3);
-    return `<div class="pay"><span class="amt">${esc(amt)}</span>${notes.length ? `<span class="note">${esc(notes.join(' · '))}</span>` : ''}</div>
-      <div class="range" style="--step:${scale.step}%" title="Base ${esc(amt)} on a ${k(scale.lo)}–${k(scale.hi)} scale"><span class="${[c.is_approximate && 'approx', over && 'over'].filter(Boolean).join(' ')}" style="left:${left}%;width:${width}%"></span></div>`;
+    const tip = [
+      `Base salary ${amt} a year, from the posting. Excludes bonus and equity.`,
+      c.is_approximate && 'Approximate: the posting gave a rough figure (striped bar).',
+      c.salary_location && `Range for ${c.salary_location}. The posting lists different pay by city.`,
+      c.bonus && `Bonus: ${c.bonus}.`,
+      c.equity && `Equity: ${c.equity}.`,
+      `Bar scale: ${k(scale.lo)} at the left edge to ${k(scale.hi)} at the right, a tick every $50k.`,
+      over && `Pays above ${k(scale.hi)}, so the bar fades at the right edge.`,
+    ].filter(Boolean);
+    return `<div class="paywrap" tabindex="0" aria-label="Salary details">
+      <div class="pay"><span class="base">Base</span><span class="amt">${esc(amt)}</span><span class="info" aria-hidden="true">i</span></div>
+      <div class="range" style="--step:${scale.step}%"><span class="${[c.is_approximate && 'approx', over && 'over'].filter(Boolean).join(' ')}" style="left:${left}%;width:${width}%"></span></div>
+      <div class="tip" role="tooltip">${tip.map(t => `<p>${esc(t)}</p>`).join('')}</div>
+    </div>`;
   }
 
   function jobCard(j, showCompany) {
@@ -470,7 +487,7 @@
       ${payBlock(j)}
       ${where ? `<p class="where">${esc(where)}</p>` : ''}
       ${j.fit_summary ? `<p class="fit">${esc(j.fit_summary)}</p>` : ''}
-      ${j.biggest_risk ? `<p class="risk"><b>Risk</b> ${esc(j.biggest_risk)}</p>` : ''}
+      ${j.biggest_risk ? `<div class="risk"><b>Potential downsides</b><p>${esc(j.biggest_risk)}</p></div>` : ''}
       <div class="foot">
         <p class="verify">${esc(note)}</p>
         ${url ? `<a class="open" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${j.closed ? 'Old listing' : 'Listing'} ↗</a>` : ''}
@@ -597,6 +614,9 @@
   }
 
   function onClick(e) {
+    const pw = e.target.closest('.paywrap');
+    for (const x of document.querySelectorAll('.paywrap.show')) if (x !== pw) x.classList.remove('show');
+    if (pw) return pw.classList.toggle('show');
     const t = e.target.closest('button');
     if (!t) return;
     if (t.id === 'wake') return setAwake(!lock);
@@ -614,6 +634,7 @@
     if (started) return;
     started = true;
     document.addEventListener('click', onClick);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') for (const x of document.querySelectorAll('.paywrap.show')) x.classList.remove('show'); });
     window.addEventListener('resize', markOverflow);
     for (const row of document.querySelectorAll('.chips')) row.addEventListener('scroll', markOverflow, { passive:true });
     if ('wakeLock' in navigator) {
