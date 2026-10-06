@@ -165,7 +165,8 @@
   .fit { margin:0; font-size:.94rem; }
   .risk { margin:0; color:var(--soft); font-size:.88rem; }
   .risk b { color:var(--risk); font-weight:600; }
-  .foot { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:auto; padding-top:6px; }
+  .foot { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-top:auto; padding-top:6px; }
+  .foot .verify { flex:1 1 160px; }
   .open { min-height:44px; padding:0 16px; border-radius:10px; background:var(--ink); color:var(--bg);
     display:inline-flex; align-items:center; gap:6px; font-size:.88rem; font-weight:600; text-decoration:none; white-space:nowrap; }
   .verify { margin:0; color:var(--faint); font-size:.78rem; }
@@ -402,12 +403,12 @@
     const coCount = new Set(all.map(j => j.company_id)).size;
     const stats = [
       ['', all.length, 'Open roles'],
-      ['is-new', all.filter(j => j.is_new).length, 'New this report'],
+      ['is-new', all.filter(j => j.is_new).length, 'New roles'],
       ['', coCount, 'Companies'],
     ];
     $('stats').innerHTML = data ? stats.map(([cls, n, label]) => `<div class="stat ${cls}"><b>${n}</b><span>${label}</span></div>`).join('') : '';
     $('legend').innerHTML = data ? `<span class="range" style="--step:${100 / 3}%"><span style="left:33.3%;width:33.3%"></span></span>
-      Bars show base salary on one shared scale: ${k(scale.lo)} at the left edge, ${k(scale.hi)} at the right, a tick every $50k. A bar that fades out pays more than ${k(scale.hi)}. A striped bar is approximate.` : '';
+      Base salary, ${k(scale.lo)} to ${k(scale.hi)}, tick every $50k. Faded end: above ${k(scale.hi)}. Striped: approximate.` : '';
 
     const parts = [];
     if (day(data?.report_date)) {
