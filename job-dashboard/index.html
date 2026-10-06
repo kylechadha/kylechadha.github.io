@@ -19,7 +19,7 @@
 <style>
   :root {
     color-scheme: light dark;
-    --bg:#f5f4ef; --surface:#ffffff; --surface-2:#efede6; --bar-bg:rgba(245,244,239,.86);
+    --bg:#f5f4ef; --surface:#ffffff; --surface-2:#efede6; --bar-bg:rgba(245,244,239,.97);
     --line:#e2dfd5; --line-strong:#bdb8a9;
     --ink:#1c1c1a; --soft:#5d5c56; --faint:#6e6c65;
     --accent:#2a6f52; --accent-bg:#e3f1ea;
@@ -31,7 +31,7 @@
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg:#0a0a0a; --surface:#141414; --surface-2:#1c1c1c; --bar-bg:rgba(10,10,10,.86);
+      --bg:#0a0a0a; --surface:#141414; --surface-2:#1c1c1c; --bar-bg:rgba(10,10,10,.96);
       --line:#2a2a2a; --line-strong:#4a4a4a;
       --ink:#e6e6e6; --soft:#a8a8a8; --faint:#8a8a8a;
       --accent:#6cc39c; --accent-bg:#14261e;
@@ -298,7 +298,7 @@
 
   const REGION_ORDER = ['la', 'sd', 'other_socal', 'sf', 'elsewhere']; // Kyle's preference; overrides display.region_order
   const LABELS = { la:'Los Angeles', sd:'San Diego', other_socal:'Other SoCal', sf:'SF Bay', elsewhere:'Remote / other' }; // override display.region_labels
-  // Extra cities that count toward a region when listed after a role's first location.
+  // Cities that belong to a region, used for the city line under each region heading.
   const CITIES = {
     la: ['Los Angeles', 'Santa Monica', 'Long Beach', 'Torrance', 'El Segundo', 'Playa Vista', 'Culver City', 'Pasadena', 'Burbank', 'Glendale', 'Hawthorne', 'Venice', 'Marina del Rey'],
     sf: ['San Francisco', 'South San Francisco', 'San Mateo', 'Sunnyvale', 'San Jose', 'Santa Clara', 'Mountain View', 'Palo Alto', 'Menlo Park', 'Redwood City', 'Cupertino', 'Foster City', 'Burlingame', 'Oakland', 'Berkeley', 'Emeryville', 'Fremont'],
@@ -365,7 +365,9 @@
     const counts = new Map();
     for (const j of list) {
       const parts = String(j.location_text || '').split(';').map(x => x.trim()).filter(Boolean);
-      const mine = new Set(parts.filter((c, i) => i === 0 || (CITIES[r] || []).includes(c)));
+      // Known cities for this region (also inside "Los Angeles/Playa Vista"); else the role's first location.
+      const known = new Set(parts.flatMap(p => p.split('/').map(x => x.trim())).filter(c => (CITIES[r] || []).includes(c)));
+      const mine = known.size ? known : new Set(parts.slice(0, 1));
       for (const c of mine) counts.set(c, (counts.get(c) || 0) + 1);
     }
     const sorted = [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
@@ -482,7 +484,7 @@
     const gone = j.closed ? `<span class="badge gone">${esc(GONE[j.lifecycle_status || j.status] || 'Closed')}${closedOn ? ' ' + esc(closedOn) : ''}</span>` : '';
     const note = j.closed ? (j.close_reason || j.reason || 'No longer listed') : verified;
     return `<article class="job${j.closed ? ' closed' : ''}">
-      <div class="tags">${gone}${j.is_new ? '<span class="badge new">New</span>' : ''}${fam ? `<span class="badge fam">${esc(fam)}</span>` : ''}${j.level?.label ? `<span class="level">${esc(j.level.label)}</span>` : ''}</div>
+      <div class="tags">${gone}${j.is_new ? '<span class="badge new">New</span>' : ''}${fam ? `<span class="badge fam">${esc(fam)}</span>` : ''}${j.level?.label ? `<span class="level"${j.level.note ? ` title="${esc(j.level.note)}"` : ''}>${esc(j.level.label)}${j.level.is_inferred && !/infer/i.test(j.level.label) ? ' (inferred)' : ''}</span>` : ''}</div>
       <h4>${esc(j.title)}</h4>
       ${showCompany ? `<p class="co">${esc(co?.name || j.company_id)}</p>` : ''}
       ${payBlock(j)}

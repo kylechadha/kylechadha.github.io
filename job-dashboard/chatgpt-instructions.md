@@ -53,7 +53,15 @@ The dashboard shows `fit_summary` and `biggest_risk` in full on every card. Toda
 
 `base_min`, `base_max` and `base_midpoint` are annual base salary only. The dashboard labels them "Base". If a listing gives only total comp or OTE, set the base fields to `null` and describe the total in `compensation.bonus` or `compensation.equity` as text. Never put total comp in the base fields.
 
-## 9. Version
+## 9. Level labels and comp hygiene
+
+- `level.label` is shown on every card, so keep it short. Use exactly one of: `"Senior"`, `"Staff"`, `"Senior Staff"`, `"Principal"`, `"Unlevelled"`
+- Set `level.is_inferred` to `true` when the listing doesn't state the level. The dashboard adds "(inferred)" itself, so don't write "Inferred" in the label
+- Put any nuance in a new `level.note` string, for example "Google L8", "player-coach", "flat IC structure" or "potentially below current level". Use `null` when there is nothing to add
+- Recheck `compensation.bonus` and `compensation.equity` against the listing each run. Never carry text like "(previously reported)". Use `"Offered"` only when the listing mentions equity without detail
+- `primary_region` is the region of the office the candidate would most likely work from. When a listing names several offices, list the in-region office first in `location_text`
+
+## 10. Version
 
 Set `schema_version` to `"1.1.0"`. Update `meta.complete_history` to `true` once rules 1 to 4 are in place and the backfill is done.
 
