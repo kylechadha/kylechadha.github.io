@@ -51,7 +51,7 @@ npx live-server     # Local dev server with hot reload
 Pages config: source = `main`, path = `/`. A new page is just a folder with an `index.html` (e.g. `cachuma/index.html` → kylechadha.dev/cachuma/).
 
 ## Password-Gated Pages
-`oaxaca/`, `m/engagement-party/` and `job-dashboard/` use a client-side SHA-256 gate (same password; it's in Kyle's records, never commit it in plaintext). The gate hides the page but isn't real security: the page text is readable via view-source, and `job-dashboard/jobs.json` is public in the repo and at its URL.
+`job-dashboard/` uses a client-side SHA-256 gate (same password; it's in Kyle's records, never commit it in plaintext). The gate hides the page but isn't real security: the page text is readable via view-source, and `job-dashboard/jobs.json` is public in the repo and at its URL.
 
 ## job-dashboard (weekly job search data)
 Kitchen-tablet dashboard for Kyle's job search, also used on a laptop. ChatGPT refreshes the search weekly and produces `jobs.json`.
@@ -62,10 +62,5 @@ Kitchen-tablet dashboard for Kyle's job search, also used on a laptop. ChatGPT r
 - Within a region: companies by best role midpoint, roles by midpoint, unknown salary last, closed roles last
 - `chatgpt-instructions.md` is the schema 1.1.0 change request for ChatGPT: archived_jobs keeps full job records forever, with `lifecycle_status`, `closed_on` and `close_reason`. The page also reads the 1.0.0 fields (`status`, `removed_on`, `reason`)
 
-## m/engagement-party (Firestore persistence)
-Myra's engagement-picnic planner. Shared, editable state syncs live through Firestore.
-- Firebase project `mk-engagement-party` under kylechadha@gmail.com (Spark plan, no billing linked, so it can't cost money). Console: https://console.firebase.google.com/u/1/project/mk-engagement-party
-- One doc at `plans/{sha256('mk-engagement-party:' + password)}`. The data stays private because only password holders can compute the doc ID
-- Writes send only changed sub-keys (FieldPath updates), so two people editing different items don't overwrite each other
-- Rules live in `m/engagement-party/firestore.rules`. Deploy them via the Firebase Rules REST API (create ruleset, then PATCH release `cloud.firestore`) or the Firebase CLI
-- When Myra sends a new HTML version: keep her markup, then re-apply the gate, the `save()` → `window.mkSync` hook, `renderAll`/`window.mkApp`, `esc()` in templates, and the Firestore module
+## Removed pages
+`oaxaca/` and `m/engagement-party/` were removed from the site on 2026-10-24 (still in git history). The `mk-engagement-party` Firestore rules now deny all client access; the data was kept.
